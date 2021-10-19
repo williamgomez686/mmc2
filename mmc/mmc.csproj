@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\mmc.AccesoDatos\mmc.AccesoDatos.csproj" />
     <ProjectReference Include="..\mmc.Modelos\mmc.Modelos.csproj" />
+    <ProjectReference Include="..\mmc.Utilidades\mmc.Utilidades.csproj" />
   </ItemGroup>
 
   <ItemGroup>
