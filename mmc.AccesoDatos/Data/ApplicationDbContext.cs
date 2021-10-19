@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static mmc.Data.ApplicationDbContext;
+using static mmc.AccesoDatos.Data.ApplicationDbContext;
 
-namespace mmc.Data
+namespace mmc.AccesoDatos.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
