@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static mmc.Data.ApplicationDbContext;
 
 namespace mmc.Data
 {
@@ -14,38 +15,39 @@ namespace mmc.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    base.OnModelCreating(builder);
 
-            builder.Entity<Usuario>(entityTypeBuilder =>//espesificamos que entidad vamos a modificar
-            {
-                entityTypeBuilder.ToTable("Usuarios");//de esta manera renombramos la tabla al nombre que indicamos aqui
+        //    builder.Entity<Usuario>(entityTypeBuilder =>//espesificamos que entidad vamos a modificar
+        //    {
+        //        entityTypeBuilder.ToTable("Usuarios");//de esta manera renombramos la tabla al nombre que indicamos aqui
 
-                entityTypeBuilder.Property(u => u.UserName)
-                    .HasMaxLength(100)
-                    .HasDefaultValue(0);
-                entityTypeBuilder.Property(u => u.nombre)
-                    .HasMaxLength(60);
-                entityTypeBuilder.Property(u => u.apaellido)
-                    .HasMaxLength(60);
-                entityTypeBuilder.Property(u => u.NIT)
-                    .HasMaxLength(60);
-                entityTypeBuilder.Property(u => u.DPI)
-                    .HasMaxLength(25);
-                entityTypeBuilder.Property(u => u.sexo)
-                    .HasMaxLength(20);
-            });
-        }
+        //        entityTypeBuilder.Property(u => u.UserName)
+        //            .HasMaxLength(100)
+        //            .HasDefaultValue(0);
+        //        entityTypeBuilder.Property(u => u.nombre)
+        //            .HasMaxLength(60);
+        //        entityTypeBuilder.Property(u => u.apaellido)
+        //            .HasMaxLength(60);
+        //        entityTypeBuilder.Property(u => u.NIT)
+        //            .HasMaxLength(60);
+        //        entityTypeBuilder.Property(u => u.DPI)
+        //            .HasMaxLength(25);
+        //        entityTypeBuilder.Property(u => u.sexo)
+        //            .HasMaxLength(20);
+        //    });
+        //}
+        
 
-        public class Usuario : IdentityUser
-        {
-            public string nombre { get; set; }
-            public string apaellido { get; set; }
-            public string NIT { get; set; }
-            public string DPI { get; set; }
-            public string sexo { get; set; }
-            public DateTime fch_nacimieto { get; set; }
-        }
+        //public class Usuario : IdentityUser
+        //{
+        //    public string nombre { get; set; }
+        //    public string apaellido { get; set; }
+        //    public string NIT { get; set; }
+        //    public string DPI { get; set; }
+        //    public string sexo { get; set; }
+        //    public DateTime fch_nacimieto { get; set; }
+        //}
     }
 }
