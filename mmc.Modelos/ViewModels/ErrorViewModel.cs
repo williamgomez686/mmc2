@@ -1,6 +1,6 @@
 using System;
 
-namespace mmc.Models
+namespace mmc.Modelos.ViewModels
 {
     public class ErrorViewModel
     {

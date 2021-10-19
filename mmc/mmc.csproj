@@ -18,6 +18,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\mmc.AccesoDatos\mmc.AccesoDatos.csproj" />
+    <ProjectReference Include="..\mmc.Modelos\mmc.Modelos.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
