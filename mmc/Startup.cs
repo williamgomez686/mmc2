@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using mmc.AccesoDatos.Data;
+using mmc.AccesoDatos.Repositorios;
+using mmc.AccesoDatos.Repositorios.IRepositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,11 @@ namespace mmc
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //por medio de inyeccion de dependencias inyectamos Nuestra Unida de trabajo y la interface de IUnidadtrabajo *********************************************************
+            services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///
             services.AddControllersWithViews();
         }
 

@@ -11,12 +11,13 @@ namespace mmc.AccesoDatos.Repositorios
 {
     public class EstadoRepositorio : Repositorio<estado>, IEstadoRepositorio
     {
-        private readonly ApplicationDbContext _db;//importamos el DBcontex
+        private readonly ApplicationDbContext _db;  //importamos el DBcontex
         public EstadoRepositorio(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
+        //Agregamos el metodo Actualizar ya que es el unico que falta ya que por la implementacion de la Interface IRepositorio Heredamos los demas metodos 
         public void Actualizar(estado Oestado)
         {
             var estadoDB = _db.estado.FirstOrDefault(e => e.estadoId == Oestado.estadoId);
