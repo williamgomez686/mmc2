@@ -87,7 +87,6 @@ namespace mmc.AccesoDatos.Repositorios
         {
             dbSet.Remove(entidad);  //Delete From ...
         }
-
         public void removerRango(IEnumerable<T> entidad)
         {
             dbSet.RemoveRange(entidad);
