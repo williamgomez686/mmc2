@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static mmc.AccesoDatos.Data.ApplicationDbContext;
+using mmc.Modelos;
 
 namespace mmc.AccesoDatos.Data
 {
@@ -14,6 +15,8 @@ namespace mmc.AccesoDatos.Data
             : base(options)
         {
         }
+
+        public DbSet<estado> estado { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
