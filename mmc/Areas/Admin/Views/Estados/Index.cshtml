@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Estados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Estados</h1>
+
+<br />  
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-primary"> Paremetriza estados</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a class="btn btn-primary"><i class="fas fa-plus"></i>Crean Nuevo estado</a>
+    </div>
+</div>
+
+<br />
+
+<div class="p-4 border rounded">
+    <table id="tblDatos" class="table-striped table-bordered" style="width:100%">
+        <thead class="thead-dark">
+            <tr class="table-info">
+                <th>Descripsion</th>
+                <th>Estado</th>
+                <th>Fecha de Alta</th>
+                <th>Usuarios</th>
+            </tr>
+        </thead>
+    </table>
+</div>  
+
+<div class="text-center">
+    <a href="Admin/Estados/Upsert/Id" class="btn btn-success text-white" style="cursor:pointer">
+        <i class="fas fa-edit"></i>
+    </a>
+    <a  class="btn btn-danger text-white" style="cursor:pointer">
+        <i class="fas fa-trash"></i>
+    </a>
+</div>
