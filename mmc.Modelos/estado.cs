@@ -16,7 +16,9 @@ namespace mmc.Modelos
         [Display(Name = "Descripcion")]
         public string est_descripcion { get; set; }
         [MaxLength(20)]
+        [Display(Name = "Estado")]
         public string est_est { get; set; }
+        [Display(Name = "Fecha")]
         public DateTime est_fchalt { get; set; }
         [MaxLength(20)]
         public string est_usu_alt { get; set; }
