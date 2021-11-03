@@ -28,7 +28,7 @@ namespace mmc.AccesoDatos.Repositorios
                 estadoDB.est_fchalt = Oestado.est_fchalt;
                 estadoDB.est_usu_alt = Oestado.est_usu_alt;
 
-                _db.SaveChanges();
+               // _db.SaveChanges(); lo movemos 
             }
         }
     }

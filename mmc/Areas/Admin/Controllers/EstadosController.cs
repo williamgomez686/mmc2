@@ -42,6 +42,30 @@ namespace mmc.Areas.Admin.Controllers
             return View(Oestado);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(estado oEstado)
+        {
+            // estado Oestado = new estado();
+            if (ModelState.IsValid)
+            {
+                if (oEstado.estadoId == 0)
+                {
+                    _unidadTrabajo.Estado.Agregar(oEstado);
+                }
+                else
+                {
+                    //se trata de una actualizacion
+                    _unidadTrabajo.Estado.Actualizar(oEstado);
+                }
+                _unidadTrabajo.Guardar();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(oEstado);
+        }
+
+
 
         #region Api
 

@@ -10,5 +10,7 @@ namespace mmc.AccesoDatos.Repositorios.IRepositorio
     {
         IEstadoRepositorio Estado { get; }
 
+        void Guardar();
+
     }
 }
