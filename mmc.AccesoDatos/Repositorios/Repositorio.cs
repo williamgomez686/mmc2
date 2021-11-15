@@ -80,12 +80,12 @@ namespace mmc.AccesoDatos.Repositorios
         public void Remover(int id)
         {
             T entidad = dbSet.Find(id);
-                Remover(entidad);
+            Remover(entidad);
         }
 
         public void Remover(T entidad)
         {
-            dbSet.Remove(entidad);  //Delete From ...
+            dbSet.Remove(entidad);    // delete from 
         }
         public void removerRango(IEnumerable<T> entidad)
         {

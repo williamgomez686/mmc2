@@ -13,11 +13,13 @@ namespace mmc.AccesoDatos.Repositorios
 
         private readonly ApplicationDbContext _db;//importamos el DBcontex
         public IEstadoRepositorio Estado { get; private set; }
+        public IUsuarioAplicacionRepositorio UsuarioAplicacion { get; private set; }
             
         public UnidadTrabajo(ApplicationDbContext db)//Creamos el constructor
         {
             _db = db;
             Estado = new EstadoRepositorio(_db); //Inisialisando
+            UsuarioAplicacion = new UsuarioAplicacionRepositorio(_db);
         }
 
         public void Guardar()

@@ -78,6 +78,20 @@ namespace mmc.Areas.Admin.Controllers
             //return View(todos);
         }
 
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var estadoDB = _unidadTrabajo.Estado.Obtener(id);
+            if (estadoDB == null)
+            {
+                return Json(new { succes = false, message = "Error al Borrar" });
+            }
+            _unidadTrabajo.Estado.Remover(estadoDB);
+            _unidadTrabajo.Guardar();
+            return Json(new { succes = true, message = "Estado Eliminado Exitosamente" });
+        }
+
         #endregion
     }
 }

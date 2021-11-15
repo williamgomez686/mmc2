@@ -15,15 +15,15 @@ function loadDataTable() {// esta funcion la declaramos mas abajo
             { "data": "est_est", "width": "20%" },
             { "data": "est_fchalt", "width": "20%" },
             { "data": "est_usu_alt", "width": "10%" },//est linea me da error revisar despues
-            {// en esta columna se renderezan los botones de Editar y Eliminar
-                "data": "id",//data trae la informacion y id es para obtner el parametro id
-                "render": function (data) { //render es para renderizar html y en data ya 
+            { // en esta columna se renderezan los botones de Editar y Eliminar
+                "data": "estadoId", //data trae la informacion y id es para obtner el parametro id
+                "render": function (data) { //render es para renderizar html y en data ya
                     return `
                         <div class="text-center">
-                            <a href="/Admin/Estados/Upsert//${data}" class="btn btn-success text-white" style="cursor:pointer">
+                            <a href="/Admin/Estados/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a onclick=Delete("/Admin/Bodega/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                            <a onclick=Delete("/Admin/Estados/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </div>
