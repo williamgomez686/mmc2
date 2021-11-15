@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using mmc.AccesoDatos.Repositorios.IRepositorio;
+using mmc.Modelos;
+using mmc.Utilidades;
 
 namespace mmc.Areas.Identity.Pages.Account
 {
@@ -23,17 +26,28 @@ namespace mmc.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        //agregamos una variable para poder administrar los roles en esta parte
+        private readonly RoleManager<IdentityRole> _roleManager;
+        //Agregamos nuestra unidad de trabajo 
+        private readonly IUnidadTrabajo _unidadTrabajo;
 
-        public RegisterModel(
+        public RegisterModel(// este es el constructor 
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            //Agregamos nuestras variables en el constructor
+            RoleManager<IdentityRole> roleManager,
+            IUnidadTrabajo unidadTrabajo
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            //Inisialilzamos las variables que declaramos en el constructor
+            _roleManager = roleManager;
+            _unidadTrabajo = unidadTrabajo;
         }
 
         [BindProperty]
@@ -88,24 +102,60 @@ namespace mmc.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            if (ModelState.IsValid)//Verifica si el Modelo es Valido
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                //var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };//hace referencia al IdentityUser nosotros lo oviamos
+                var user = new UsuarioAplicacion // creamos una variable con el modelo que creamos 
+                {
+                    UserName = Input.UserName,
+                    Email = Input.Email,
+                    nombre = Input.nombre,
+                    apellido = Input.apellido,
+                    empresa = Input.empresa,
+                    departamento = Input.departamento,
+                    role = Input.role
+                };
+
+                
+                var result = await _userManager.CreateAsync(user, Input.Password);//aqui se hace el ingreso llamando a nuestra variable "User" creada arriba 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                    //SE crean los roles
+                    if (!await _roleManager.RoleExistsAsync(DS.Role_Admin)) //consulta en nuestro proyecto si el rol exite
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(DS.Role_Admin));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(DS.Role_Cliente)) //consulta en nuestro proyecto si el rol exite
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(DS.Role_Cliente));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(DS.Role_Ticket)) //consulta en nuestro proyecto si el rol exite
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(DS.Role_Ticket));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(DS.Role_SeteguaBiblioteca)) //consulta en nuestro proyecto si el rol exite
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(DS.Role_SeteguaBiblioteca));
+                    }
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //Se asigna el Rol al Usuario
+                    await _userManager.AddToRoleAsync(user, DS.Role_Admin);
+
+
+
+                    //ESTE FRAGMENTO DE CONDIGO SIRVE PARA ENVIAR UN EMAIL DE CONFIRMACION DESPUES DE CREAR UN USUARIO
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    //var callbackUrl = Url.Page(
+                    //    "/Account/ConfirmEmail",
+                    //    pageHandler: null,
+                    //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                    //    protocol: Request.Scheme);
+
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
