@@ -43,7 +43,7 @@ namespace mmc.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            //[EmailAddress]
             public string UserName { get; set; }
 
             [Required]
