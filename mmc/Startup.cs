@@ -40,7 +40,6 @@ namespace mmc
             //codigo Original
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 
-
             services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             //este servisiio lo agregamos para la confirmacion de email con los datos de la clase que creamos en nuestro proyecto Utilidades

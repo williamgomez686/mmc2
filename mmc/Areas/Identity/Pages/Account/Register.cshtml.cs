@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
@@ -90,11 +91,24 @@ namespace mmc.Areas.Identity.Pages.Account
             public string departamento { get; set; }
             public int extencion { get; set; }
             public string role { get; set; }
+            //Agreagamos una variable para la lista del combobox de los roles 
+            public IEnumerable<SelectListItem> ListaRol { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
+
+            //inicialisamos la variable lista para los roles 
+            Input = new InputModel()
+            {// esta lista la saca del rolmanager con la condicion que sea distito al rol del cliente 
+                ListaRol = _roleManager.Roles.Where(r => r.Name != DS.Role_Cliente).Select(n => n.Name).Select(l => new SelectListItem
+                {
+                    Text = l,
+                    Value = l
+                })
+            };
+
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
@@ -141,7 +155,7 @@ namespace mmc.Areas.Identity.Pages.Account
                     }
 
                     //Se asigna el Rol al Usuario
-                    await _userManager.AddToRoleAsync(user, DS.Role_Admin);
+                    await _userManager.AddToRoleAsync(user, DS.Role_Admin);      
 
 
 

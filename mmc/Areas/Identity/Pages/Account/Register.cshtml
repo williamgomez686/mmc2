@@ -1,5 +1,6 @@
 ﻿@page
 @model RegisterModel
+@using mmc.Utilidades
 @{
     ViewData["Title"] = "Register";
 }
@@ -64,6 +65,15 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+
+            @if (User.IsInRole(DS.Role_Admin))
+            {
+                <div class="form-control">
+                    <label asp-for="Input.role"></label>
+                    @Html.DropDownListFor(r=>r.Input.role, Model.Input.ListaRol, "Seleccione un Rol", new{@class ="form-control" })
+                </div>
+            }
+
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
