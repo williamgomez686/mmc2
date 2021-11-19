@@ -65,8 +65,6 @@ namespace mmc.Areas.Admin.Controllers
             return View(oEstado);
         }
 
-
-
         #region Api
 
         [HttpGet]

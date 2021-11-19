@@ -10,7 +10,7 @@ namespace mmc.AccesoDatos.Repositorios.IRepositorio
     {
         IEstadoRepositorio Estado { get; }
         IUsuarioAplicacionRepositorio UsuarioAplicacion { get; }
-
+        ITicketRepositorio Ticket { get; }
         void Guardar();
 
     }

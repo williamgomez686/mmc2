@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace mmc.Modelos
 {
     public class UsuarioAplicacion : IdentityUser

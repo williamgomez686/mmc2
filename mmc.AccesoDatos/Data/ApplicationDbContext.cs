@@ -18,6 +18,7 @@ namespace mmc.AccesoDatos.Data
 
         public DbSet<estado> estado { get; set; }
         public DbSet<UsuarioAplicacion> UsuarioAplicacion{get; set;}
+        public DbSet<Ticket> Tickets { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{

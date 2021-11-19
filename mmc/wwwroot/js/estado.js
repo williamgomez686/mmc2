@@ -1,6 +1,6 @@
 ﻿var datatable; //nombre de mi variable
 
-$(document).ready(function () { // de esta manera accedemos al arvhibo index html y llamavos a una funcion
+$(document).ready(function () { // de esta manera accedemos al archivo index html y llamavos a una funcion
     loadDataTable();
 });
 
