@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace mmc.Modelos
 {
     public class UsuarioAplicacion : IdentityUser
-    {   
+    {
         [Required]
         public string nombre { get; set; }
         [Required]

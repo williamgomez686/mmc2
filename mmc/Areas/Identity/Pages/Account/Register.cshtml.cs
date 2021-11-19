@@ -104,8 +104,8 @@ namespace mmc.Areas.Identity.Pages.Account
             {// esta lista la saca del rolmanager con la condicion que sea distito al rol del cliente 
                 ListaRol = _roleManager.Roles.Where(r => r.Name != DS.Role_Cliente).Select(n => n.Name).Select(l => new SelectListItem
                 {
-                    Text = l,
-                    Value = l
+                    Text = l,// va a contener el nombre de los roles
+                    Value = l //va a contener el valor de los roles
                 })
             };
 
@@ -127,6 +127,8 @@ namespace mmc.Areas.Identity.Pages.Account
                     apellido = Input.apellido,
                     empresa = Input.empresa,
                     departamento = Input.departamento,
+                    PhoneNumber = Input.PhoneNumber,
+                    extencion = Input.extencion,
                     role = Input.role
                 };
 
@@ -137,6 +139,7 @@ namespace mmc.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     //SE crean los roles
+                    //primero pregunta si el rol existe si no existe lo va a crear
                     if (!await _roleManager.RoleExistsAsync(DS.Role_Admin)) //consulta en nuestro proyecto si el rol exite
                     {
                         await _roleManager.CreateAsync(new IdentityRole(DS.Role_Admin));
@@ -154,9 +157,17 @@ namespace mmc.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole(DS.Role_SeteguaBiblioteca));
                     }
 
-                    //Se asigna el Rol al Usuario
-                    await _userManager.AddToRoleAsync(user, DS.Role_Admin);      
+                    //Se asigna el Rol administrador esto provisional **************************************************
+                    //await _userManager.AddToRoleAsync(user, DS.Role_Admin);      
 
+                    if (user.role == null)
+                    {
+                        await _userManager.AddToRoleAsync(user, DS.Role_Cliente);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, user.role);
+                    }
 
 
                     //ESTE FRAGMENTO DE CONDIGO SIRVE PARA ENVIAR UN EMAIL DE CONFIRMACION DESPUES DE CREAR UN USUARIO
@@ -177,8 +188,16 @@ namespace mmc.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        if(user.role == null)
+                        {   //se esta creando un nuevo usuario
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
+                        else
+                        {
+                            //Administrador esta creando un nuevo usuario y lo redirecciona a la vista de administracion de usuarios
+                            return RedirectToAction("Index", "Usuario", new { Area = "Admin" });
+                        }
                     }
                 }
                 foreach (var error in result.Errors)

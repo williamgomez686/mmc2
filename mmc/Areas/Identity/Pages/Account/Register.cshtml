@@ -70,7 +70,7 @@
             {
                 <div class="form-control">
                     <label asp-for="Input.role"></label>
-                    @Html.DropDownListFor(r => r.Input.role, Model.Input.ListaRol, "Seleccione un Rol", new { @class = "form-control" })
+                    <div class="form-control">@Html.DropDownListFor(r => r.Input.role, Model.Input.ListaRol, "Seleccione un Rol", new{@class = "form-control"})</div>
                 </div>
             }
 
