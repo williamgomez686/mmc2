@@ -11,10 +11,10 @@ function loadDataTable() {// esta funcion la declaramos mas abajo
             "url": "/Admin/Usuario/ObtenerTodos" //URL de nuestro metodo que esta en el controlador
         },
         "columns": [
-            { "data": "UserName", "width": "20%" },//data tiene la informacion del metodo de accion ene l controlador
+            { "data": "userName", "width": "20%" },//data tiene la informacion del metodo de accion ene l controlador
             { "data": "nombre", "width": "20%" },
             { "data": "apellido", "width": "20%" },
-            { "data": "Email", "width": "20%" },
+            { "data": "email", "width": "20%" },
             { "data": "extencion", "width": "20%" },
             { "data": "role", "width": "20%" },
             //{ // en esta columna se renderezan los botones de Editar y Eliminar
@@ -36,32 +36,25 @@ function loadDataTable() {// esta funcion la declaramos mas abajo
     });
 }
 
-//    function Delete(url) {
+function BloquearDesbloquear(id) {
 
-//        swal({
-//            title: "Esta Seguro que quiere Eliminar?",
-//            text: "Este Registro no se podra recuperar",
-//            icon: "warning",
-//            buttons: true,
-//            dangerMode: true
-//        }).then((borrar) => {
-//            if (borrar) {
-//                $.ajax({
-//                    type: "DELETE",
-//                    url: url,
-//                    success: function (data) {
-//                        if (data.success) {
-//                            toastr.success(data.message);
-//                            datatable.ajax.reload();
-//                        }
-//                        else {
-//                            toastr.error(data.message);
-//                        }
-//                    }
-//                });
-//            }
-//        });
-//    }
-//}
+
+    $.ajax({
+        type: "POST",
+        url: '/Admin/Usuario/BloquearDesbloquear',
+        data: JSON.stringify(id),
+        contentType: "application/json",
+        success: function (data) {
+            if (data.success) {
+                toastr.success(data.message);
+                datatable.ajax.reload();
+            }
+            else {
+                toastr.error(data.message);
+            }
+        }
+    });
+
+}
 
 

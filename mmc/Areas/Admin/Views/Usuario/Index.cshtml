@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Lista de Usuarios";
+    ViewData["Title"] = "Usuarios";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,6 @@
 
 <div class="row">
     <div class="col-6">
-        <h2 class="text-primary">Usuarios</h2>
     </div>
     <div class="col-6 text-right">
         <a class="btn btn-primary text-white" asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-plus"></i>Crean Nuevo Usuario</a>
@@ -23,9 +22,9 @@
     <table id="tblDatos" class="table-striped table-bordered table-hover" style="width:100%">
         <thead class="thead-dark">
             <tr class="table-info">
-                <th>UserName</th>
+                <th>Usuario</th>
                 <th>Nombres</th>
-                <th>Apellido</th>
+                <th>Apellidos</th>
                 <th>Email</th>
                 <th>Telefono</th>
                 <th>Role</th>
