@@ -1,16 +1,16 @@
 ﻿@model mmc.Modelos.Ticket
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear nuevo Ticket";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h3>@ViewBag.Title</h3>
+<h2><i class="fa-solid fa-arrow-left"></i></h2>
 
-<h4>Ticket</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -39,7 +39,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
+                @*<input asp-for="Descripcion" class="form-control" />*@
+                <textarea class="form-control" id="Descripcion" name="Descripcion" rows="5"></textarea>
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             @*
@@ -64,15 +65,12 @@
             <span asp-validation-for="Tecnico" class="text-danger"></span>
         </div>
             *@
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a class="btn btn-danger" asp-action="Index">Regresar <i class="fa-solid fa-rotate-left"></i></a>
+        </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
