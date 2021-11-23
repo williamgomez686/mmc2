@@ -1,40 +1,54 @@
-﻿var datatable; //nombre de mi variable
+﻿var datatable;
 
-$(document).ready(function () { // de esta manera accedemos al arvhibo index html y llamavos a una funcion
+$(document).ready(function () {
     loadDataTable();
 });
 
-function loadDataTable() {// esta funcion la declaramos mas abajo
-    //usamos nuesta variable declarada en un inicio y con el numeral hacemos referencia al id del index.html
-    datatable = $('#tblDatos').DataTable({//lo que es el .datatable hace referencia a un css de terceros que agregamos en el layout
-        "ajax": {// hacemos uso de ajax de javascript
-            "url": "/Admin/Usuario/ObtenerTodos" //URL de nuestro metodo que esta en el controlador
+function loadDataTable() {
+    datatable = $('#tblDatos').DataTable({
+        "ajax": {
+            "url": "/Admin/Usuario/ObtenerTodos"
         },
         "columns": [
-            { "data": "userName", "width": "20%" },//data tiene la informacion del metodo de accion ene l controlador
-            { "data": "nombre", "width": "20%" },
-            { "data": "apellido", "width": "20%" },
-            { "data": "email", "width": "20%" },
-            { "data": "extencion", "width": "20%" },
-            { "data": "role", "width": "20%" },
-            //{ // en esta columna se renderezan los botones de Editar y Eliminar
-            //    "data": "estadoId", //data trae la informacion y id es para obtner el parametro id
-            //    "render": function (data) { //render es para renderizar html y en data ya
-            //        return `
-            //            <div class="text-center">
-            //                <a href="/Admin/Estados/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
-            //                    <i class="fas fa-edit"></i>
-            //                </a>
-            //                <a onclick=Delete("/Admin/Estados/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
-            //                    <i class="fas fa-trash"></i>
-            //                </a>
-            //            </div>
-            //            `;
-            //    }, "width": "10%"
-            // }
+            { "data": "userName", "width": "10%" },
+            { "data": "nombres", "width": "10%" },
+            { "data": "apellidos", "width": "10%" },
+            { "data": "email", "width": "15%" },
+            { "data": "phoneNumber", "width": "10%" },
+            { "data": "role", "width": "15%" },
+            {
+                "data": {
+                    id: "id", lockoutEnd: "lockoutEnd"
+                },
+                "render": function (data) {
+                    var hoy = new Date().getTime();
+                    var bloqueo = new Date(data.lockoutEnd).getTime();
+                    if (bloqueo > hoy) {
+                        // Usuario esta bloqueado
+                        return `
+                        <div class="text-center">
+                            <a onclick=BloquearDesbloquear('${data.id}') class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+                                <i class="fas fa-lock-open"></i> Desbloquear
+                            </a>
+                        </div>
+                        `;
+                    }
+                    else {
+                        return `
+                        <div class="text-center">
+                            <a onclick=BloquearDesbloquear('${data.id}') class="btn btn-success text-white" style="cursor:pointer; width:150px;">
+                                <i class="fas fa-lock"></i> Bloquear
+                            </a>
+                        </div>
+                        `;
+                    }
+
+                }, "width": "30%"
+            }
         ]
     });
 }
+
 
 function BloquearDesbloquear(id) {
 
@@ -56,5 +70,3 @@ function BloquearDesbloquear(id) {
     });
 
 }
-
-
