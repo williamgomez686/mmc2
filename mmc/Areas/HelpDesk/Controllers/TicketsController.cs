@@ -27,8 +27,17 @@ namespace mmc.Areas.HelpDesk.Controllers
         // GET: HelpDesk/Tickets
         public async Task<IActionResult> Index()
         {
+            if(User.IsInRole(DS.Role_Admin))
+            {
+                return View(await _context.Tickets.ToListAsync());
+            }
+            else
+            {
+                var nombre = User.Identity.Name;
+                var Ticket = await _context.Tickets.Where(u => u.UsuarioAplicacionId == nombre).ToListAsync();
+                return View(Ticket);
+            }
 
-            return View(await _context.Tickets.ToListAsync());
         }
 
         // GET: HelpDesk/Tickets/Details/5
@@ -59,7 +68,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Ticket ticket)
         {
-            var nombre = User.Identity.Name;
+            var nombre = User.Identity.Name;//obtiene el nombre del usuario de la session activa
             var usuario = User.Identity.IsAuthenticated.ToString();
             var oTicket = new Ticket();
             if (!ModelState.IsValid)
