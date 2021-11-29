@@ -11,8 +11,8 @@ function loadDataTable() {
         },
         "columns": [
             { "data": "userName", "width": "10%" },
-            { "data": "nombres", "width": "10%" },
-            { "data": "apellidos", "width": "10%" },
+            { "data": "nombre", "width": "10%" },
+            { "data": "apellido", "width": "10%" },
             { "data": "email", "width": "15%" },
             { "data": "phoneNumber", "width": "10%" },
             { "data": "role", "width": "15%" },
@@ -50,12 +50,12 @@ function loadDataTable() {
 }
 
 
-function BloquearDesbloquear(id) {
+function BloquearDesbloquear(id) {//recibe el Id
 
 
     $.ajax({
         type: "POST",
-        url: '/Admin/Usuario/BloquearDesbloquear',
+        url: '/Admin/Usuario/BloquearDesbloquear',//apuntamos a nuestro metodo API del controller de usuario
         data: JSON.stringify(id),
         contentType: "application/json",
         success: function (data) {

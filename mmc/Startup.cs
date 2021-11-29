@@ -52,6 +52,15 @@ namespace mmc
             services.AddControllersWithViews();
             //agregamos este servisio para que soporte vistas de razor
             services.AddRazorPages();
+
+            ///este codigo fue sacado de la pagina oficial de Microsoft para que haga las correctas validaciones Identity 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath =$"/Identity/Account/AccessDenied";
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,14 +82,15 @@ namespace mmc
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication();//aqui abilitamos la autenticacion en el proyecto
+            app.UseAuthorization();//aqui Habilitamos la autorizacion en el proyecto
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{area=HelpDesk}/{controller=Home}/{action=Index}/{id?}");
+                    //pattern: "{area=HelpDesk}/{controller=Home}/{action=Index}/{estadoId?}");
                 endpoints.MapRazorPages();
             });
         }

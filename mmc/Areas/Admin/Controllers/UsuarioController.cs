@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using mmc.AccesoDatos.Data;
+using mmc.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 namespace mmc.Areas.Admin.Controllers
 {
     [Area("Admin")]//indicamos a que area pertenese
+    [Authorize(Roles = DS.Role_Admin)]
     public class UsuarioController : Controller
     {
         //Declaramos una variable que va a ser nuestro contexto heredando del dbcontex
@@ -51,11 +54,11 @@ namespace mmc.Areas.Admin.Controllers
             if (usuario.LockoutEnd != null && usuario.LockoutEnd > DateTime.Now)
             {
                 // Usuario Bloqueado
-                usuario.LockoutEnd = DateTime.Now;
+                usuario.LockoutEnd = DateTime.Now;//desbloqueando usuario
             }
             else
             {
-                usuario.LockoutEnd = DateTime.Now.AddYears(1000);
+                usuario.LockoutEnd = DateTime.Now.AddYears(1000);///se agregan 1000 años para bloquear usuarios esto por que asi esta pensado identity
             }
             _db.SaveChanges();
             return Json(new { success = true, message = "Operacion Exitosa" });

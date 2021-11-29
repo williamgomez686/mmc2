@@ -1,4 +1,4 @@
-﻿
+﻿@using mmc.Utilidades
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,19 +27,24 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Cliente))
+                        {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Soluciones
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Estados" asp-action="Index">Estados</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Bodega" asp-action="Index">Bodega</a>
                                     <a class="dropdown-item" href="#">Ticket</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Division</a>
                                 </div>
                             </li>
+                        }
 
-
+                        @if (User.IsInRole(DS.Role_Admin))
+                        {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Usuario
@@ -48,7 +53,10 @@
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Usuario" asp-action="Index">Usuarios</a>
                                 </div>
                             </li>
+                        }
 
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Ticket))
+                        {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     HelpDesk
@@ -57,8 +65,9 @@
                                     <a class="dropdown-item" asp-area="HelpDesk" asp-controller="Tickets" asp-action="Index">Tickets</a>
                                 </div>
                             </li>
-                        
-                        </ul>
+                        }
+
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

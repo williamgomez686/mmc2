@@ -16,8 +16,8 @@ function loadDataTable() {// esta funcion la declaramos mas abajo
             { "data": "est_fchalt", "width": "20%" },
             { "data": "est_usu_alt", "width": "10%" },//est linea me da error revisar despues
             { // en esta columna se renderezan los botones de Editar y Eliminar
-                "data": "estadoId", //data trae la informacion y id es para obtner el parametro id
-                "render": function (data) { //render es para renderizar html y en data ya
+                "data": "estadoId", 
+                "render": function (data) { 
                     return `
                         <div class="text-center">
                             <a href="/Admin/Estados/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">

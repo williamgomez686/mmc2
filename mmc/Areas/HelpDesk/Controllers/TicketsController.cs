@@ -8,10 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using mmc.AccesoDatos.Data;
 using mmc.Modelos;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using mmc.Utilidades;
 
 namespace mmc.Areas.HelpDesk.Controllers
 {
     [Area("HelpDesk")]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Ticket)]
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;

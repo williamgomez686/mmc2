@@ -7,20 +7,22 @@ using System.Threading.Tasks;
 
 namespace mmc.Modelos
 {
-    public class estado
+    public class Bodega
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         [MaxLength(50)]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         [Display(Name = "Descripcion")]
-        public string est_descripcion { get; set; }
-        [MaxLength(20)]
-        [Display(Name = "Estado")]
-        public string est_est { get; set; }
-        [Display(Name = "Fecha")]
-        public DateTime est_fchalt { get; set; }
-        [MaxLength(20)]
-        public string est_usu_alt { get; set; }
+        public string Descripcion { get; set; }
+
+        [Required]
+        public bool Estado { get; set; }
     }
 }

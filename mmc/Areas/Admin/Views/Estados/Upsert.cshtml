@@ -11,7 +11,7 @@
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
     </div>
 
-    @if (Model.estadoId != 0)
+    @if (Model.Id != 0)
     {
         //si el modelo trae algun Id entonces se trata de un Update
         titulo = "Actualizar la tabla de estados";
@@ -34,7 +34,7 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="est_est"></label>
+                <label asp-for="est_descripcion"></label>
             </div>
             <div class="col-8">
                 <input asp-for="est_est" class="form-control" />
@@ -44,7 +44,7 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="est_fchalt"></label>
+                <label asp-for="est_est"></label>
             </div>
             <div class="col-8">
                 <input asp-for="est_fchalt" class="form-control" />
@@ -54,7 +54,7 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="est_usu_alt"></label>
+                <label asp-for="est_fchalt"></label>
             </div>
             <div class="col-8">
                 <input asp-for="est_usu_alt" class="form-control" />
@@ -65,9 +65,9 @@
         <hr /><br />
         <div class="form-group row">
             <div class="col-8 offset-4">
-                @if (Model.estadoId != 0)
+                @if (Model.Id != 0)
                 {
-                    <partial name="_BotonesActualizarYRegresar" model="Model.estadoId" />
+                    <partial name="_BotonesActualizarYRegresar" model="Model.Id" />
                 }
                 else
                 {

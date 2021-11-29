@@ -12,12 +12,11 @@ namespace mmc.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = DS.Role_Admin)]
-    public class EstadosController : Controller
+    public class BodegaController : Controller
     {
-
         private readonly IUnidadTrabajo _unidadTrabajo;
 
-        public EstadosController(IUnidadTrabajo unidadTrabajo)
+        public BodegaController(IUnidadTrabajo unidadTrabajo)
         {
             _unidadTrabajo = unidadTrabajo;
         }
@@ -29,70 +28,62 @@ namespace mmc.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
-            estado Oestado = new estado();
+            Bodega bodega = new Bodega();
             if (id == null)
             {
-                //esto es para crear un nuevo registro
-                return View(Oestado);
+                // Esto es para Crear nuevo Registro
+                return View(bodega);
             }
             // Esto es para Actualizar
-            Oestado = _unidadTrabajo.Estado.Obtener(id.GetValueOrDefault());
-            if (Oestado == null)
+            bodega = _unidadTrabajo.Bodega.Obtener(id.GetValueOrDefault());
+            if (bodega == null)
             {
                 return NotFound();
             }
 
-            return View(Oestado);
+            return View(bodega);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(estado oEstado)
+        public IActionResult Upsert(Bodega bodega)
         {
-            // estado Oestado = new estado();
             if (ModelState.IsValid)
             {
-                if (oEstado.Id == 0)
+                if (bodega.Id == 0)
                 {
-                    _unidadTrabajo.Estado.Agregar(oEstado);
+                    _unidadTrabajo.Bodega.Agregar(bodega);
                 }
                 else
                 {
-                    //se trata de una actualizacion
-                    _unidadTrabajo.Estado.Actualizar(oEstado);
+                    _unidadTrabajo.Bodega.Actualizar(bodega);
                 }
                 _unidadTrabajo.Guardar();
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(oEstado);
+            return View(bodega);
         }
 
-        #region Api
-
+        #region API
         [HttpGet]
         public IActionResult ObtenerTodos()
         {
-            var todos = _unidadTrabajo.Estado.ObtenerTodos();
-
-            return Json(new { data = todos});
-            //return View(todos);
+            var todos = _unidadTrabajo.Bodega.ObtenerTodos();
+            return Json(new { data = todos });
         }
-
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var estadoDB = _unidadTrabajo.Estado.Obtener(id);
-            if (estadoDB == null)
+            var bodegaDb = _unidadTrabajo.Bodega.Obtener(id);
+            if (bodegaDb == null)
             {
-                return Json(new { succes = false, message = "Error al Borrar" });
+                return Json(new { success = false, message = "Error al Borrar" });
             }
-            _unidadTrabajo.Estado.Remover(estadoDB);
+            _unidadTrabajo.Bodega.Remover(bodegaDb);
             _unidadTrabajo.Guardar();
-            return Json(new { succes = true, message = "Estado Eliminado Exitosamente" });
+            return Json(new { success = true, message = "Bodega Borrada Exitosamente" });
         }
-
         #endregion
     }
 }
