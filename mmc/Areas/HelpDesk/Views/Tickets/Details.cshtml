@@ -1,0 +1,88 @@
+﻿@model mmc.Modelos.Ticket
+
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalles</h1>
+<hr />
+<br />
+
+<div class="">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-center  font-weight-bold h3">
+                <label>Asunto: </label>
+                @Html.DisplayFor(model => model.Asunto)
+            </div>
+        </div>
+        <div class="card-body">
+            <label class="font-weight-bold">Descripcón:</label>
+            @Html.DisplayFor(model => model.Descripcion)
+        </div>
+        <div class="card-footer">
+            <label class="font-weight-bold">Fecha de Alta:</label>
+            @Html.DisplayFor(model => model.FechaAlta)
+        <label class="font-weight-bold">Estado: </label>
+            @Html.DisplayFor(model => model.Estado)
+        </div>
+    </div>
+</div>
+
+
+
+@*    <div>
+        <h4>Ticket</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UsuarioAplicacionId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UsuarioAplicacionId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FechaAlta)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Solucion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Solucion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FechaSolucion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FechaSolucion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Tecnico)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Tecnico)
+            </dd>
+        </dl>
+    </div>*@
+
+<div class="text-right">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar <i class="fa-solid fa-rotate-left"></i></a>|
+    <a class="btn btn-success" asp-action="Index">Regresar <i class="fa-solid fa-rotate-left"></i></a>
+</div>

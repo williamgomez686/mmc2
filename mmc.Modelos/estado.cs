@@ -10,7 +10,7 @@ namespace mmc.Modelos
     public class estado
     {
         [Key]
-        public int estadoId { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(50)]
         [Display(Name = "Descripcion")]

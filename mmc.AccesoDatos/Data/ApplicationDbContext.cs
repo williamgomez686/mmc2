@@ -15,8 +15,10 @@ namespace mmc.AccesoDatos.Data
             : base(options)
         {
         }
-
+        public DbSet<Bodega> Bodegas { get; set; }
         public DbSet<estado> estado { get; set; }
+        public DbSet<UsuarioAplicacion> UsuarioAplicacion{get; set;}
+        public DbSet<Ticket> Tickets { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
