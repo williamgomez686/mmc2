@@ -29,12 +29,13 @@ namespace mmc.Areas.HelpDesk.Controllers
         {
             if(User.IsInRole(DS.Role_Admin))
             {
-                return View(await _context.Tickets.ToListAsync());
+                return View(await _context.Tickets.Where(u => u.Estado == "Activo").ToListAsync());
             }
             else
             {
                 var nombre = User.Identity.Name;
-                var Ticket = await _context.Tickets.Where(u => u.UsuarioAplicacionId == nombre).ToListAsync();
+                var Ticket = await _context.Tickets.Where(u => u.UsuarioAplicacionId == nombre && u.Estado == "Activo").ToListAsync();
+                //var ticket2 = 
                 return View(Ticket);
             }
 
