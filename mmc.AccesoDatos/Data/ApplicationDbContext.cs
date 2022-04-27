@@ -14,6 +14,7 @@ namespace mmc.AccesoDatos.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
         public DbSet<Bodega> Bodegas { get; set; }
         public DbSet<estado> estado { get; set; }
@@ -57,6 +58,3 @@ namespace mmc.AccesoDatos.Data
         //}
     }
 }
-
-
-//antes de instalar e tema

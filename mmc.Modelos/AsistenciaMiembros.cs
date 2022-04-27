@@ -22,6 +22,7 @@ namespace mmc.Modelos
         public int Cantidad { get; set; }
         [Required]
         [Display(Name = "Servicio")]
-        public List<ServiciosIglesia> Servicios { get; set; }
+        public ServiciosIglesia hora { get; set; }
+        //public List<ServiciosIglesia> Servicios { get; set; }
     }
 }

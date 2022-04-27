@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace mmc.Utilidades
 {
     public static class DS
-    {   //Constantes para nuestros Roles
+    {   //Constantes para definir Roles
         public const string Role_Cliente = "Cliente";
         public const string Role_Admin = "Admin";
         public const string Role_Ticket = "Ticket";

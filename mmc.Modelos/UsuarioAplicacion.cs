@@ -16,7 +16,6 @@ namespace mmc.Modelos
         public string nombre { get; set; }
         [Required]
         public string apellido { get; set; }
-
         public string empresa { get; set; }
         public string departamento { get; set; }
         public int extencion { get; set; }

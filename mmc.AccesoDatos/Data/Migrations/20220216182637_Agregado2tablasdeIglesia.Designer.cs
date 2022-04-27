@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mmc.AccesoDatos.Data;
@@ -9,9 +10,10 @@ using mmc.AccesoDatos.Data;
 namespace mmc.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220216182637_Agregado2tablasdeIglesia")]
+    partial class Agregado2tablasdeIglesia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,12 +238,7 @@ namespace mmc.Data.Migrations
                     b.Property<int>("NumeroContacto")
                         .HasColumnType("integer");
 
-                    b.Property<string>("horaid")
-                        .HasColumnType("text");
-
                     b.HasKey("id");
-
-                    b.HasIndex("horaid");
 
                     b.ToTable("AsistenciaMiembros");
                 });
@@ -276,6 +273,9 @@ namespace mmc.Data.Migrations
                     b.Property<string>("id")
                         .HasColumnType("text");
 
+                    b.Property<int?>("AsistenciaMiembrosid")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Horario")
                         .HasColumnType("integer");
 
@@ -284,6 +284,8 @@ namespace mmc.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("id");
+
+                    b.HasIndex("AsistenciaMiembrosid");
 
                     b.ToTable("ServiciosIglesia");
                 });
@@ -433,13 +435,16 @@ namespace mmc.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("mmc.Modelos.ServiciosIglesia", b =>
+                {
+                    b.HasOne("mmc.Modelos.AsistenciaMiembros", null)
+                        .WithMany("Servicios")
+                        .HasForeignKey("AsistenciaMiembrosid");
+                });
+
             modelBuilder.Entity("mmc.Modelos.AsistenciaMiembros", b =>
                 {
-                    b.HasOne("mmc.Modelos.ServiciosIglesia", "hora")
-                        .WithMany()
-                        .HasForeignKey("horaid");
-
-                    b.Navigation("hora");
+                    b.Navigation("Servicios");
                 });
 #pragma warning restore 612, 618
         }
