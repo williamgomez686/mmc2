@@ -16,7 +16,7 @@ function loadDataTable() {// esta funcion la declaramos mas abajo
             { "data": "est_fchalt", "width": "20%" },
             { "data": "est_usu_alt", "width": "10%" },//est linea me da error revisar despues
             { // en esta columna se renderezan los botones de Editar y Eliminar
-                "data": "estadoId", 
+                "data": "Id",
                 "render": function (data) { 
                     return `
                         <div class="text-center">

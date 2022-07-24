@@ -10,7 +10,7 @@ using mmc.Modelos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using mmc.Utilidades;
-
+/*
 namespace mmc.Areas.HelpDesk.Controllers
 {
     [Area("HelpDesk")]
@@ -74,7 +74,7 @@ namespace mmc.Areas.HelpDesk.Controllers
             var oTicket = new Ticket();
             if (!ModelState.IsValid)
             {
-                oTicket.Id = Guid.NewGuid().ToString();
+                //oTicket.Id = Guid.NewGuid().ToString();
                 oTicket.UsuarioAplicacionId = nombre;
                 oTicket.Estado = "Activo";
                 oTicket.Asunto = ticket.Asunto;
@@ -174,3 +174,4 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
     }
 }
+*/
