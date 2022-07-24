@@ -16,7 +16,9 @@ namespace mmc.AccesoDatos.Repositorios
         public IEstadoRepositorio Estado { get; private set; }
         public IUsuarioAplicacionRepositorio UsuarioAplicacion { get; private set; }
         public ITicketRepositorio Ticket { get; private set; }
-            
+        public ICategoriaRepositorio Categoria { get; private set; }
+        public IMarcaRepositorio Marca { get; private set; }
+
         public UnidadTrabajo(ApplicationDbContext db)//Creamos el constructor
         {
             _db = db;

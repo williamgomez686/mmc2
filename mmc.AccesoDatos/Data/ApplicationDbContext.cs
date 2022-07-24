@@ -20,6 +20,9 @@ namespace mmc.AccesoDatos.Data
         public DbSet<UsuarioAplicacion> UsuarioAplicacion{get; set;}
         public DbSet<Ticket> Tickets { get; set; }
 
+        public DbSet<Marca> Marca { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
         //    base.OnModelCreating(builder);
@@ -43,7 +46,7 @@ namespace mmc.AccesoDatos.Data
         //            .HasMaxLength(20);
         //    });
         //}
-        
+
 
         //public class Usuario : IdentityUser
         //{

@@ -12,6 +12,8 @@ namespace mmc.AccesoDatos.Repositorios.IRepositorio
         IEstadoRepositorio Estado { get; }
         IUsuarioAplicacionRepositorio UsuarioAplicacion { get; }
         ITicketRepositorio Ticket { get; }
+        ICategoriaRepositorio Categoria { get; }
+        IMarcaRepositorio Marca { get; }
         void Guardar();
 
     }
