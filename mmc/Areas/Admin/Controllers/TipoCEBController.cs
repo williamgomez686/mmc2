@@ -13,11 +13,11 @@ namespace mmc.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = DS.Role_Admin)]
-    public class PrivilegioCEBController : Controller
+    public class TipoCEBController : Controller
     {
         private readonly IUnidadTrabajo _unidadTrabajo;
 
-        public PrivilegioCEBController(IUnidadTrabajo unidadTrabajo)
+        public TipoCEBController(IUnidadTrabajo unidadTrabajo)
         {
             _unidadTrabajo = unidadTrabajo;
         }
@@ -29,61 +29,61 @@ namespace mmc.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
-            PrivilegioCEB oPrivilegio = new PrivilegioCEB();
+            TiposCEB oTipoCEB = new TiposCEB();
             if (id == null)
             {
                 // Esto es para Crear nuevo Registro
-                return View(oPrivilegio);
+                return View(oTipoCEB);
             }
             // Esto es para Actualizar
-            oPrivilegio = _unidadTrabajo.PrivilegiosCEB.Obtener(id.GetValueOrDefault());
-            if (oPrivilegio == null)
+            oTipoCEB = _unidadTrabajo.TiposCEB.Obtener(id.GetValueOrDefault());
+            if (oTipoCEB == null)
             {
                 return NotFound();
             }
 
-            return View(oPrivilegio);
+            return View(oTipoCEB);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(PrivilegioCEB oPrivilegio)
+        public IActionResult Upsert(TiposCEB oTipoCEB)
         {
             if (ModelState.IsValid)
             {
-                if (oPrivilegio.Id == 0)
+                if (oTipoCEB.Id == 0)
                 {
-                    _unidadTrabajo.PrivilegiosCEB.Agregar(oPrivilegio);
+                    _unidadTrabajo.TiposCEB.Agregar(oTipoCEB);
                 }
                 else
                 {
-                    _unidadTrabajo.PrivilegiosCEB.Actualizar(oPrivilegio);
+                    _unidadTrabajo.TiposCEB.Actualizar(oTipoCEB);
                 }
                 _unidadTrabajo.Guardar();
                 return RedirectToAction(nameof(Index));
             }
-            return View(oPrivilegio);
+            return View(oTipoCEB);
         }
 
         #region API
         [HttpGet]
         public IActionResult ObtenerTodos()
         {
-            var todos = _unidadTrabajo.PrivilegiosCEB.ObtenerTodos();
+            var todos = _unidadTrabajo.TiposCEB.ObtenerTodos();
             return Json(new { data = todos });
         }
 
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var PrivilegioDB = _unidadTrabajo.PrivilegiosCEB.Obtener(id);
-            if (PrivilegioDB == null)
+            var TiposDB = _unidadTrabajo.TiposCEB.Obtener(id);
+            if (TiposDB == null)
             {
                 return Json(new { success = false, message = "Error al Borrar" });
             }
-            _unidadTrabajo.PrivilegiosCEB.Remover(PrivilegioDB);
+            _unidadTrabajo.TiposCEB.Remover(TiposDB);
             _unidadTrabajo.Guardar();
-            return Json(new { success = true, message = "Privilegio Borrado Exitosamente" });
+            return Json(new { success = true, message = "Tipo Borrado Exitosamente" });
         }
         #endregion
     }
