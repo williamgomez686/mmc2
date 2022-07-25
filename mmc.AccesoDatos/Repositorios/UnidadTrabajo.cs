@@ -26,7 +26,8 @@ namespace mmc.AccesoDatos.Repositorios
             Estado = new EstadoRepositorio(_db); //Inisialisando
             UsuarioAplicacion = new UsuarioAplicacionRepositorio(_db);
             Ticket = new TicketRepositorio(_db);
-
+            Marca = new MarcaRepositorio(_db);
+            Categoria = new CategoriaRepositorio(_db);
         }
 
         public void Guardar()

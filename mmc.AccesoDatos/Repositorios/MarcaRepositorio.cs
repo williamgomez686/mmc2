@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace mmc.AccesoDatos.Repositorios
 {
-    public class MarcaRepositorio:Repositorio<Marca>, IMarcaRepositorio
+    public class MarcaRepositorio : Repositorio<Marca>, IMarcaRepositorio
     {
         private readonly ApplicationDbContext _db;
 
