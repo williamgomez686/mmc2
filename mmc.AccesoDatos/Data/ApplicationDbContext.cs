@@ -28,7 +28,8 @@ namespace mmc.AccesoDatos.Data
         //***************************iglesia***************************************
         public DbSet<TiposCEB> TiposCEB { get; set; }
         public DbSet<PrivilegioCEB> privilegios { get; set; }
-
+        public DbSet<RegionesCEB> RegionesCEB { get; set; }
+        public DbSet<MiembrosCEB> Miembros { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

@@ -16,6 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//para desabilitar el https en una aplicacion  **************** #1
+using Microsoft.AspNetCore.HttpOverrides;
+using System.Net;
 
 namespace mmc
 {
@@ -51,6 +54,17 @@ namespace mmc
             ///
             services.AddControllersWithViews();
             //agregamos este servisio para que soporte vistas de razor
+
+
+            //para desabilitar el https en una aplicacion ***************************************************************CODIGOPARA QUITARHTTPS #2
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                //OPCIONAL CUANDO EL PROXY ESTA EN OTRO EQUIPO PERO SI ESTA EN EL MISNO NO ES NECESARIO
+                options.KnownProxies.Add(IPAddress.Parse("192.168.1.156"));
+
+            });
+
             services.AddRazorPages();
 
             ///este codigo fue sacado de la pagina oficial de Microsoft para que haga las correctas validaciones Identity 
@@ -70,11 +84,19 @@ namespace mmc
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                //para desabilitar el https en una aplicacion ***************************************************************CODIGOPARA QUITARHTTPS #3
+                app.UseForwardedHeaders();
             }
+            //if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
+            //{
+            //    app.UseExceptionHandler("/Error");
+            //}
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //para desabilitar el https en una aplicacion ************************************************************************CODIGOPARA QUITARHTTPS #4
+                app.UseForwardedHeaders();
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
