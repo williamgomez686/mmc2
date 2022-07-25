@@ -23,10 +23,12 @@ namespace mmc.AccesoDatos.Data
 
         public DbSet<Marca> Marca { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Producto> Productos { get; set; }
 
         //***************************iglesia***************************************
         public DbSet<TiposCEB> TiposCEB { get; set; }
         public DbSet<PrivilegioCEB> privilegios { get; set; }
+
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

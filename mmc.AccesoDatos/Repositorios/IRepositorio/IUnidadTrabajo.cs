@@ -14,8 +14,10 @@ namespace mmc.AccesoDatos.Repositorios.IRepositorio
         ITicketRepositorio Ticket { get; }
         ICategoriaRepositorio Categoria { get; }
         IMarcaRepositorio Marca { get; }
+        IProductoRepositorio Producto { get; }
         IPrivilegioRepositorio PrivilegiosCEB { get; }
         ITipoCEBRepositorio TiposCEB { get; }
+
         void Guardar();
 
     }

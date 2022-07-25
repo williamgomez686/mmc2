@@ -30,6 +30,7 @@
     <Folder Include="Areas\Iglesia\Controllers\" />
     <Folder Include="Areas\Iglesia\Views\" />
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\imagenes\productos\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

@@ -21,6 +21,8 @@ namespace mmc.AccesoDatos.Repositorios
         public IPrivilegioRepositorio PrivilegiosCEB { get; private set; }
         public ITipoCEBRepositorio TiposCEB { get; private set; }
 
+        public IProductoRepositorio Producto {get; private set;}
+
         public UnidadTrabajo(ApplicationDbContext db)//Creamos el constructor
         {
             _db = db;
@@ -32,6 +34,7 @@ namespace mmc.AccesoDatos.Repositorios
             Categoria = new CategoriaRepositorio(_db);
             PrivilegiosCEB = new PrivilegioRepositorio(_db);
             TiposCEB = new TipoCEBRepositorio(_db);
+            Producto = new ProductoRepositorio(_db);
         }
 
         public void Guardar()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace mmc.Modelos
 {
-    internal class Producto
+    public class Producto
     {
         [Key]
         public int Id { get; set; }
