@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\imagenes\Iglesia\Miembros\Imagenes\" />
     <Folder Include="wwwroot\imagenes\productos\" />
   </ItemGroup>
 
