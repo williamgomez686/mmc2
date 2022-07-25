@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace mmc.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Iglesia")]
     [Authorize(Roles = DS.Role_Admin)]
     public class TipoCEBController : Controller
     {

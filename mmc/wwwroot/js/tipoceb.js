@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     datatable = $('#tblDatos').DataTable({
         "ajax": {
-            "url": "/Admin/TipoCEB/ObtenerTodos"
+            "url": "/Iglesia/TipoCEB/ObtenerTodos"
         },
         "columns": [
             { "data": "tipo", "width": "20%" },
@@ -27,10 +27,10 @@ function loadDataTable() {
                 "render": function (data) {
                     return `
                         <div class="text-center">
-                            <a href="/Admin/TipoCEB/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                            <a href="/Iglesia/TipoCEB/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a onclick=Delete("/Admin/TipoCEB/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                            <a onclick=Delete("/Iglesia/TipoCEB/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </div>

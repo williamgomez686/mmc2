@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     datatable = $('#tblDatos').DataTable({
         "ajax": {
-            "url": "/Admin/PrivilegioCEB/ObtenerTodos"
+            "url": "/Iglesia/PrivilegioCEB/ObtenerTodos"
         },
         "columns": [
             { "data": "cargos", "width": "20%" },
@@ -27,10 +27,10 @@ function loadDataTable() {
                 "render": function (data) {
                     return `
                         <div class="text-center">
-                            <a href="/Admin/PrivilegioCEB/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                            <a href="/Iglesia/PrivilegioCEB/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a onclick=Delete("/Admin/PrivilegioCEB/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                            <a onclick=Delete("/Iglesia/PrivilegioCEB/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </div>
