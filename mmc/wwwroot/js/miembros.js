@@ -16,8 +16,8 @@ function loadDataTable() {
             { "data": "phone", "width": "10%" },
             { "data": "phone2", "width": "10%" },
             { "data": "dpi", "width": "10%" },
-            { "data": "cargosCEBId", "width": "10%" },
-            { "data": "regionId", "width": "10%" },
+            { "data": "cargos", "width": "15%" },
+            { "data": "regionName", "width": "15%" },
             //{ "data": "marca.nombre", "width": "15%" },
             {
                 "data": "id",

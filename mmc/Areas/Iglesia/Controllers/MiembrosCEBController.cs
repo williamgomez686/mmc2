@@ -116,7 +116,8 @@ namespace mmc.Areas.Iglesia.Controllers
 
 
                 if (miembroVM.Miembros.Id == 0)
-                {
+                {                   
+                    miembroVM.Miembros.Estado = true;
                     _unidadTrabajo.MiembrosCEB.Agregar(miembroVM.Miembros);
                 }
                 else
@@ -157,7 +158,23 @@ namespace mmc.Areas.Iglesia.Controllers
         [HttpGet]
         public IActionResult ObtenerTodos()
         {
-            var todos = _unidadTrabajo.MiembrosCEB.ObtenerTodos();//(incluirPropiedades: "privilegios");
+            var todos = from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
+                          join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
+                            on m.CargosCEBId equals p.Id
+                          join r in _unidadTrabajo.RegionCEB.ObtenerTodos()
+                            on m.RegionId equals r.Id
+                      select new
+                      {     
+                          m.Id,
+                          m.Name,
+                          m.lastName,
+                          m.Addres,
+                          m.phone,
+                          m.phone2,
+                          m.DPI,
+                          p.Cargos,
+                          r.RegionName
+                      };
             return Json(new { data = todos });
         }
 
