@@ -23,6 +23,11 @@ namespace mmc.AccesoDatos.Data
         public DbSet<Marca> Marca { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
 
+        //iglesia
+
+
+
+
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
         //    base.OnModelCreating(builder);

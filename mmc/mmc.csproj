@@ -27,6 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Iglesia\Controllers\" />
+    <Folder Include="Areas\Iglesia\Views\" />
     <Folder Include="Models\" />
   </ItemGroup>
 

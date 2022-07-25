@@ -122,6 +122,18 @@ namespace mmc.Areas.HelpDesk.Controllers
                 {
                     _context.Update(ticket);
                     await _context.SaveChangesAsync();
+
+
+                    //oTicket.Id = Guid.NewGuid().ToString();
+                    //oTicket.UsuarioAplicacionId = nombre;
+                    //oTicket.Estado = "Activo";
+                    //oTicket.Asunto = ticket.Asunto;
+                    //oTicket.Descripcion = ticket.Descripcion;
+                    //oTicket.FechaAlta = DateTime.Now;
+
+                    //_context.Add(oTicket);
+                    //await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
