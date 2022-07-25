@@ -42,7 +42,7 @@ namespace mmc
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            //este servisiio lo agregamos para la confirmacion de email con los datos de la clase que creamos en nuestro proyecto Utilidades
+            //este servisio lo agregamos para la confirmacion de email con los datos de la clase que creamos en nuestro proyecto Utilidades
             services.AddSingleton<IEmailSender, EmailSender>();
 
             //por medio de inyeccion de dependencias inyectamos Nuestra Unida de trabajo y la interface de IUnidadtrabajo *********************************************************

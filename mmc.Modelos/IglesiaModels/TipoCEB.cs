@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace mmc.Modelos.IglesiaModels
 {
-    public enum TipoCEB
+    public class TiposCEB
     {
-        Adultos,
-        Jovenes,
-        Niños,
-        Caballeros,
-        Damas
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        [StringLength(30)]
+        [Display(Name = "Tipo CEB")]
+        public string Tipo { get; set; }
+        [Display(Name ="Activo")]
+        public bool Estado { get; set; }
     }
 }

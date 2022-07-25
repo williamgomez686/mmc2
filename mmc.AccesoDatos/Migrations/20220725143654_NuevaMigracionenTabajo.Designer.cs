@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mmc.AccesoDatos.Data;
 
-namespace mmc.Data.Migrations
+namespace mmc.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211119214436_AgregadoTablaTicket")]
-    partial class AgregadoTablaTicket
+    [Migration("20220725143654_NuevaMigracionenTabajo")]
+    partial class NuevaMigracionenTabajo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,54 +221,74 @@ namespace mmc.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("mmc.Modelos.Ticket", b =>
+            modelBuilder.Entity("mmc.Modelos.Bodega", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Asunto")
+                    b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Estado")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("FechaAlta")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("FechaSolucion")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Solucion")
-                        .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("character varying(400)");
-
-                    b.Property<string>("Tecnico")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("UsuarioAplicacionId")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Bodegas");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.Marca", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Marca");
                 });
 
             modelBuilder.Entity("mmc.Modelos.estado", b =>
                 {
-                    b.Property<int>("estadoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -278,9 +298,9 @@ namespace mmc.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<string>("est_est")
+                    b.Property<bool>("est_est")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("est_fchalt")
                         .HasColumnType("timestamp without time zone");
@@ -289,7 +309,7 @@ namespace mmc.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.HasKey("estadoId");
+                    b.HasKey("Id");
 
                     b.ToTable("estado");
                 });

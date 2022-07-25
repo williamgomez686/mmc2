@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using static mmc.AccesoDatos.Data.ApplicationDbContext;
 using mmc.Modelos;
+using mmc.Modelos.IglesiaModels;
 
 namespace mmc.AccesoDatos.Data
 {
@@ -18,14 +19,14 @@ namespace mmc.AccesoDatos.Data
         public DbSet<Bodega> Bodegas { get; set; }
         public DbSet<estado> estado { get; set; }
         public DbSet<UsuarioAplicacion> UsuarioAplicacion{get; set;}
-        public DbSet<Ticket> Tickets { get; set; }
+        //public DbSet<Ticket> Tickets { get; set; }
 
         public DbSet<Marca> Marca { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
 
-        //iglesia
-
-
+        //***************************iglesia***************************************
+        public DbSet<TiposCEB> TiposCEB { get; set; }
+        public DbSet<PrivilegioCEB> privilegios { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

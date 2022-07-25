@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace mmc.Data.Migrations
+namespace mmc.AccesoDatos.Migrations
 {
-    public partial class devueltamipcdemmmclocal : Migration
+    public partial class NuevaMigracionenTabajo3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -2,16 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mmc.AccesoDatos.Data;
 
-namespace mmc.Data.Migrations
+namespace mmc.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220725162802_NuevaMigracionenTabajo3")]
+    partial class NuevaMigracionenTabajo3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -264,6 +266,45 @@ namespace mmc.Data.Migrations
                     b.ToTable("Categorias");
                 });
 
+            modelBuilder.Entity("mmc.Modelos.IglesiaModels.PrivilegioCEB", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Cargos")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("privilegios");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.IglesiaModels.TiposCEB", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposCEB");
+                });
+
             modelBuilder.Entity("mmc.Modelos.Marca", b =>
                 {
                     b.Property<int>("Id")
@@ -282,51 +323,6 @@ namespace mmc.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Marca");
-                });
-
-            modelBuilder.Entity("mmc.Modelos.Ticket", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Asunto")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<string>("Estado")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("FechaAlta")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("FechaSolucion")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("ImagenURL")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Solucion")
-                        .HasMaxLength(400)
-                        .HasColumnType("character varying(400)");
-
-                    b.Property<string>("Tecnico")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("UsuarioAplicacionId")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("mmc.Modelos.estado", b =>

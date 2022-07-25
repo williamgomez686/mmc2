@@ -20,4 +20,8 @@
     <ProjectReference Include="..\mmc.Utilidades\mmc.Utilidades.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>

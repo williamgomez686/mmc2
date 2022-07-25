@@ -1,48 +1,48 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace mmc.Data.Migrations
+namespace mmc.AccesoDatos.Migrations
 {
-    public partial class Agregando2Tablas : Migration
+    public partial class NuevaMigracionenTabajo2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categorias",
+                name: "privilegios",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nombre = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Cargos = table.Column<string>(type: "text", nullable: false),
                     Estado = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categorias", x => x.Id);
+                    table.PrimaryKey("PK_privilegios", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Marca",
+                name: "TiposCEB",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nombre = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Tipo = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Estado = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Marca", x => x.Id);
+                    table.PrimaryKey("PK_TiposCEB", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Categorias");
+                name: "privilegios");
 
             migrationBuilder.DropTable(
-                name: "Marca");
+                name: "TiposCEB");
         }
     }
 }
