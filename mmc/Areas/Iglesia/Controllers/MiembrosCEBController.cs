@@ -163,6 +163,7 @@ namespace mmc.Areas.Iglesia.Controllers
                             on m.CargosCEBId equals p.Id
                           join r in _unidadTrabajo.RegionCEB.ObtenerTodos()
                             on m.RegionId equals r.Id
+                            orderby r.RegionName descending
                       select new
                       {     
                           m.Id,
@@ -175,6 +176,7 @@ namespace mmc.Areas.Iglesia.Controllers
                           p.Cargos,
                           r.RegionName
                       };
+
             return Json(new { data = todos });
         }
 

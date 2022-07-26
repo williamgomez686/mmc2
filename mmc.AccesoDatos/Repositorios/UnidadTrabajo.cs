@@ -23,6 +23,7 @@ namespace mmc.AccesoDatos.Repositorios
         public IProductoRepositorio Producto {get; private set;}
         public IRegionCEBRepositorio RegionCEB { get; set; }
         public IMiembrosCEBRepositorio MiembrosCEB { get; set; }
+        public ICasaEstudioBiblicoRepositorio CasaEstudio {get; set;}
 
         public UnidadTrabajo(ApplicationDbContext db)//Creamos el constructor
         {
@@ -38,6 +39,7 @@ namespace mmc.AccesoDatos.Repositorios
             Producto = new ProductoRepositorio(_db);
             RegionCEB = new RegionCEBRepositorio(_db);
             MiembrosCEB = new MiembrosCEBRepositorio(_db);
+            CasaEstudio = new CasaEstudioBiblicoRepositorio(_db);
         }
 
         public void Guardar()

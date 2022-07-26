@@ -30,6 +30,7 @@ namespace mmc.AccesoDatos.Data
         public DbSet<PrivilegioCEB> privilegios { get; set; }
         public DbSet<RegionesCEB> RegionesCEB { get; set; }
         public DbSet<MiembrosCEB> Miembros { get; set; }
+        public DbSet<CasaEstudioBiblico> CasasEstudioBiblico { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

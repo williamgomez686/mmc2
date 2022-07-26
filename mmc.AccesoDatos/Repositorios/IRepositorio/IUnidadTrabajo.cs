@@ -19,6 +19,7 @@ namespace mmc.AccesoDatos.Repositorios.IRepositorio
         ITipoCEBRepositorio TiposCEB { get; }
         IRegionCEBRepositorio RegionCEB { get; }
         IMiembrosCEBRepositorio MiembrosCEB { get; }
+        ICasaEstudioBiblicoRepositorio CasaEstudio { get; }
 
         void Guardar();
 
