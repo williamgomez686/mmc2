@@ -18,124 +18,130 @@
         }
 
         <div class="col-12 border-bottom">
-            <h2 class="text-primary">@titulo</h2>
-        </div>
-        <div class="col-md-8 pt-4">
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Miembros.Name"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Miembros.Name" class="form-control" />
-                    <span asp-validation-for="Miembros.Name" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Miembros.lastName"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Miembros.lastName" class="form-control" />
-                    <span asp-validation-for="Miembros.lastName" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Miembros.DPI"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Miembros.DPI" class="form-control" />
-                    <span asp-validation-for="Miembros.DPI" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Miembros.phone"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Miembros.phone" class="form-control" />
-                    <span asp-validation-for="Miembros.phone" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Miembros.phone2"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Miembros.phone2" class="form-control" />
-                    <span asp-validation-for="Miembros.phone2" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Miembros.Addres"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="Miembros.Addres" class="form-control" />
-                    <span asp-validation-for="Miembros.Addres" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    Cargo
-                </div>
-                <div class="col-8">
-                    @Html.DropDownListFor(c => c.Miembros.CargosCEBId, Model.PrivilegioCEBLista, "Seleccione",
-                      new { @class = "form-control" })
-                    <span asp-validation-for="Miembros.CargosCEBId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    Region
-                </div>
-                <div class="col-8">
-                    @Html.DropDownListFor(c => c.Miembros.RegionId, Model.RegionCEBLista, "Seleccione",
-                      new { @class = "form-control" })
-                    <span asp-validation-for="Miembros.RegionId" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    Imagen
-                </div>
-                <div class="col-8">
-                    <input type="file" name="files" id="escogerImg" multiple class="form-control" />
-                </div>
-            </div>
-            
-
-            <div class="form-group row">
-                <div class="col-8 offset-4">
-                    @if (Model.Miembros.Id != 0)
-                    {
-                        <partial name="_BotonesActualizarYRegresar" model="Model.Miembros.Id" />
-                    }
-                    else
-                    {
-                        <div class="row">
-                            <div class="col">
-                                <button type="submit" onclick="return validarEntrada()" class="btn btn-primary form-control">Crear</button>
+            <h1 class="text-primary text-center">@titulo</h1>
+        </div> 
+            <div class="row">
+                     <div class="col-8">
+                              <div class="col-md-12">
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="Miembros.Name"></label>
                             </div>
-                            <div class="col">
-                                <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                            <div class="col-8">
+                                <input asp-for="Miembros.Name" class="form-control" />
+                                <span asp-validation-for="Miembros.Name" class="text-danger"></span>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="Miembros.lastName"></label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="Miembros.lastName" class="form-control" />
+                                <span asp-validation-for="Miembros.lastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="Miembros.DPI"></label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="Miembros.DPI" class="form-control" />
+                                <span asp-validation-for="Miembros.DPI" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="Miembros.phone"></label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="Miembros.phone" class="form-control" />
+                                <span asp-validation-for="Miembros.phone" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="Miembros.phone2"></label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="Miembros.phone2" class="form-control" />
+                                <span asp-validation-for="Miembros.phone2" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="Miembros.Addres"></label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="Miembros.Addres" class="form-control" />
+                                <span asp-validation-for="Miembros.Addres" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                Cargo
+                            </div>
+                            <div class="col-8">
+                                @Html.DropDownListFor(c => c.Miembros.CargosCEBId, Model.PrivilegioCEBLista, "Seleccione",
+                                  new { @class = "form-control" })
+                                <span asp-validation-for="Miembros.CargosCEBId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                Region
+                            </div>
+                            <div class="col-8">
+                                @Html.DropDownListFor(c => c.Miembros.RegionId, Model.RegionCEBLista, "Seleccione",
+                                  new { @class = "form-control" })
+                                <span asp-validation-for="Miembros.RegionId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                Imagen
+                            </div>
+                            <div class="col-8">
+                                <input type="file" name="files" id="escogerImg" multiple class="form-control" />
+                            </div>
+                        </div>
+            
+
+                        <div class="form-group row">
+                            <div class="col-8 offset-4">
+                                @if (Model.Miembros.Id != 0)
+                                {
+                                    <partial name="_BotonesActualizarYRegresar" model="Model.Miembros.Id" />
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="submit" onclick="return validarEntrada()" class="btn btn-primary form-control">Crear</button>
+                                        </div>
+                                        <div class="col">
+                                            <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="col-md-4">
+                @if (Model.Miembros.Id != 0)
+                    {
+                        <img src="@Model.Miembros.ImagenUrl" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />
                     }
                 </div>
             </div>
 
-        </div>       
 
-        @if (Model.Miembros.Id != 0)
-        {
-            <div class="col-3">
-                <img src="@Model.Miembros.ImagenUrl" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />
-            </div>
-        }
+
 
     </form>
 

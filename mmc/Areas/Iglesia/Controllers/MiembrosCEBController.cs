@@ -33,6 +33,15 @@ namespace mmc.Areas.Iglesia.Controllers
         {
             return View();
         }
+        public IActionResult Regionales()
+        {
+            return View();
+        }
+
+        public IActionResult CEBporLider(int id)
+        {
+            return View();
+        }
 
         public IActionResult Upsert(int? id)
         {
@@ -163,6 +172,7 @@ namespace mmc.Areas.Iglesia.Controllers
                             on m.CargosCEBId equals p.Id
                           join r in _unidadTrabajo.RegionCEB.ObtenerTodos()
                             on m.RegionId equals r.Id
+                        where m.CargosCEBId == 3
                             orderby r.RegionName descending
                       select new
                       {     
@@ -176,6 +186,111 @@ namespace mmc.Areas.Iglesia.Controllers
                           p.Cargos,
                           r.RegionName
                       };
+
+            return Json(new { data = todos });
+        }
+        [HttpGet]
+        public IActionResult CEBporLiderVista(int id)
+        {
+            var casas = from ceb in _unidadTrabajo.CasaEstudio.ObtenerTodos()
+                        join tipo in _unidadTrabajo.TiposCEB.ObtenerTodos()
+                          on ceb.TipoCebId equals tipo.Id
+                        join m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
+                          on ceb.MiembrosCEBid equals m.Id
+                        //where m.Id == 3
+                        orderby ceb.Fecha ascending
+                        select new
+                        {
+                            //casaEstudio = ceb,
+                            //TiposCEB = tipo,
+                            //MiembrosCEB = m
+                            ceb.Id,
+                            ceb.Fecha,
+                            ceb.Hora,
+                            ceb.TotalCristianos,
+                            ceb.NoCristianos,
+                            ceb.Ninos,
+                            ceb.total,
+                            ceb.Convertidos,
+                            ceb.Reconciliados,
+                            ceb.Ofrenda,
+                            ceb.Estado,
+                            ceb.ImagenUrl,
+                            tipo.Tipo,
+                            m.Name
+                        };
+            ViewData["prueba"] = casas;
+            var list = new List<ViewCEBVM>();
+            //CEB_VM model2 = new CEB_VM();
+            foreach(var c in casas)
+            {
+                ViewCEBVM model = new ViewCEBVM();
+                model.id = c.Id;
+                model.fecha = c.Fecha;
+                model.hora = c.Hora;
+                model.totalCristianos = c.TotalCristianos;
+                model.noCristianos=c.NoCristianos;
+                model.ninos = c.Ninos;
+                model.total = c.total;
+                model.tipo = c.Tipo;
+                model.name = c.Name;
+                list.Add(model);
+            }
+
+            //list.Add(modellist
+            ViewData["For"] = list;
+            //casas.ToList().ForEach(cas => cas.casaEstudio.Id)
+            //model.fecha = casas;
+
+            //return Json(new { data = casas });
+            return View(list);
+        }
+
+        public IActionResult ObtenerRegional()
+        {
+            var todos = from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
+                        join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
+                          on m.CargosCEBId equals p.Id
+                        join r in _unidadTrabajo.RegionCEB.ObtenerTodos()
+                          on m.RegionId equals r.Id
+                        where m.CargosCEBId == 1
+                        orderby r.RegionName descending
+                        select new
+                        {
+                            m.Id,
+                            m.Name,
+                            m.lastName,
+                            m.Addres,
+                            m.phone,
+                            m.phone2,
+                            m.DPI,
+                            p.Cargos,
+                            r.RegionName
+                        };
+
+            return Json(new { data = todos });
+        }
+        public IActionResult ObtenerAyudas()
+        {
+            var todos = from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
+                        join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
+                          on m.CargosCEBId equals p.Id
+                        join r in _unidadTrabajo.RegionCEB.ObtenerTodos()
+                          on m.RegionId equals r.Id
+                        where m.CargosCEBId == 2
+                        orderby r.RegionName descending
+                        select new
+                        {
+                            m.Id,
+                            m.Name,
+                            m.lastName,
+                            m.Addres,
+                            m.phone,
+                            m.phone2,
+                            m.DPI,
+                            p.Cargos,
+                            r.RegionName
+                        };
 
             return Json(new { data = todos });
         }

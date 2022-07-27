@@ -1,0 +1,108 @@
+﻿@model IEnumerable<mmc.Modelos.ViewModels.ViewCEBVM>
+
+@{
+    ViewData["Title"] = "CEBporLiderjson";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CEBporLiderjson</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.totalCristianos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.noCristianos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ninos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.convertidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reconciliados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ofrenda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imagenUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalCristianos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.noCristianos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ninos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.convertidos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reconciliados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ofrenda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imagenUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

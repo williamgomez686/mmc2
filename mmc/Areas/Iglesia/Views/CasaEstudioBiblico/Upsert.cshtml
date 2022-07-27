@@ -1,0 +1,185 @@
+﻿@model mmc.Modelos.ViewModels.CEB_VM
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var titulo = "Crear Casa de Estudio Biblico";
+}
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="row p-3 border-0">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
+        @if (Model.CasaEstudioBiblico.Id != 0)
+        {
+            // Actualizar
+            titulo = "Actualizar Producto";
+            <input type="hidden" asp-for="CasaEstudioBiblico.Id" />
+        }
+
+
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@titulo</h2>
+        </div>
+        <div class="col-md-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.Fecha"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CasaEstudioBiblico.Fecha" class="form-control" />
+                    <span asp-validation-for="CasaEstudioBiblico.Fecha" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.Hora"></label>
+                </div>
+                <div class="col-8">
+                    
+                    <input type="time" name="CasaEstudioBiblico.Hora" min="12:00" />
+                    <span asp-validation-for="CasaEstudioBiblico.Hora" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.TotalCristianos"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CasaEstudioBiblico.TotalCristianos" class="form-control" />
+                    <span asp-validation-for="CasaEstudioBiblico.TotalCristianos" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.NoCristianos"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CasaEstudioBiblico.NoCristianos" class="form-control" />
+                    <span asp-validation-for="CasaEstudioBiblico.NoCristianos" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.Ninos"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CasaEstudioBiblico.Ninos" class="form-control" />
+                    <span asp-validation-for="CasaEstudioBiblico.Ninos" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.Convertidos"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CasaEstudioBiblico.Convertidos" class="form-control" />
+                    <span asp-validation-for="CasaEstudioBiblico.Convertidos" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.Reconciliados"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CasaEstudioBiblico.Reconciliados" class="form-control" />
+                    <span asp-validation-for="CasaEstudioBiblico.Reconciliados" class="text-danger"></span>
+                </div>
+            </div>
+
+             <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="CasaEstudioBiblico.Ofrenda"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="CasaEstudioBiblico.Ofrenda" class="form-control" />
+                    <span asp-validation-for="CasaEstudioBiblico.Ofrenda" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    Tipo de casas
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(c => c.CasaEstudioBiblico.TipoCebId, Model.TipoCEBLista, "Seleccione",
+                      new { @class = "form-control" })
+                    <span asp-validation-for="CasaEstudioBiblico.TipoCebId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    Lider
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(c => c.CasaEstudioBiblico.MiembrosCEBid, Model.MiembroCEBLista, "Seleccione",
+                      new { @class = "form-control" })
+                    <span asp-validation-for="CasaEstudioBiblico.MiembrosCEBid" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    Imagen
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" id="escogerImg2" multiple class="form-control" />
+                </div>
+            </div>           
+
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    @if (Model.CasaEstudioBiblico.Id != 0)
+                    {
+                        <partial name="_BotonesActualizarYRegresar" model="Model.CasaEstudioBiblico.Id" />
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" onclick="return validarEntrada()" class="btn btn-primary form-control">Crear</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>       
+
+        @if (Model.CasaEstudioBiblico.Id != 0)
+        {
+            <div class="col-3">
+                <img src="@Model.CasaEstudioBiblico.ImagenUrl" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+        }
+
+    </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+<script>
+    function validarEntrada() {
+        if (document.getElementById("escogerImg").value == "") {
+            swal("Error", "Seleccione una Imagen", "error");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+}
+
+
+
+
+
+

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 
 </head>
 <body>
@@ -53,8 +54,9 @@
                                     <a class="dropdown-item" asp-area="Iglesia" asp-controller="PrivilegioCEB" asp-action="Index">Privilegios</a>
                                     <a class="dropdown-item" asp-area="Iglesia" asp-controller="TipoCEB" asp-action="Index">Tipos</a>
                                     <a class="dropdown-item" asp-area="Iglesia" asp-controller="RegionesCEB" asp-action="Index">Regiones</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Index">Miembros</a>
-                                    <a class="dropdown-item" href="#">CEB</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Index">Lideres</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Regionales">Regionales</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="CasaEstudioBiblico" asp-action="Index">CEB</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Reportes</a>
                                 </div>
@@ -100,7 +102,7 @@
 
     <footer class="border-top footer text-muted bg-primary text-white-50">
         <div class="container">
-            &copy; 2021 - mmc
+            &copy; 2022 - mmc
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -7,35 +7,34 @@ $(document).ready(function () {
 function loadDataTable() {
     datatable = $('#tblDatos').DataTable({
         "ajax": {
-            "url": "/Iglesia/MiembrosCEB/ObtenerTodos"
+            "url": "/Iglesia/CasaEstudioBiblico/ObtenerTodos"
         },
         "columns": [
+            { "data": "fecha", "width": "10%" },
+            { "data": "totalCristianos", "width": "10%" },
+            { "data": "noCristianos", "width": "10%" },
+            { "data": "ninos", "width": "10%" },
+            { "data": "total", "width": "10%" },
+            { "data": "convertidos", "width": "10%" },
+            { "data": "reconciliados", "width": "8%" },
+            { "data": "ofrenda", "width": "15%" },
+            { "data": "tipo", "width": "20%" },
             { "data": "name", "width": "15%" },
-            { "data": "lastName", "width": "10%" },
-            { "data": "addres", "width": "15%" },
-            { "data": "phone", "width": "10%" },
-            { "data": "phone2", "width": "10%" },
-            { "data": "dpi", "width": "10%" },
-            { "data": "cargos", "width": "8%" },
-            { "data": "regionName", "width": "5%" },
             //{ "data": "marca.nombre", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
                         <div class="text-center">
-                            <a href="/Iglesia/MiembrosCEB/CEBporLiderjson2/${data}" class="text-primary" style="cursor:pointer">
-                                 <i class="fa-solid fa-house-medical-flag"></i>
-                            </a>
-                            <a href="/Iglesia/MiembrosCEB/Upsert/${data}" class="text-success" style="cursor:pointer">
+                            <a href="/Iglesia/CasaEstudioBiblico/Upsert/${data}" class="text-success" style="cursor:pointer">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a onclick=Delete("/Iglesia/MiembrosCEB/Delete/${data}") class="text-danger" style="cursor:pointer">
+                            <a onclick=Delete("/Iglesia/CasaEstudioBiblico/Delete/${data}") class="text-danger" style="cursor:pointer">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </div>
                         `;
-                }, "width": "10%"
+                }, "width": "15%"
             }
         ]
     });
@@ -45,7 +44,7 @@ function loadDataTable() {
 function Delete(url) {
 
     swal({
-        title: "Esta Seguro que quiere Eliminar la Categoria?",
+        title: "Esta Seguro que quiere Eliminar el registro?",
         text: "Este Registro no se podra recuperar",
         icon: "warning",
         buttons: true,

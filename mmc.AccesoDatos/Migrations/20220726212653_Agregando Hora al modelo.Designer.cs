@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mmc.AccesoDatos.Data;
@@ -9,9 +10,10 @@ using mmc.AccesoDatos.Data;
 namespace mmc.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220726212653_Agregando Hora al modelo")]
+    partial class AgregandoHoraalmodelo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,8 +282,8 @@ namespace mmc.AccesoDatos.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("Hora")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("Hora")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ImagenUrl")
                         .HasColumnType("text");
