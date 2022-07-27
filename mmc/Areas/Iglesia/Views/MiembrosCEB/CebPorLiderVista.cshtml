@@ -6,11 +6,12 @@
 }
 
 
-<h1>CEBporLiderjson</h1>
+<h2 class="text-primary">Casa de Estudio Biblico de @ViewBag.lider @ViewBag.apaellido </h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    <div class="col-11 text-right">
+        <a class="btn btn-primary" href="/Iglesia/CasaEstudioBiblico/UpsertCEBporLider/@ViewBag.id"> <i class="fa-solid fa-house-medical-flag"></i> Añadir Nueva </a>
+    </div>
+
 <table class="table">
     <thead>
         <tr>
@@ -39,13 +40,7 @@
                 @Html.DisplayNameFor(model => model.reconciliados)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ofrenda)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imagenUrl)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.tipo)
@@ -53,7 +48,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -84,13 +79,8 @@
                 @Html.DisplayFor(modelItem => item.reconciliados)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
+                Q
                 @Html.DisplayFor(modelItem => item.ofrenda)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.imagenUrl)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.tipo)
@@ -99,11 +89,45 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <a href="/Iglesia/CasaEstudioBiblico/Upsert/@item.id"><i class="fa-solid fa-pen-to-square text-primary"></i></a>
+                <a asp-action="Details" asp-route-id="@item.id"><i class="fa-solid fa-circle-info text-success"></i></a>
+                <a onclick=Delete("/Iglesia/CasaEstudioBiblico/Delete/@item.id") ><i class="fa-solid fa-trash-can text-danger"></i></a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+    
+function Delete(url) {
+
+    swal({
+        title: "Esta Seguro que quiere Eliminar el registro?",
+        text: "Este Registro no se podra recuperar",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+    }).then((borrar) => {
+        if (borrar) {
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                success: function (data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        datatable.ajax.reload();
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
+    });
+}
+    </script>
+}

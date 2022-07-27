@@ -17,7 +17,7 @@ namespace mmc.Modelos.IglesiaModels
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]          
         public DateTime Fecha { get; set; }
-        public String Hora { get; set; }
+        public string Hora { get; set; }
 
         [Display(Name = "Cristianos")]
         public int TotalCristianos { get; set; }

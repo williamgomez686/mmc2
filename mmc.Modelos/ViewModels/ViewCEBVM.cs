@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,19 +9,32 @@ namespace mmc.Modelos.ViewModels
 {
     public class ViewCEBVM
     {
-            public int id { get; set; }
-            public DateTime fecha { get; set; }
-            public string hora { get; set; }
-            public int totalCristianos { get; set; }
-            public int noCristianos { get; set; }
-            public int ninos { get; set; }
-            public int total { get; set; }
-            public int convertidos { get; set; }
-            public int reconciliados { get; set; }
-            public int ofrenda { get; set; }
-            public bool estado { get; set; }
-            public object imagenUrl { get; set; }
-            public string tipo { get; set; }
-            public string name { get; set; }
+        public int id { get; set; }
+        [Display(Name = "Fecha")]
+        public DateTime fecha { get; set; }
+        [Display(Name = "Hora")]
+        public string hora { get; set; }
+        [Display(Name = "Cristianos")]
+        public int totalCristianos { get; set; }
+        [Display(Name = "Inconversos")]
+        public int noCristianos { get; set; }
+        [Display(Name = "Niños")]
+        public int ninos { get; set; }
+        [Display(Name = "Total")]
+        public int total { get; set; }
+        [Display(Name = "Convertidos")]
+        public int convertidos { get; set; }
+        [Display(Name = "Reconcilia")]
+        public int reconciliados { get; set; }
+        [Display(Name = "Ofrenda")]
+        public float ofrenda { get; set; }
+        [Display(Name = "Estado")]
+        public bool estado { get; set; }
+        [Display(Name = "Imagen")]
+        public object imagenUrl { get; set; }
+        [Display(Name = "Casa")]
+        public string tipo { get; set; }
+        [Display(Name = "Lider")]
+        public string name { get; set; }
     }
 }

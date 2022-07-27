@@ -24,7 +24,7 @@ function loadDataTable() {
                 "render": function (data) {
                     return `
                         <div class="text-center">
-                            <a href="/Iglesia/MiembrosCEB/CEBporLiderjson2/${data}" class="text-primary" style="cursor:pointer">
+                            <a href="/Iglesia/MiembrosCEB/CEBporLiderVista/${data}" class="text-primary" style="cursor:pointer">
                                  <i class="fa-solid fa-house-medical-flag"></i>
                             </a>
                             <a href="/Iglesia/MiembrosCEB/Upsert/${data}" class="text-success" style="cursor:pointer">
@@ -45,7 +45,7 @@ function loadDataTable() {
 function Delete(url) {
 
     swal({
-        title: "Esta Seguro que quiere Eliminar la Categoria?",
+        title: "Esta Seguro que quiere Eliminar a este Lider?",
         text: "Este Registro no se podra recuperar",
         icon: "warning",
         buttons: true,

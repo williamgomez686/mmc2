@@ -3,7 +3,7 @@
 @{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var titulo = "Crear Nuevo Miembro";
+    var titulo = "Crear Nuevo Lider";
 }
 
     <form method="post" enctype="multipart/form-data">
@@ -13,7 +13,7 @@
         @if (Model.Miembros.Id != 0)
         {
             // Actualizar
-            titulo = "Actualizar Producto";
+            titulo = "Actualizar Lider";
             <input type="hidden" asp-for="Miembros.Id" />
         }
 

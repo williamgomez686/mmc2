@@ -192,18 +192,20 @@ namespace mmc.Areas.Iglesia.Controllers
         [HttpGet]
         public IActionResult CEBporLiderVista(int id)
         {
+            ViewBag.id = id;
+            var nombre = _unidadTrabajo.MiembrosCEB.Obtener(id);
+            ViewBag.lider = nombre.Name;
+            ViewBag.apaellido = nombre.lastName;
+
             var casas = from ceb in _unidadTrabajo.CasaEstudio.ObtenerTodos()
                         join tipo in _unidadTrabajo.TiposCEB.ObtenerTodos()
                           on ceb.TipoCebId equals tipo.Id
                         join m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
                           on ceb.MiembrosCEBid equals m.Id
-                        //where m.Id == 3
+                        where m.Id == id
                         orderby ceb.Fecha ascending
                         select new
                         {
-                            //casaEstudio = ceb,
-                            //TiposCEB = tipo,
-                            //MiembrosCEB = m
                             ceb.Id,
                             ceb.Fecha,
                             ceb.Hora,
@@ -219,9 +221,8 @@ namespace mmc.Areas.Iglesia.Controllers
                             tipo.Tipo,
                             m.Name
                         };
-            ViewData["prueba"] = casas;
+
             var list = new List<ViewCEBVM>();
-            //CEB_VM model2 = new CEB_VM();
             foreach(var c in casas)
             {
                 ViewCEBVM model = new ViewCEBVM();
@@ -232,17 +233,16 @@ namespace mmc.Areas.Iglesia.Controllers
                 model.noCristianos=c.NoCristianos;
                 model.ninos = c.Ninos;
                 model.total = c.total;
+                model.convertidos = c.Convertidos;
+                model.reconciliados = c.Reconciliados;
+                model.ofrenda = c.Ofrenda;
+                model.estado = c.Estado;
+                model.imagenUrl = c.ImagenUrl;
                 model.tipo = c.Tipo;
                 model.name = c.Name;
-                list.Add(model);
+                list.Add(model);   
             }
 
-            //list.Add(modellist
-            ViewData["For"] = list;
-            //casas.ToList().ForEach(cas => cas.casaEstudio.Id)
-            //model.fecha = casas;
-
-            //return Json(new { data = casas });
             return View(list);
         }
 
