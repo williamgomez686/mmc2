@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using mmc.AccesoDatos.Data;
+using mmc.AccesoDatos.Repositorios.IRepositorio;
+using mmc.Modelos.IglesiaModels;
 using mmc.Modelos.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,15 +16,21 @@ namespace mmc.Areas.HelpDesk.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnidadTrabajo _unidadTrabajo;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnidadTrabajo unidadTrabajo, ApplicationDbContext db)
         {
             _logger = logger;
+            _unidadTrabajo = unidadTrabajo;
+            _db = db;   
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<MiembrosCEB> MiebrosList = _unidadTrabajo.MiembrosCEB.ObtenerTodos();//(incluirPropiedades: "Categoria,Marca");
+
+            return View(MiebrosList);
         }
 
         public IActionResult Privacy()

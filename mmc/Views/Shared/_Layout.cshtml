@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - mmc</title>
+    <title>@ViewData["Title"] - Iglesia</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
@@ -27,7 +27,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia))
+                        {
+                           <li class="nav-item dropdown bg-primary">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Iglesia
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="PrivilegioCEB" asp-action="Index">Privilegios</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="TipoCEB" asp-action="Index">Tipos</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="RegionesCEB" asp-action="Index">Regiones</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Index">Lideres</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Regionales">Regionales</a>
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="CasaEstudioBiblico" asp-action="Index">CEB</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Reportes</a>
+                                </div>
+                            </li>
+                            }
                         @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Cliente))
                         {
                             <li class="nav-item dropdown bg-primary">
@@ -43,22 +60,6 @@
                                     <a class="dropdown-item" href="#">Ticket</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Division</a>
-                                </div>
-                            </li>
-
-                             <li class="nav-item dropdown bg-primary">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Iglesia
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="PrivilegioCEB" asp-action="Index">Privilegios</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="TipoCEB" asp-action="Index">Tipos</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="RegionesCEB" asp-action="Index">Regiones</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Index">Lideres</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Regionales">Regionales</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="CasaEstudioBiblico" asp-action="Index">CEB</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Reportes</a>
                                 </div>
                             </li>
 

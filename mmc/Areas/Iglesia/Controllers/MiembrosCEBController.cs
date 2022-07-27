@@ -196,6 +196,7 @@ namespace mmc.Areas.Iglesia.Controllers
             var nombre = _unidadTrabajo.MiembrosCEB.Obtener(id);
             ViewBag.lider = nombre.Name;
             ViewBag.apaellido = nombre.lastName;
+            ViewBag.imagen = nombre.ImagenUrl;
 
             var casas = from ceb in _unidadTrabajo.CasaEstudio.ObtenerTodos()
                         join tipo in _unidadTrabajo.TiposCEB.ObtenerTodos()

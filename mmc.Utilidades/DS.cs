@@ -13,5 +13,7 @@ namespace mmc.Utilidades
         public const string Role_Iglesia = "Iglesia";
         public const string Role_Ticket = "Ticket";
         public const string Role_SeteguaBiblioteca = "Biblioteca";
+        public const string Role_Setegua = "Setegua";
+        public const string Role_Canal27 = "Canal27";
     }
 }

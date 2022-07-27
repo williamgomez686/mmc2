@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var titulo = "Crear Casa de Estudio Biblico por lider";
 }    
+no funciona del lado del lider
     <form method="post" enctype="multipart/form-data">
         <div class="row p-3 border-0">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -131,26 +132,25 @@
             </div>           
 
             <div class="form-group row">
-                <div class="col-8 offset-4">
+                <div class="col-10 ">
                     @if (Model.CasaEstudioBiblico.Id != 0)
                     {
-                        <div class="col">
+                        <div class="col-md-4">
                             <button type="submit" class="btn btn-primary form-control">Crear sin Parsial</button>
                         </div>
-                        <div class="col">
-                            <a asp-action="CEBporLiderVista" class="btn btn-success form-control">Regresar</a>
+                        <div class="col-md-4">
+                            <a asp-action="CEBporLiderVista" class="btn btn-success form-control">Regresar sin Parsial</a>
                     </div>
                 }
-                    else
-                    {
-                     <div class="row">
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary form-control">Crear</button>
-                            </div>
-                            <div class="col">
-                                <a href="/Iglesia/MiembrosCEB/CEBporLiderVista/@ViewBag.idporlider" class="btn btn-danger form-control">Cancelar</a>
-                            </div>  
-                    </div>
+                else
+                {
+                 
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary form-control">Crear sin Parsial</button>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/Iglesia/MiembrosCEB/CEBporLiderVista/@ViewBag.idporlider" class="btn btn-danger form-control">Cancelar</a>
+                        </div> 
                     }
                 </div>
             </div>

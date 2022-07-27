@@ -142,6 +142,8 @@ namespace mmc.Areas.Iglesia.Controllers
             return View(CasaEstudioVM.CasaEstudioBiblico);
         }
 
+
+
         #region creacion de CEB por Lider
         public IActionResult UpsertCEBporLider(int? id)
         {
@@ -159,19 +161,7 @@ namespace mmc.Areas.Iglesia.Controllers
                     Value = m.Id.ToString()                    
                 }),
             };
-
-            //if (id == null)
-            //{
-            //    // Esto es para Crear nuevo Registro
-            //    return View(CasasEstudioVM);
-            //}
-            // Esto es para Actualizar
-            //CasasEstudioVM.CasaEstudioBiblico = _unidadTrabajo.CasaEstudio.Obtener(id.GetValueOrDefault());
-            //if (CasasEstudioVM.CasaEstudioBiblico == null)
-            //{
-            //    return NotFound();
-            //}
-
+            ViewBag.idporlider = id;
             return View(CasasEstudioVM);
         }
 
@@ -205,29 +195,14 @@ namespace mmc.Areas.Iglesia.Controllers
                     }
                     CasaEstudioVM.CasaEstudioBiblico.ImagenUrl = @"\imagenes\Iglesia\CEB\Imagenes\" + filename + extension;
                 }
-                //else
-                //{
-                //    // Si en el Update el usuario no cambia la imagen
-                //    if (CasaEstudioVM.CasaEstudioBiblico.Id != 0)
-                //    {
-                //        CasaEstudioBiblico CasaEstudioDB = _unidadTrabajo.CasaEstudio.Obtener(CasaEstudioVM.CasaEstudioBiblico.Id);
-                //        CasaEstudioVM.CasaEstudioBiblico.ImagenUrl = CasaEstudioDB.ImagenUrl;
-                //    }
-                //}
 
-
-                //if (CasaEstudioVM.CasaEstudioBiblico.Id == 0)
-                //{
                     CasaEstudioVM.CasaEstudioBiblico.Estado = true;
                     CasaEstudioVM.CasaEstudioBiblico.total = CasaEstudioVM.CasaEstudioBiblico.TotalCristianos + CasaEstudioVM.CasaEstudioBiblico.NoCristianos + CasaEstudioVM.CasaEstudioBiblico.Ninos;
                     _unidadTrabajo.CasaEstudio.Agregar(CasaEstudioVM.CasaEstudioBiblico);
-                //}
-                //else
-                //{
-                //    _unidadTrabajo.CasaEstudio.Actualizar(CasaEstudioVM.CasaEstudioBiblico);
-                //}
+
                 _unidadTrabajo.Guardar();
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction( "Index", "MiembrosCEB");
             }
             else
             {

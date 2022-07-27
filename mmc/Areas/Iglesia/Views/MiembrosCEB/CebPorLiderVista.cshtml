@@ -5,12 +5,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h2 class="text-primary">Casa de Estudio Biblico de @ViewBag.lider @ViewBag.apaellido </h2>
-
-    <div class="col-11 text-right">
-        <a class="btn btn-primary" href="/Iglesia/CasaEstudioBiblico/UpsertCEBporLider/@ViewBag.id"> <i class="fa-solid fa-house-medical-flag"></i> Añadir Nueva </a>
+   <div class ="row">
+            <div class="col-md-3">
+                <img src="@ViewBag.imagen" style="width:80%; border-radius:2px; border:1px solid #bbb9b9" />
+            </div>
+            <div class="col-md-8">
+                    <div class="col-md-12">
+                        <h2 class="text-primary"> Casa de Estudio Biblico de @ViewBag.lider @ViewBag.apaellido </h2>
+                    </div>
+                    <div class="col-md-8">
+                        .
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <a class="btn btn-primary" href="/Iglesia/CasaEstudioBiblico/UpsertCEBporLider/@ViewBag.id"> <i class="fa-solid fa-house-medical-flag"></i> Añadir Nueva </a>
+                    </div>
+            </div>
     </div>
+    <hr />
 
 <table class="table">
     <thead>

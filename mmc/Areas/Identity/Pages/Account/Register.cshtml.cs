@@ -156,6 +156,18 @@ namespace mmc.Areas.Identity.Pages.Account
                     {
                         await _roleManager.CreateAsync(new IdentityRole(DS.Role_SeteguaBiblioteca));
                     }
+                    if (!await _roleManager.RoleExistsAsync(DS.Role_Iglesia)) //consulta en nuestro proyecto si el rol exite
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(DS.Role_Iglesia));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(DS.Role_Setegua)) //consulta en nuestro proyecto si el rol exite
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(DS.Role_Setegua));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(DS.Role_Canal27)) //consulta en nuestro proyecto si el rol exite
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(DS.Role_Canal27));
+                    }
 
                     //Se asigna el Rol administrador esto provisional **************************************************
                     //await _userManager.AddToRoleAsync(user, DS.Role_Admin);      
