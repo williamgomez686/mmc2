@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace mmc.Areas.Admin.Controllers
 {
     [Area("Iglesia")]
-    [Authorize(Roles = DS.Role_Admin)]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia)]
     public class PrivilegioCEBController : Controller
     {
         private readonly IUnidadTrabajo _unidadTrabajo;

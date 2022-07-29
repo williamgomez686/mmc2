@@ -80,11 +80,16 @@ namespace mmc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //if (!app.Environment.IsDevelopment())
+            //{
+            //    app.UseHttpsRedirection();
+            //}
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
                 //para desabilitar el https en una aplicacion ***************************************************************CODIGOPARA QUITARHTTPS #3
+                app.UseHttpsRedirection();
                 app.UseForwardedHeaders();
             }
             //if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
@@ -97,6 +102,7 @@ namespace mmc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 //para desabilitar el https en una aplicacion ************************************************************************CODIGOPARA QUITARHTTPS #4
                 app.UseForwardedHeaders();
+                app.UseHttpsRedirection();
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

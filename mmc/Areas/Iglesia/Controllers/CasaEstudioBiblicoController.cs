@@ -16,7 +16,8 @@ using System.Threading.Tasks;
 namespace mmc.Areas.Iglesia.Controllers
 {
     [Area("Iglesia")]
-    [Authorize(Roles = DS.Role_Admin)]
+    //Roles = DS.Role_Admin + "," + DS.Role_Ticket)
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia)]
     public class CasaEstudioBiblicoController : Controller
     {
         private readonly IUnidadTrabajo _unidadTrabajo;

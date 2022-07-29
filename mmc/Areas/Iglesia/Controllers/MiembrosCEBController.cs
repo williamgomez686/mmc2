@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace mmc.Areas.Iglesia.Controllers
 {
     [Area("Iglesia")]
-    [Authorize(Roles = DS.Role_Admin)]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia)]
     public class MiembrosCEBController : Controller
     {
         private readonly IUnidadTrabajo _unidadTrabajo;
@@ -43,9 +43,10 @@ namespace mmc.Areas.Iglesia.Controllers
             return View();
         }
 
+        #region Nuevo UPsert/////////////////////////////////////////////////////////////////////////////////////////////
         public IActionResult Upsert(int? id)
         {
-            MiembroVM MiembrosVM = new MiembroVM()
+            MiembroVM MiembroVM = new MiembroVM()
             {
                 Miembros = new MiembrosCEB(),
                 RegionCEBLista = _unidadTrabajo.RegionCEB.ObtenerTodos().Select(c => new SelectListItem
@@ -66,20 +67,19 @@ namespace mmc.Areas.Iglesia.Controllers
 
             };
 
-
             if (id == null)
             {
                 // Esto es para Crear nuevo Registro
-                return View(MiembrosVM);
+                return View(MiembroVM);
             }
             // Esto es para Actualizar
-            MiembrosVM.Miembros = _unidadTrabajo.MiembrosCEB.Obtener(id.GetValueOrDefault());
-            if (MiembrosVM.Miembros == null)
+            MiembroVM.Miembros = _unidadTrabajo.MiembrosCEB.Obtener(id.GetValueOrDefault());
+            if (MiembroVM.Miembros == null)
             {
                 return NotFound();
             }
 
-            return View(MiembrosVM);
+            return View(MiembroVM);
         }
 
         [HttpPost]
@@ -118,15 +118,14 @@ namespace mmc.Areas.Iglesia.Controllers
                     // Si en el Update el usuario no cambia la imagen
                     if (miembroVM.Miembros.Id != 0)
                     {
-                        MiembrosCEB productoDB = _unidadTrabajo.MiembrosCEB.Obtener(miembroVM.Miembros.Id);
-                        miembroVM.Miembros.ImagenUrl = productoDB.ImagenUrl;
+                        MiembrosCEB MiembroDB = _unidadTrabajo.MiembrosCEB.Obtener(miembroVM.Miembros.Id);
+                        miembroVM.Miembros.ImagenUrl = MiembroDB.ImagenUrl;
                     }
                 }
 
 
                 if (miembroVM.Miembros.Id == 0)
-                {                   
-                    miembroVM.Miembros.Estado = true;
+                {
                     _unidadTrabajo.MiembrosCEB.Agregar(miembroVM.Miembros);
                 }
                 else
@@ -162,17 +161,145 @@ namespace mmc.Areas.Iglesia.Controllers
             }
             return View(miembroVM.Miembros);
         }
+        #endregion
+
+
+        #region Upsert con problemas
+        //public IActionResult Upsert(int? id)
+        //{
+        //    MiembroVM MiembrosVM = new MiembroVM()
+        //    {
+        //        Miembros = new MiembrosCEB(),
+        //        RegionCEBLista = _unidadTrabajo.RegionCEB.ObtenerTodos().Select(c => new SelectListItem
+        //        {
+        //            Text = c.RegionName,
+        //            Value = c.Id.ToString()
+        //        }),
+        //        PrivilegioCEBLista = _unidadTrabajo.PrivilegiosCEB.ObtenerTodos().Select(m => new SelectListItem
+        //        {
+        //            Text = m.Cargos,
+        //            Value = m.Id.ToString()
+        //        }),
+        //        //PadreLista = _unidadTrabajo.Producto.ObtenerTodos().Select(p => new SelectListItem
+        //        //{
+        //        //    Text = p.Descripcion,
+        //        //    Value = p.Id.ToString()
+        //        //})
+
+        //    };
+
+
+        //    if (id == null)
+        //    {
+        //        // Esto es para Crear nuevo Registro
+        //        return View(MiembrosVM);
+        //    }
+        //    // Esto es para Actualizar
+        //    MiembrosVM.Miembros = _unidadTrabajo.MiembrosCEB.Obtener(id.GetValueOrDefault());
+        //    if (MiembrosVM.Miembros == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(MiembrosVM);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Upsert(MiembroVM miembroVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        // Cargar Imagenes
+        //        string webRootPath = _hostEnvironment.WebRootPath;
+        //        var files = HttpContext.Request.Form.Files;
+        //        if (files.Count > 0)
+        //        {
+        //            string filename = Guid.NewGuid().ToString();
+        //            var uploads = Path.Combine(webRootPath, @"imagenes\Iglesia\Miembros\Imagenes");
+        //            var extension = Path.GetExtension(files[0].FileName);
+        //                if (miembroVM.Miembros.ImagenUrl != null)
+        //                {
+        //                    //Esto es para editar, necesitamos borrar la imagen anterior
+        //                    var imagenPath = Path.Combine(webRootPath, miembroVM.Miembros.ImagenUrl.TrimStart('\\'));
+        //                    if (System.IO.File.Exists(imagenPath))
+        //                    {
+        //                        System.IO.File.Delete(imagenPath);
+        //                    }
+        //                }
+
+        //                using (var filesStreams = new FileStream(Path.Combine(uploads, filename + extension), FileMode.Create))
+        //                {
+        //                    files[0].CopyTo(filesStreams);
+        //                }
+        //                miembroVM.Miembros.ImagenUrl = @"\imagenes\Iglesia\Miembros\Imagenes\" + filename + extension;
+        //        }
+        //                else
+        //                {
+        //                    // Si en el Update el usuario no cambia la imagen
+        //                    if (miembroVM.Miembros.Id != 0)
+        //                    {
+        //                        MiembrosCEB productoDB = _unidadTrabajo.MiembrosCEB.Obtener(miembroVM.Miembros.Id);
+        //                        miembroVM.Miembros.ImagenUrl = productoDB.ImagenUrl;
+        //                    }
+        //                }
+
+
+        //        if (miembroVM.Miembros.Id == 0)
+        //        {                   
+        //            miembroVM.Miembros.Estado = true;
+        //            _unidadTrabajo.MiembrosCEB.Agregar(miembroVM.Miembros);
+        //        }
+        //        else
+        //        {
+        //            _unidadTrabajo.MiembrosCEB.Actualizar(miembroVM.Miembros);
+        //        }
+        //        _unidadTrabajo.Guardar();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //        else
+        //        {
+        //            miembroVM.RegionCEBLista = _unidadTrabajo.RegionCEB.ObtenerTodos().Select(c => new SelectListItem
+        //            {
+        //                Text = c.RegionName,
+        //                Value = c.Id.ToString()
+        //            });
+        //            miembroVM.PrivilegioCEBLista = _unidadTrabajo.PrivilegiosCEB.ObtenerTodos().Select(m => new SelectListItem
+        //            {
+        //                Text = m.Cargos,
+        //                Value = m.Id.ToString()
+        //            });
+        //            //miembroVM.PadreLista = _unidadTrabajo.Producto.ObtenerTodos().Select(p => new SelectListItem
+        //            //{
+        //            //    Text = p.Descripcion,
+        //            //    Value = p.Id.ToString()
+        //            //});
+
+        //            if (miembroVM.Miembros.Id != 0)
+        //            {
+        //                miembroVM.Miembros = _unidadTrabajo.MiembrosCEB.Obtener(miembroVM.Miembros.Id);
+        //            }
+
+        //        }
+        //    return View(miembroVM.Miembros);
+        //}
+        #endregion
+
+
 
         #region API
         [HttpGet]
         public IActionResult ObtenerTodos()
         {
+            //var cargos 
+
             var todos = from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
                           join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
                             on m.CargosCEBId equals p.Id
                           join r in _unidadTrabajo.RegionCEB.ObtenerTodos()
                             on m.RegionId equals r.Id
-                        where m.CargosCEBId == 3
+                        where p.Id == 3
                             orderby r.RegionName descending
                       select new
                       {     
