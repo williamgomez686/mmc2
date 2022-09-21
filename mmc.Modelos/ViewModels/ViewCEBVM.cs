@@ -27,7 +27,7 @@ namespace mmc.Modelos.ViewModels
         [Display(Name = "Reconcilia")]
         public int reconciliados { get; set; }
         [Display(Name = "Ofrenda")]
-        public float ofrenda { get; set; }
+        public Double ofrenda { get; set; }
         [Display(Name = "Estado")]
         public bool estado { get; set; }
         [Display(Name = "Imagen")]

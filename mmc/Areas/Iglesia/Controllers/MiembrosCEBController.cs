@@ -126,6 +126,7 @@ namespace mmc.Areas.Iglesia.Controllers
 
                 if (miembroVM.Miembros.Id == 0)
                 {
+                    miembroVM.Miembros.Estado=true;
                     _unidadTrabajo.MiembrosCEB.Agregar(miembroVM.Miembros);
                 }
                 else

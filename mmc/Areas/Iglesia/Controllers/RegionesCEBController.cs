@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
 using mmc.Modelos;
 using mmc.Modelos.IglesiaModels;
+using mmc.Modelos.ViewModels;
 using mmc.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,9 @@ namespace mmc.Areas.Admin.Controllers
             {
                 if (oRegion.Id == 0)
                 {
+                     var UserAp = User.Identity.Name;//obtiene el nombre del usuario de la session activa
+                    oRegion.hihgUser=UserAp;
+                    oRegion.Date = DateTime.Now;
                     _unidadTrabajo.RegionCEB.Agregar(oRegion);
                 }
                 else
@@ -64,6 +68,41 @@ namespace mmc.Areas.Admin.Controllers
             }
             return View(oRegion);
         }
+
+        // EN ESTA PARTE va la pantalla principal de llenado 
+        #region RegionesyCEB
+        public IActionResult Regiones(int id)
+        {
+            var region = _unidadTrabajo.RegionCEB.Obtener(id);
+            ViewBag.region=region.RegionName;
+
+            var consulta = (from rc in _unidadTrabajo.RegionCEB.ObtenerTodos()
+                                join m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
+                                    on rc.Id equals m.RegionId
+                                join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
+                                    on m.CargosCEBId equals p.Id
+                                where rc.Id == id
+                                orderby p.Cargos descending
+                                select new {
+                                    m.Id, rc.RegionName, m.Name, m.lastName, m.Addres, m.phone, p.Cargos
+                                }     
+                            ).ToList();
+            var VMdata = new List<RegionFromVM>();
+            foreach(var item in consulta)
+            {
+                RegionFromVM result = new RegionFromVM();
+                result.id = item.Id;
+                result.NombreRegion = item.RegionName;
+                result.NombreServidor = item.Name;
+                result.ApellidoServidor = item.lastName;
+                result.Direccion = item.Addres;
+                result.Phone = item.phone;
+                result.Cargos = item.Cargos;
+                VMdata.Add(result);
+            }
+            return View(VMdata.ToList());
+        }
+        #endregion
 
         #region API
         [HttpGet]

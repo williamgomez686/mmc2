@@ -1,0 +1,65 @@
+﻿@model IEnumerable<mmc.Modelos.ViewModels.RegionFromVM>
+
+
+<h4 class="text-center text-primary">IGLESIA DE JESUCRISTO LA FAMILIA DE DIOS</h1>
+<div class="text-center h4">@ViewBag.region</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.NombreServidor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.ApellidoServidor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.Cargos)
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreServidor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApellidoServidor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cargos)
+            </td>
+            <td>
+                 <a href="/Iglesia/MiembrosCEB/CEBporLiderVista/@item.id" class="text-primary" style="cursor:pointer">
+                                 <i class="fa-solid fa-house-medical-flag"></i></a>|
+                <a href="/Iglesia/MiembrosCEB/Upsert/@item.id" class="text-success" style="cursor:pointer">
+                                <i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+        }
+      </tbody>
+
+</table>
+

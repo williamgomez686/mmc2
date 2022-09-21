@@ -19,16 +19,13 @@
                             <p>Telefono: <b> @Lider.phone</b></p>
                         </div>
                         <div style="padding-left:5px;">
-                            <p>Region: <b> @Lider.RegionId @Lider.Id</b></p>
+                            <p>Region: <b> @Lider.RegionId</b></p>
                         </div>
                     </div>
                     <div>
-                        <a asp-action="Detalle" class="btn btn-primary form-control" asp-route-id="@Lider.Id">Detalle</a>
+                        <a href="/Iglesia/MiembrosCEB/Upsert/@Lider.Id"  class="btn btn-primary form-control">Detalles</a>
                     </div>
 
-                            <a  href="/Iglesia/MiembrosCEB/Upsert/@Lider.Id" class="text-primary" style="cursor:pointer">
-                                 <i class="fa-solid fa-house-medical-flag"></i>
-                            </a>
                 </div>
             </div>
         </div>

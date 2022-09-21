@@ -32,7 +32,7 @@ namespace mmc.Modelos.IglesiaModels
         public int Reconciliados { get; set; }
         public bool Estado { get; set; }
         [Display(Name = "Ofrenda")]
-        public float Ofrenda { get; set; }
+        public double Ofrenda { get; set; }
         public string? ImagenUrl { get; set; }
         //llave foranea de Tipo *********************************
         [Display(Name = "Tipo")]
