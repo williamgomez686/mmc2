@@ -1,0 +1,131 @@
+﻿@model IEnumerable<mmc.Modelos.IglesiaModels.CEB_DET>
+
+@{
+    ViewData["Title"] = "Lider de Casa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <img src="@ViewBag.imagen" style="width:80%; border-radius:2px; border:1px solid #bbb9b9" />
+    </div>
+    <div class="col-md-8">
+        <div class="col-md-12">
+            <h2 class="text-primary"> Casa de Estudio Biblico de @ViewBag.lider @ViewBag.apaellido </h2>
+        </div>
+        <div class="col-md-8 text-primary h5">
+            <b> Dia:</b> @ViewBag.cabDia <br />
+            <b>Hora:</b> @ViewBag.cabHora <br />
+            <b>Tipo de casa:</b> @ViewBag.cabTipo <br />
+            <b>Cargo</b>: @ViewBag.cabCargo <br />
+        </div>
+        <div class="col-md-12 text-right">
+            <a class="btn btn-primary" href="/Iglesia/CasaEstudioBiblico/UpsertCEBporLider/@ViewBag.id"> <i class="fa-solid fa-house-medical-flag"></i> Añadir Nueva </a>
+        </div>
+        <div class="col-md-12 text-right">
+            <a class="btn btn-primary" href="/Iglesia/CEBRegiones/AddDet/@ViewBag.id"> <i class="fa-solid fa-house-medical-flag"></i> Añadir Nueva </a>
+        </div>
+    </div>
+</div>
+<hr />
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cistianos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoCistianos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ninios)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Convertidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reconcilia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ofrenda)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cistianos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoCistianos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ninios)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Convertidos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reconcilia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ofrenda)
+                </td>
+                <td>
+                    <a href="/Iglesia/CasaEstudioBiblico/Upsert/@item.Id"><i class="fa-solid fa-pen-to-square text-primary"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-circle-info text-success"></i></a>
+                    <a onclick=Delete("/Iglesia/CasaEstudioBiblico/Delete/@item.Id")><i class="fa-solid fa-trash-can text-danger"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        function Delete(url) {
+
+            swal({
+                title: "Esta Seguro que quiere Eliminar el registro?",
+                text: "Este Registro no se podra recuperar",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then((borrar) => {
+                if (borrar) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        success: function (data) {
+                            if (data.success) {
+                                toastr.success(data.message);
+                                datatable.ajax.reload();
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

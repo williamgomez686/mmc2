@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mmc.AccesoDatos.Data;
@@ -9,14 +10,15 @@ using mmc.AccesoDatos.Data;
 namespace mmc.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220921160903_pruebas21092022")]
+    partial class pruebas21092022
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.17")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -271,6 +273,9 @@ namespace mmc.AccesoDatos.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("Ceb_Detalle")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("Estado")
                         .HasColumnType("boolean");
 
@@ -279,9 +284,6 @@ namespace mmc.AccesoDatos.Migrations
 
                     b.Property<DateTime>("Fechamodifica")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Foto")
-                        .HasColumnType("text");
 
                     b.Property<string>("Hora")
                         .HasColumnType("text");
@@ -296,9 +298,6 @@ namespace mmc.AccesoDatos.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("UsuarioModifica")
-                        .HasColumnType("text");
-
-                    b.Property<string>("dia")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -317,7 +316,7 @@ namespace mmc.AccesoDatos.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("CEBid")
+                    b.Property<int?>("Ceb_Detalle")
                         .HasColumnType("integer");
 
                     b.Property<int>("Cistianos")
@@ -361,7 +360,7 @@ namespace mmc.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CEBid");
+                    b.HasIndex("Ceb_Detalle");
 
                     b.ToTable("CEB_DETs");
                 });
@@ -725,13 +724,9 @@ namespace mmc.AccesoDatos.Migrations
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_DET", b =>
                 {
-                    b.HasOne("mmc.Modelos.IglesiaModels.CEB_CAB", "Cabecera")
-                        .WithMany()
-                        .HasForeignKey("CEBid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cabecera");
+                    b.HasOne("mmc.Modelos.IglesiaModels.CEB_CAB", null)
+                        .WithMany("Detalle")
+                        .HasForeignKey("Ceb_Detalle");
                 });
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CasaEstudioBiblico", b =>
@@ -795,6 +790,11 @@ namespace mmc.AccesoDatos.Migrations
                     b.Navigation("Marca");
 
                     b.Navigation("Padre");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_CAB", b =>
+                {
+                    b.Navigation("Detalle");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using mmc.AccesoDatos.Data;
@@ -9,9 +10,10 @@ using mmc.AccesoDatos.Data;
 namespace mmc.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220922164022_preuba con cab y det en ceb")]
+    partial class preubaconcabydetenceb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,9 +298,6 @@ namespace mmc.AccesoDatos.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("UsuarioModifica")
-                        .HasColumnType("text");
-
-                    b.Property<string>("dia")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

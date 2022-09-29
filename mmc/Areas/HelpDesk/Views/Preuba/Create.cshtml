@@ -1,0 +1,77 @@
+﻿@model mmc.Modelos.IglesiaModels.CEB_CAB
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>CEB_CAB</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Hora" class="control-label"></label>
+                <input asp-for="Hora" class="form-control" />
+                <span asp-validation-for="Hora" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Foto" class="control-label"></label>
+                <input asp-for="Foto" class="form-control" />
+                <span asp-validation-for="Foto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dia" class="control-label"></label>
+                <input asp-for="dia" class="form-control" />
+                <span asp-validation-for="dia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoCebId" class="control-label"></label>
+                <select asp-for="TipoCebId" class ="form-control" asp-items="ViewBag.TipoCebId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiembrosCEBid" class="control-label"></label>
+                <select asp-for="MiembrosCEBid" class ="form-control" asp-items="ViewBag.MiembrosCEBid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Usuario" class="control-label"></label>
+                <input asp-for="Usuario" class="form-control" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsuarioModifica" class="control-label"></label>
+                <input asp-for="UsuarioModifica" class="form-control" />
+                <span asp-validation-for="UsuarioModifica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaAlta" class="control-label"></label>
+                <input asp-for="FechaAlta" class="form-control" />
+                <span asp-validation-for="FechaAlta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fechamodifica" class="control-label"></label>
+                <input asp-for="Fechamodifica" class="form-control" />
+                <span asp-validation-for="Fechamodifica" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

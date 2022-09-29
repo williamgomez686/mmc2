@@ -28,8 +28,9 @@ function loadDataTable() {
                 "render": function (data) {
                     return `
                         <div class="text-center">
-                            <a href="/Iglesia/RegionesCEB/Regiones/${data}" class="btn btn-primary text-white" style="cursor:pointer">
-                            <i class="fa-solid fa-house-flag"></i></a>                               
+                            <a href="/Iglesia/CEBRegiones/index/${data}" class="btn btn-primary text-white" style="cursor:pointer">
+                            <i class="fa-solid fa-house-flag"></i></a>
+
                             <a href="/Iglesia/RegionesCEB/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                 <i class="fas fa-edit"></i></a>
 

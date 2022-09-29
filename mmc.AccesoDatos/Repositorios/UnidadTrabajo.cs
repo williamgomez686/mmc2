@@ -1,5 +1,6 @@
 ﻿using mmc.AccesoDatos.Data;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
+using mmc.Modelos.IglesiaModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace mmc.AccesoDatos.Repositorios
         public IRegionCEBRepositorio RegionCEB { get; set; }
         public IMiembrosCEBRepositorio MiembrosCEB { get; set; }
         public ICasaEstudioBiblicoRepositorio CasaEstudio {get; set;}
+        public ICEB_CABRpositorio CEB_CAB { get; set;}
+        public ICEB_DETRepositorio CEB_DET { get; set;}
 
         public UnidadTrabajo(ApplicationDbContext db)//Creamos el constructor
         {
@@ -40,6 +43,8 @@ namespace mmc.AccesoDatos.Repositorios
             RegionCEB = new RegionCEBRepositorio(_db);
             MiembrosCEB = new MiembrosCEBRepositorio(_db);
             CasaEstudio = new CasaEstudioBiblicoRepositorio(_db);
+            CEB_CAB = new CEB_CABRepositorio(_db);
+            CEB_DET = new CAB_DETRepositorio(_db);
         }
 
         public void Guardar()

@@ -1,0 +1,120 @@
+﻿@model mmc.Modelos.ViewModels.IglesiaVM.Ceb_DetVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var titulo = "Crear Casa de Estudio Biblico";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.CasaEstudioDet.Id != 0)
+    {
+        // Actualizar
+        titulo = "Actualizar Casa de Estudio Biblico";
+        <input type="hidden" asp-for="CasaEstudioDet.Id" />
+    }
+
+
+    <div class="col-12 border-bottom">
+        <h2 class="text-primary">@titulo</h2>
+    </div>
+    <div class="col-md-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.Cistianos"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.Cistianos" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.Cistianos" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.NoCistianos"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.NoCistianos" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.NoCistianos" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                Tipo de casas
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(c => c.CasaEstudioDet.Cabecera, Model.Cabeceraid, "Seleccione",
+                new { @class = "form-control" })
+                <span asp-validation-for="CasaEstudioDet.Cabecera" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CasaEstudioDet.CEBid" class="control-label"></label>
+            <select asp-for="CasaEstudioDet.CEBid" class="form-control" asp-items="ViewBag.CEBid"></select>
+        </div>
+       
+        <div class="form-group row">
+            <div class="col-4">
+                Imagen
+            </div>
+            <div class="col-8">
+                <input type="file" name="files" id="escogerImg2" multiple class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.CasaEstudioDet.Id != 0)
+                {
+                    <partial name="_BotonesActualizarYRegresar" model="Model.CasaEstudioDet.Id" />
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" onclick="return validarEntrada()" class="btn btn-primary form-control">Crear</button>
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    @if (Model.CasaEstudioDet.Id != 0)
+    {
+        <div class="col-3">
+            <img src="@Model.CasaEstudioDet.Foto" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+    }
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+        function validarEntrada() {
+            if (document.getElementById("escogerImg").value == "") {
+                swal("Error", "Seleccione una Imagen", "error");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+}
+
+
+
+
+
+

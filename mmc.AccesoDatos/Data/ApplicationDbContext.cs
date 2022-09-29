@@ -31,6 +31,8 @@ namespace mmc.AccesoDatos.Data
         public DbSet<RegionesCEB> RegionesCEB { get; set; }
         public DbSet<MiembrosCEB> Miembros { get; set; }
         public DbSet<CasaEstudioBiblico> CasasEstudioBiblico { get; set; }
+        public DbSet<CEB_CAB> CEB_CABs { get; set; }
+        public DbSet<CEB_DET> CEB_DETs { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

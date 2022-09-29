@@ -1,0 +1,116 @@
+﻿@model mmc.Modelos.ViewModels.IglesiaVM.Ceb_DetVM
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var titulo = "Crear nuevo registro";
+}
+
+<form method="post">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.CasaEstudioDet.Id != 0)
+    {
+        // Actualizar
+        titulo = "Actualizar Registro";
+    }
+
+    <div class="col-12 border-bottom">
+        <h2 class="text-primary">@titulo</h2>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-4">
+            Tipo de casas
+        </div>
+        <div class="col-8">
+            @Html.DropDownListFor(c => c.CasaEstudioDet.CEBid, Model.Cabeceraid, "Seleccione",
+            new { @class = "form-control" })
+            <span asp-validation-for="CasaEstudioDet.CEBid" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.Cistianos"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.Cistianos" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.Cistianos" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.NoCistianos"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.NoCistianos" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.NoCistianos" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.Ninios"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.Ninios" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.Ninios" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.Convertidos"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.Convertidos" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.Convertidos" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.Reconcilia"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.Reconcilia" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.Reconcilia" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.Ofrenda"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.Ofrenda" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.Ofrenda" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.CasaEstudioDet.Id != 0)
+                {
+                    <partial name="_BotonesActualizarYRegresar" model="Model.CasaEstudioDet.Id" />
+                }
+                else
+                {
+                    <partial name="_BotonesCrearYRegresar" />
+                }
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<mmc.Modelos.ViewModels.IglesiaVM.CebLiderPrivilegioVM>
+
+<h4 class="text-center text-primary">IGLESIA DE JESUCRISTO LA FAMILIA DE DIOS.</h4>
+    <div class="text-center h4">@ViewBag.region</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Direccion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Telefono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Dia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Hora)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Tipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.Cargo)
+                </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.cebid)
+            </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hora)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cargo)
+                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cebid)
+                </td>
+                    <td>
+                    <a href="/Iglesia/CEBRegiones/LiderdeCEB/@item.cebid" class="text-primary" style="cursor:pointer">
+                            <i class="fa-solid fa-house-medical-flag"></i>
+                        </a>|
+                        <a href="/Iglesia/MiembrosCEB/Upsert/@item.id" class="text-success" style="cursor:pointer">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
