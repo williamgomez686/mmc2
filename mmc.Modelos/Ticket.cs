@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mmc.Modelos.IglesiaModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,14 +12,10 @@ namespace mmc.Modelos
     public class Ticket
     {
         [Key]
-        [Required]
-        [MaxLength(50)]
-        [Display(Name = "PK")]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [MaxLength(50)]
         [Display(Name = "Usuario")]
         public string UsuarioAplicacionId { get; set; }
-        public string Estado { get; set; }
         [Required]
         [MaxLength(100)]
         [Display(Name = "Asunto")]
@@ -38,8 +35,22 @@ namespace mmc.Modelos
         [Display(Name = "Tecnico")]
         public string Tecnico { get; set; }
 
-        public string ImagenURL { get; set; }
-
-        
+        public string ImagenURL { get; set; }     
     }
+}
+
+public class EstadosTK: CebBase
+{
+    public int Id { get; set; }
+    public string Descripcion { set; get; }
+
+}
+public class Archivo
+{
+    [Key]
+    public int id { get; set; }
+    public string? nombre { get; set; }
+    public string? extension { get; set; }
+    public double? tamanio { get; set; }
+    public string? ubicacion { get; set; }
 }

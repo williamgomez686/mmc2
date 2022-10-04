@@ -85,7 +85,7 @@ namespace mmc.Areas.Admin.Controllers
                 if (files.Count > 0)
                 {
                     string filename = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"imagenes\productos");
+                    var uploads = Path.Combine(webRootPath, @"\\192.168.0.3\cheques\");// @"imagenes\productos");
                     var extension = Path.GetExtension(files[0].FileName);
                     if (productoVM.Producto.ImagenUrl != null)
                     {
@@ -101,7 +101,8 @@ namespace mmc.Areas.Admin.Controllers
                     {
                         files[0].CopyTo(filesStreams);
                     }
-                    productoVM.Producto.ImagenUrl = @"\imagenes\productos\" + filename + extension;
+                    //productoVM.Producto.ImagenUrl = @"\imagenes\productos\" + filename + extension;
+                    productoVM.Producto.ImagenUrl = @"\\192.168.0.3\cheques\" + filename + extension;
                 }
                 else
                 {

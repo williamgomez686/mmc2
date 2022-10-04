@@ -13,13 +13,21 @@ namespace mmc.Modelos.IglesiaModels
     {
         [Key]
         public int Id { get; set; }
-        public int Cistianos { get; set; }
+        [Display(Name = "Fecha")]
+        public DateTime FechaCEB { get; set; }
+        [Display(Name = "Cristianos")]
+        public int Cristianos { get; set; }
+        [Display(Name = "Inconversos")]
         public int NoCistianos { get; set; }
+        [Display(Name = "Niños")]
         public int Ninios { get; set; }
         public int Total { get; set; }
+
         public int Convertidos { get; set; }
+        [Display(Name = "Reconciliados")]
         public int Reconcilia { get; set; }
-        public float Ofrenda { get; set; }
+
+        public double Ofrenda { get; set; }
         public string Foto { get; set; }
         //llaves
 

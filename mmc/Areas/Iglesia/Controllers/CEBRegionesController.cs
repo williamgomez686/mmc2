@@ -133,9 +133,10 @@ namespace mmc.Areas.Iglesia.Controllers
             Ceb_DetVM model = new Ceb_DetVM()
             {
                 CasaEstudioDet = new CEB_DET(),
-                Cabeceraid = _unidadTrabajo.CEB_CAB.ObtenerTodos().Select(c => new SelectListItem
+                //**********************************************Con este where hacemos la busqueda por id para que nos devuelva el que se le envia
+                Cabeceraid = _unidadTrabajo.CEB_CAB.ObtenerTodos().Where(cab => cab.Id ==id).Select(c => new SelectListItem
                 {
-                    Text = c.dia,
+                    Text = c.Id.ToString(),
                     Value = c.Id.ToString()
                 })
             };
@@ -177,18 +178,21 @@ namespace mmc.Areas.Iglesia.Controllers
                 model.CasaEstudioDet.FechaAlta = DateTime.Now;
                 model.CasaEstudioDet.Usuario = User.Identity.Name; 
                 model.CasaEstudioDet.Estado = true;
-                model.CasaEstudioDet.Total = model.CasaEstudioDet.Cistianos + model.CasaEstudioDet.NoCistianos + model.CasaEstudioDet.Ninios;
+                model.CasaEstudioDet.Total = model.CasaEstudioDet.Cristianos + model.CasaEstudioDet.NoCistianos + model.CasaEstudioDet.Ninios;
                 _unidadTrabajo.CEB_DET.Agregar(model.CasaEstudioDet);
 
                 _unidadTrabajo.Guardar();
 
-                return RedirectToAction("LiderdeCEB", "CEBRegiones");////POSIBEL FORMA DE RETORNAR A UNA VISTA EN ESPESIFICO 
+                return RedirectToAction( "Index", "RegionesCEB");////POSIBEL FORMA DE RETORNAR A UNA VISTA EN ESPESIFICO 
+                //return RedirectToAction("LiderdeCEB", "CEBRegiones", model.CasaEstudioDet.CEBid);
+                //return View(model.CasaEstudioDet);
+
             }
             else
             {
                 model.Cabeceraid = _unidadTrabajo.CEB_CAB.ObtenerTodos().Select(c => new SelectListItem
                 {
-                    Text = c.dia,
+                    Text = c.Id.ToString(),
                     Value = c.Id.ToString()
                 });
                 
@@ -200,27 +204,5 @@ namespace mmc.Areas.Iglesia.Controllers
             }
             return View(model.CasaEstudioDet);
         }
-
-        //public IActionResult AddDet(int id)
-        //{
-        //    ViewData["CEBid"] = id;
-        //    //ViewBag.id = id;
-        //    return View();
-        //}
-
-        //// POST: Metodo Post de creacion para el detalle
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult AddDet(CEB_DET cEB_DET)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _unidadTrabajo.CEB_DET.Agregar(cEB_DET);
-        //        _unidadTrabajo.Guardar();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["CEBid"] = 2;
-        //    return View(cEB_DET);
-        //}
     }
 }

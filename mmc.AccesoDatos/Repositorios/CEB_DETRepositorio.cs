@@ -24,7 +24,7 @@ namespace mmc.AccesoDatos.Repositorios
             var ObjetoDb = _db.CEB_DETs.FirstOrDefault(b => b.Id == oCEB_DET.Id);
             if (ObjetoDb != null)
             {
-                ObjetoDb.Cistianos = oCEB_DET.Cistianos;
+                ObjetoDb.Cristianos = oCEB_DET.Cristianos;
                 ObjetoDb.NoCistianos = oCEB_DET.NoCistianos;
                 ObjetoDb.Ninios = oCEB_DET.Ninios;
                 ObjetoDb.Total = oCEB_DET.Total;

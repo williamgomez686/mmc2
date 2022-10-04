@@ -20,26 +20,36 @@
         <h2 class="text-primary">@titulo</h2>
     </div>
 
-
-    <div class="form-group row">
-        <div class="col-4">
-            Tipo de casas
-        </div>
-        <div class="col-8">
-            @Html.DropDownListFor(c => c.CasaEstudioDet.CEBid, Model.Cabeceraid, "Seleccione",
-            new { @class = "form-control" })
-            <span asp-validation-for="CasaEstudioDet.CEBid" class="text-danger"></span>
-        </div>
-    </div>
-
     <div class="col-8 pt-4">
+
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="CasaEstudioDet.Cistianos"></label>
+                Id Casa de Estudio Biblico 
             </div>
             <div class="col-8">
-                <input asp-for="CasaEstudioDet.Cistianos" class="form-control" />
-                <span asp-validation-for="CasaEstudioDet.Cistianos" class="text-danger"></span>
+                @Html.DropDownListFor(c => c.CasaEstudioDet.CEBid, Model.Cabeceraid,
+                new { @class = "form-control" })
+                <span asp-validation-for="CasaEstudioDet.CEBid" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.FechaCEB"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.FechaCEB" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.FechaCEB" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="CasaEstudioDet.Cristianos"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="CasaEstudioDet.Cristianos" class="form-control" />
+                <span asp-validation-for="CasaEstudioDet.Cristianos" class="text-danger"></span>
             </div>
         </div>
 
@@ -96,13 +106,13 @@
         <div class="form-group row">
             <div class="col-8 offset-4">
                 @if (Model.CasaEstudioDet.Id != 0)
-                {
-                    <partial name="_BotonesActualizarYRegresar" model="Model.CasaEstudioDet.Id" />
-                }
+                    {
+                        <partial name="_BotonesActualizarYRegresar" model="Model.CasaEstudioDet.Id" />
+                    }
                 else
-                {
-                    <partial name="_BotonesCrearYRegresar" />
-                }
+                    {
+                        <partial name="_BotonesCrearYRegresar" />
+                    }
             </div>
         </div>
 
