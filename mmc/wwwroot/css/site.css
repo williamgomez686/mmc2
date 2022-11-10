@@ -39,7 +39,7 @@ html {
   border-top: 1px solid #e5e5e5;
 }
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 5px solid #e5e5e5;
 }
 
 .box-shadow {
@@ -60,7 +60,12 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  background-image: url('https://lafamiliadedios.org/wp-content/uploads/2020/06/home.jpg');
+  margin-bottom: 6px;
+  background-size: cover;
+  background-repeat: repeat; background-color: rgba(0, 0, 0, 0);
+  
+  background-position: 50% 0px;
 }
 .footer {
   position: absolute;
