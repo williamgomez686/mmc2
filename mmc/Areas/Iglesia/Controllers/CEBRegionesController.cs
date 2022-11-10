@@ -2,13 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
-using mmc.Modelos;
 using mmc.Modelos.IglesiaModels;
-using mmc.Modelos.ViewModels;
 using mmc.Modelos.ViewModels.IglesiaVM;
 using mmc.Utilidades;
 using System;
@@ -16,7 +11,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace mmc.Areas.Iglesia.Controllers
 {

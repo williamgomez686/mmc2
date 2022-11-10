@@ -17,7 +17,8 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">mmc</a>
+                
+                <img src="~/imagenes/logos/logo_iglesia_web.png" height="25" width="25" />
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,7 +26,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia))
                         {
@@ -103,7 +104,7 @@
 
     <footer class="border-top footer text-muted bg-primary text-white-50">
         <div class="container">
-            &copy; 2022 - mmc
+            &copy; 2022 - Igesia de Jesucristo la Familia de Dios.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

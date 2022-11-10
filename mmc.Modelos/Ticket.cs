@@ -25,6 +25,7 @@ namespace mmc.Modelos
         [Display(Name = "Descripcion")]
         public string Descripcion { get; set; }
         public DateTime FechaAlta { get; set; }
+        public bool Estado { get; set; }
 
         [MaxLength(400)]
         [Display(Name = "Solucion")]
