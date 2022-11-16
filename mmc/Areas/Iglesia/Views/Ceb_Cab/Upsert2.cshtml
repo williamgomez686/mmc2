@@ -9,7 +9,7 @@
     <div class="row p-3 border-0">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
-    @if (Model.CasaEstudioDet.Id != 0)
+    @if (Model.CasaEstudioDet.Id != null)
     {
         // Actualizar
         titulo = "Actualizar Casa de Estudio Biblico";
@@ -68,7 +68,7 @@
 
         <div class="form-group row">
             <div class="col-8 offset-4">
-                @if (Model.CasaEstudioDet.Id != 0)
+                @if (Model.CasaEstudioDet.Id != null)
                 {
                     <partial name="_BotonesActualizarYRegresar" model="Model.CasaEstudioDet.Id" />
                 }
@@ -88,7 +88,7 @@
 
     </div>
 
-    @if (Model.CasaEstudioDet.Id != 0)
+    @if (Model.CasaEstudioDet.Id != null)
     {
         <div class="col-3">
             <img src="@Model.CasaEstudioDet.Foto" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />

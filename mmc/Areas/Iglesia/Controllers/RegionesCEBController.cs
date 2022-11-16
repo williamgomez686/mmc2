@@ -75,6 +75,7 @@ namespace mmc.Areas.Admin.Controllers
         {
             var region = _unidadTrabajo.RegionCEB.Obtener(id);
             ViewBag.region=region.RegionName;
+            ViewBag.regionId = region.Id;
 
             var consulta = (from rc in _unidadTrabajo.RegionCEB.ObtenerTodos()
                                 join m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()

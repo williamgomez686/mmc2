@@ -1,7 +1,6 @@
 ﻿@model mmc.Modelos.ViewModels.IglesiaVM.Ceb_DetVM
 
 @{
-
     Layout = "~/Views/Shared/_Layout.cshtml";
     var titulo = "Crear nuevo registro";
 }
@@ -10,7 +9,7 @@
     <div class="row p-3 border-0">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
-    @if (Model.CasaEstudioDet.Id != 0)
+    @if (Model.CasaEstudioDet.Id != null)
     {
         // Actualizar
         titulo = "Actualizar Registro";
@@ -105,13 +104,22 @@
 
         <div class="form-group row">
             <div class="col-8 offset-4">
-                @if (Model.CasaEstudioDet.Id != 0)
+                @if (Model.CasaEstudioDet.Id != null)
                     {
                         <partial name="_BotonesActualizarYRegresar" model="Model.CasaEstudioDet.Id" />
                     }
                 else
                     {
-                        <partial name="_BotonesCrearYRegresar" />
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary form-control">Crear</button>
+                        </div>
+                        <div class="col">
+                            <a href="/Iglesia/CEBRegiones/LiderdeCEB/@ViewBag.id" class="btn btn-danger text-white" style="cursor:pointer">
+                               Cancelar <i class="fa-sharp fa-solid fa-rotate-left"></i>
+                            </a>
+                        </div>
+                    </div>
                     }
             </div>
         </div>

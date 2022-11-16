@@ -10,15 +10,15 @@ using mmc.AccesoDatos.Data;
 namespace mmc.AccesoDatos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220921160903_pruebas21092022")]
-    partial class pruebas21092022
+    [Migration("20221115115933_produccion")]
+    partial class produccion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.12")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -268,13 +268,8 @@ namespace mmc.AccesoDatos.Migrations
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_CAB", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Ceb_Detalle")
-                        .HasColumnType("integer");
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("boolean");
@@ -285,7 +280,11 @@ namespace mmc.AccesoDatos.Migrations
                     b.Property<DateTime>("Fechamodifica")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<string>("Foto")
+                        .HasColumnType("text");
+
                     b.Property<string>("Hora")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("MiembrosCEBid")
@@ -300,6 +299,10 @@ namespace mmc.AccesoDatos.Migrations
                     b.Property<string>("UsuarioModifica")
                         .HasColumnType("text");
 
+                    b.Property<string>("dia")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MiembrosCEBid");
@@ -311,24 +314,25 @@ namespace mmc.AccesoDatos.Migrations
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_DET", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    b.Property<int?>("Ceb_Detalle")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Cistianos")
-                        .HasColumnType("integer");
+                    b.Property<string>("CEBid")
+                        .HasColumnType("text");
 
                     b.Property<int>("Convertidos")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Cristianos")
                         .HasColumnType("integer");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("FechaAlta")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("FechaCEB")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("Fechamodifica")
@@ -343,8 +347,8 @@ namespace mmc.AccesoDatos.Migrations
                     b.Property<int>("NoCistianos")
                         .HasColumnType("integer");
 
-                    b.Property<float>("Ofrenda")
-                        .HasColumnType("real");
+                    b.Property<double>("Ofrenda")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Reconcilia")
                         .HasColumnType("integer");
@@ -360,7 +364,7 @@ namespace mmc.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Ceb_Detalle");
+                    b.HasIndex("CEBid");
 
                     b.ToTable("CEB_DETs");
                 });
@@ -724,9 +728,11 @@ namespace mmc.AccesoDatos.Migrations
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_DET", b =>
                 {
-                    b.HasOne("mmc.Modelos.IglesiaModels.CEB_CAB", null)
-                        .WithMany("Detalle")
-                        .HasForeignKey("Ceb_Detalle");
+                    b.HasOne("mmc.Modelos.IglesiaModels.CEB_CAB", "Cabecera")
+                        .WithMany()
+                        .HasForeignKey("CEBid");
+
+                    b.Navigation("Cabecera");
                 });
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CasaEstudioBiblico", b =>
@@ -790,11 +796,6 @@ namespace mmc.AccesoDatos.Migrations
                     b.Navigation("Marca");
 
                     b.Navigation("Padre");
-                });
-
-            modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_CAB", b =>
-                {
-                    b.Navigation("Detalle");
                 });
 #pragma warning restore 612, 618
         }

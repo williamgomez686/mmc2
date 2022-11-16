@@ -1,0 +1,88 @@
+﻿@model mmc.Modelos.IglesiaModels.CEB_CAB
+
+@{
+    ViewData["Title"] = "Crear";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+    <div class="col-12 border-bottom">
+        <h2 class="text-primary">Añandir nueva Casa de Estudio Biblico</h2>
+    </div>
+
+<br />
+<div class="row">
+    <div class="col-3 text-white">.</div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="addCab_byLider">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="MiembrosCEBid" class="control-label"></label>
+                        </div>
+                        <div class="col-8">
+                            <select asp-for="MiembrosCEBid" class="form-control" asp-items="ViewBag.MiembrosCEBid"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="TipoCebId" class="control-label"></label>
+                        </div>
+                        <div class="col-8">
+                            <select asp-for="TipoCebId" class="form-control" asp-items="ViewBag.TipoCebId"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="dia" class="control-label"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="dia" class="form-control" />
+                            <span asp-validation-for="dia" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="Hora" class="control-label"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Hora" class="form-control" />
+                            <span asp-validation-for="Hora" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*
+                    <div class="form-group row">
+                        <div class="col-4">
+                            <label asp-for="Foto" class="control-label"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Foto" class="form-control" />
+                            <span asp-validation-for="Foto" class="text-danger"></span>
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Cancelar</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

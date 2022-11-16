@@ -266,10 +266,8 @@ namespace mmc.AccesoDatos.Migrations
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_CAB", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("boolean");
@@ -284,6 +282,7 @@ namespace mmc.AccesoDatos.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Hora")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("MiembrosCEBid")
@@ -299,6 +298,7 @@ namespace mmc.AccesoDatos.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("dia")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -312,13 +312,11 @@ namespace mmc.AccesoDatos.Migrations
 
             modelBuilder.Entity("mmc.Modelos.IglesiaModels.CEB_DET", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
-                    b.Property<int>("CEBid")
-                        .HasColumnType("integer");
+                    b.Property<string>("CEBid")
+                        .HasColumnType("text");
 
                     b.Property<int>("Convertidos")
                         .HasColumnType("integer");
@@ -730,9 +728,7 @@ namespace mmc.AccesoDatos.Migrations
                 {
                     b.HasOne("mmc.Modelos.IglesiaModels.CEB_CAB", "Cabecera")
                         .WithMany()
-                        .HasForeignKey("CEBid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CEBid");
 
                     b.Navigation("Cabecera");
                 });

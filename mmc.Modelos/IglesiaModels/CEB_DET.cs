@@ -12,7 +12,7 @@ namespace mmc.Modelos.IglesiaModels
     public class CEB_DET:CebBase
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Display(Name = "Fecha")]
         public DateTime FechaCEB { get; set; }
         [Display(Name = "Cristianos")]
@@ -32,7 +32,7 @@ namespace mmc.Modelos.IglesiaModels
         //llaves
 
         [Display(Name = "Cabecera")]
-        public int CEBid { get; set; }
+        public string CEBid { get; set; }
         [ForeignKey("CEBid")]
         public CEB_CAB Cabecera { get; set; }
     }

@@ -26,7 +26,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Prueba2/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
@@ -45,7 +45,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Prueba2/Create
-        public IActionResult Create(int id)
+        public IActionResult Create(string id)
         {
             ViewData["CEBid"] = new SelectList(_context.CEB_CABs, "Id", "Id");
             ViewBag.id=id;
@@ -91,7 +91,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Cistianos,NoCistianos,Ninios,Total,Convertidos,Reconcilia,Ofrenda,Foto,CEBid,Usuario,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] CEB_DET cEB_DET)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Cistianos,NoCistianos,Ninios,Total,Convertidos,Reconcilia,Ofrenda,Foto,CEBid,Usuario,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] CEB_DET cEB_DET)
         {
             if (id != cEB_DET.Id)
             {
@@ -123,7 +123,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Prueba2/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {
@@ -152,7 +152,7 @@ namespace mmc.Areas.HelpDesk.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CEB_DETExists(int id)
+        private bool CEB_DETExists(string id)
         {
             return _context.CEB_DETs.Any(e => e.Id == id);
         }
