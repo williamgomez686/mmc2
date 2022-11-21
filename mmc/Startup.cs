@@ -61,7 +61,7 @@ namespace mmc
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 //OPCIONAL CUANDO EL PROXY ESTA EN OTRO EQUIPO PERO SI ESTA EN EL MISNO NO ES NECESARIO
-                options.KnownProxies.Add(IPAddress.Parse("192.168.1.156"));
+                options.KnownProxies.Add(IPAddress.Parse("192.168.1.154"));
 
             });
 
@@ -90,7 +90,13 @@ namespace mmc
                 app.UseMigrationsEndPoint();
                 //para desabilitar el https en una aplicacion ***************************************************************CODIGOPARA QUITARHTTPS #3
                 app.UseHttpsRedirection();
-                app.UseForwardedHeaders();
+                //app.UseForwardedHeaders();
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+
+                app.UseAuthentication();
             }
             //if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
             //{

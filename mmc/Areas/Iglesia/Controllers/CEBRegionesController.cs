@@ -34,7 +34,6 @@ namespace mmc.Areas.Iglesia.Controllers
             ViewBag.region = region.RegionName;
             ViewBag.regionId = region.Id;
 
-
             var casas = (from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
                          join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
                            on m.Id equals cc.MiembrosCEBid
@@ -177,6 +176,7 @@ namespace mmc.Areas.Iglesia.Controllers
                 model.CasaEstudioDet.Estado = true;
                 model.CasaEstudioDet.Total = model.CasaEstudioDet.Cristianos + model.CasaEstudioDet.NoCistianos + model.CasaEstudioDet.Ninios;
                 model.CasaEstudioDet.Id = Guid.NewGuid().ToString();
+                
                 _unidadTrabajo.CEB_DET.Agregar(model.CasaEstudioDet);
 
                 _unidadTrabajo.Guardar();

@@ -109,7 +109,7 @@ namespace mmc.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult ObtenerTodos()
         {
-            var todos = _unidadTrabajo.RegionCEB.ObtenerTodos();
+            var todos = _unidadTrabajo.RegionCEB.ObtenerTodos().Where(est => est.Estado == true);
             return Json(new { data = todos });
         }
 
