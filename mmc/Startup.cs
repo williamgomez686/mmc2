@@ -56,12 +56,12 @@ namespace mmc
             //agregamos este servisio para que soporte vistas de razor
 
 
-            //para desabilitar el https en una aplicacion ***************************************************************CODIGOPARA QUITARHTTPS #2
+            //para desabilitar el https en una aplicacion*************************************************************** CODIGOPARA QUITARHTTPS #2
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 //OPCIONAL CUANDO EL PROXY ESTA EN OTRO EQUIPO PERO SI ESTA EN EL MISNO NO ES NECESARIO
-                options.KnownProxies.Add(IPAddress.Parse("192.168.1.156"));
+                options.KnownProxies.Add(IPAddress.Parse("192.168.0.8"));
 
             });
 
@@ -80,35 +80,37 @@ namespace mmc
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (!app.Environment.IsDevelopment())
-            //{
-            //    app.UseHttpsRedirection();
-            //}
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
                 //para desabilitar el https en una aplicacion ***************************************************************CODIGOPARA QUITARHTTPS #3
-                app.UseHttpsRedirection();
+                //app.UseHttpsRedirection();
                 app.UseForwardedHeaders();
             }
-            //if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
-            //{
-            //    app.UseExceptionHandler("/Error");
-            //}
+            if (env.IsProduction() || env.IsStaging() || env.IsEnvironment("Staging_2"))
+            {
+                app.UseExceptionHandler("/Error");
+            }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 //para desabilitar el https en una aplicacion ************************************************************************CODIGOPARA QUITARHTTPS #4
                 app.UseForwardedHeaders();
-                app.UseHttpsRedirection();
+               // app.UseHttpsRedirection();
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+            //para proxy reverso
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();//aqui abilitamos la autenticacion en el proyecto
             app.UseAuthorization();//aqui Habilitamos la autorizacion en el proyecto
