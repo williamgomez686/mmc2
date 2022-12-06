@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<h2>Graficas</h2>
+
+<div id="container"></div>
+
+@section Scripts {
+    @{
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+        <script>
+            var urlBase = 'http://' + '@Context.Request.Host' + '@Context.Request.Path'
+        </script>
+        <script src="~/js/Graficas/GraficaPastel.js"></script>
+
+
+    }
+}
+

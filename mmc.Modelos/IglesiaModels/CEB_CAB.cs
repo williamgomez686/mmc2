@@ -10,12 +10,15 @@ using System.Xml.Linq;
 
 namespace mmc.Modelos.IglesiaModels
 {
-    public class CEB_CAB:CebBase
+    public class CEB_CAB : CebBase
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
+        [Required(ErrorMessage = "Debe ingresar la Hora.")]
         public string Hora { get; set; }
+        [Required(ErrorMessage ="Debe ingresar el dia.")]
         public string dia {get; set;}
+
         public string Foto { get; set; }
 
         //llave foranea de Tipo *********************************

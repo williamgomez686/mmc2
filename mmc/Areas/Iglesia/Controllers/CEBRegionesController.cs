@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
 using mmc.Modelos.IglesiaModels;
 using mmc.Modelos.ViewModels.IglesiaVM;
@@ -31,8 +32,9 @@ namespace mmc.Areas.Iglesia.Controllers
         {
             var region = _unidadTrabajo.RegionCEB.Obtener(id);
             ViewBag.region = region.RegionName;
+            ViewBag.regionId = region.Id;
 
-            var casas = (from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()                    
+            var casas = (from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
                          join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
                            on m.Id equals cc.MiembrosCEBid
                          join tc in _unidadTrabajo.TiposCEB.ObtenerTodos()
@@ -41,7 +43,7 @@ namespace mmc.Areas.Iglesia.Controllers
                            on m.CargosCEBId equals p.Id
                          join rc in _unidadTrabajo.RegionCEB.ObtenerTodos()
                             on m.RegionId equals rc.Id
-                        where rc.Id==id
+                         where rc.Id == id
                          orderby p.Cargos descending
                          select new CebLiderPrivilegioVM()
                          {
@@ -55,35 +57,35 @@ namespace mmc.Areas.Iglesia.Controllers
                              Tipo = tc.Tipo,
                              Cargo = p.Cargos,
                              cebid = cc.Id
-                         }).ToList();          
+                         }).ToList();
             return View(casas);
         }
 
-        public IActionResult LiderdeCEB(int id)
+        public IActionResult LiderdeCEB(string id)
         {
             //Consulta con Joins para obtener datos de la cabecera y el lider
             var result = from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
-                             join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
-                                 on m.Id equals cc.MiembrosCEBid
-                             join tc in _unidadTrabajo.TiposCEB.ObtenerTodos()
-                                 on cc.TipoCebId equals tc.Id
-                             join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
-                                 on m.CargosCEBId equals p.Id
-                             where cc.Id == id
+                         join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
+                             on m.Id equals cc.MiembrosCEBid
+                         join tc in _unidadTrabajo.TiposCEB.ObtenerTodos()
+                             on cc.TipoCebId equals tc.Id
+                         join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
+                             on m.CargosCEBId equals p.Id
+                         where cc.Id == id
                          orderby p.Cargos descending
                          select new CebLiderPrivilegioVM()
-                            {
-                                id = m.Id,
-                                Nombre = m.Name,
-                                Apellido = m.lastName,
-                                Direccion = m.Addres,
-                                Telefono = m.phone,
-                                Hora = cc.Hora,
-                                Dia = cc.dia,
-                                Tipo = tc.Tipo,
-                                Cargo = p.Cargos,
-                                cebid = cc.Id
-                            };
+                         {
+                             id = m.Id,
+                             Nombre = m.Name,
+                             Apellido = m.lastName,
+                             Direccion = m.Addres,
+                             Telefono = m.phone,
+                             Hora = cc.Hora,
+                             Dia = cc.dia,
+                             Tipo = tc.Tipo,
+                             Cargo = p.Cargos,
+                             cebid = cc.Id
+                         };
             //ForEach que se encarga de llenar los ViewBag para la cabecera y datos del lider 
             foreach (var lider in result)
             {
@@ -100,7 +102,7 @@ namespace mmc.Areas.Iglesia.Controllers
                     Cargo = lider.Cargo,
                     cebid = lider.cebid,
                     Tipo = lider.Tipo
-                    
+
                 };
                 //Llenado de los ViewBag con datos de la cabecera
                 ViewBag.cabHora = cabecera.Hora;
@@ -111,10 +113,10 @@ namespace mmc.Areas.Iglesia.Controllers
             ViewBag.id = id;
 
             var detalle = from cabecera in _unidadTrabajo.CEB_CAB.ObtenerTodos()
-                            join det in _unidadTrabajo.CEB_DET.ObtenerTodos()
-                                on cabecera.Id equals det.CEBid
-                            where cabecera.Id == id
-                            select det;
+                          join det in _unidadTrabajo.CEB_DET.ObtenerTodos()
+                              on cabecera.Id equals det.CEBid
+                          where cabecera.Id == id
+                          select det;
 
 
             //Datos del Lider
@@ -122,19 +124,19 @@ namespace mmc.Areas.Iglesia.Controllers
         }
 
 
-        public IActionResult AddDet(int? id)
+        public IActionResult AddDet(string? id)
         {
             Ceb_DetVM model = new Ceb_DetVM()
             {
                 CasaEstudioDet = new CEB_DET(),
                 //**********************************************Con este where hacemos la busqueda por id para que nos devuelva el que se le envia
-                Cabeceraid = _unidadTrabajo.CEB_CAB.ObtenerTodos().Where(cab => cab.Id ==id).Select(c => new SelectListItem
+                Cabeceraid = _unidadTrabajo.CEB_CAB.ObtenerTodos().Where(cab => cab.Id == id).Select(c => new SelectListItem
                 {
                     Text = c.Id.ToString(),
                     Value = c.Id.ToString()
                 })
             };
-
+            ViewBag.id = id;
             return View(model);
         }
 
@@ -170,14 +172,16 @@ namespace mmc.Areas.Iglesia.Controllers
                 }
                 ///Proceso de Guardado 
                 model.CasaEstudioDet.FechaAlta = DateTime.Now;
-                model.CasaEstudioDet.Usuario = User.Identity.Name; 
+                model.CasaEstudioDet.Usuario = User.Identity.Name;
                 model.CasaEstudioDet.Estado = true;
                 model.CasaEstudioDet.Total = model.CasaEstudioDet.Cristianos + model.CasaEstudioDet.NoCistianos + model.CasaEstudioDet.Ninios;
+                model.CasaEstudioDet.Id = Guid.NewGuid().ToString();
+                
                 _unidadTrabajo.CEB_DET.Agregar(model.CasaEstudioDet);
 
                 _unidadTrabajo.Guardar();
 
-                return RedirectToAction( "Index", "RegionesCEB");////POSIBEL FORMA DE RETORNAR A UNA VISTA EN ESPESIFICO 
+                return RedirectToAction("Index", "RegionesCEB");////POSIBLE FORMA DE RETORNAR A UNA VISTA EN ESPESIFICO 
                 //return RedirectToAction("LiderdeCEB", "CEBRegiones", model.CasaEstudioDet.CEBid);
                 //return View(model.CasaEstudioDet);
 
@@ -189,14 +193,43 @@ namespace mmc.Areas.Iglesia.Controllers
                     Text = c.Id.ToString(),
                     Value = c.Id.ToString()
                 });
-                
-                if (model.CasaEstudioDet.Id != 0)
+
+                if (model.CasaEstudioDet.Id != null)
                 {
-                    model.CasaEstudioDet = _unidadTrabajo.CEB_DET.Obtener(model.CasaEstudioDet.Id);
+                    //model.CasaEstudioDet = _unidadTrabajo.CEB_DET.Obtener(model.CasaEstudioDet.Id);
                 }
 
             }
             return View(model.CasaEstudioDet);
+        }
+
+        [HttpGet]
+        public IActionResult addCab_byLider(int? id)
+        {
+            ViewData["MiembrosCEBid"] = new SelectList(_unidadTrabajo.MiembrosCEB.ObtenerTodos().Where(region => region.RegionId == id), "Id", "Name");
+            ViewData["TipoCebId"] = new SelectList(_unidadTrabajo.TiposCEB.ObtenerTodos(), "Id", "Tipo");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult addCab_byLider(CEB_CAB model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Usuario = User.Identity.Name;
+                model.FechaAlta = DateTime.Now;
+                model.Estado = true;
+                model.Id = Guid.NewGuid().ToString();
+                //model.Id = model.Id + 1;
+                _unidadTrabajo.CEB_CAB.Agregar(model);
+                _unidadTrabajo.Guardar();
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "RegionesCEB");
+            }
+            //ViewData["MiembrosCEBid"] = new SelectList(_unidadTrabajo.MiembrosCEB.ObtenerTodos().Where(region => region.RegionId == model.), "Id", "Name");
+            ViewData["TipoCebId"] = new SelectList(_unidadTrabajo.TiposCEB.ObtenerTodos(), "Id", "Tipo", model.TipoCebId);
+
+            return View(model);
         }
     }
 }

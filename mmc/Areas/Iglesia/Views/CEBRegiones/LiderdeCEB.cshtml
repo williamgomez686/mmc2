@@ -19,9 +19,7 @@
             <b>Tipo de casa:</b> @ViewBag.cabTipo <br />
             <b>Cargo</b>: @ViewBag.cabCargo <br />
         </div>
-        <div class="col-md-12 text-right">
-            <a class="btn btn-primary" href="/Iglesia/CasaEstudioBiblico/UpsertCEBporLider/@ViewBag.id"> <i class="fa-solid fa-house-medical-flag"></i> Añadir Nueva </a>
-        </div>
+
         <div class="col-md-12 text-right">
             <a class="btn btn-primary" href="/Iglesia/CEBRegiones/AddDet/@ViewBag.id"> <i class="fa-solid fa-house-medical-flag"></i> Añadir Nueva </a>
         </div>
@@ -30,8 +28,8 @@
 <hr />
 
 
-<table class="table">
-    <thead>
+<table class="table table-striped table-bordered" id="myTable">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Cristianos)
@@ -92,14 +90,16 @@
     </tbody>
 </table>
 
-
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
     <script>
+
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
 
         function Delete(url) {
 

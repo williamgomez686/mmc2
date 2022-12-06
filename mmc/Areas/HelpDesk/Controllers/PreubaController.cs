@@ -26,7 +26,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Preuba/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
             {
@@ -61,7 +61,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Hora,Foto,TipoCebId,MiembrosCEBid,Usuario,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] CEB_CAB cEB_CAB)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(cEB_CAB);
                 await _context.SaveChangesAsync();
@@ -95,7 +95,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Hora,Foto,TipoCebId,MiembrosCEBid,Usuario,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] CEB_CAB cEB_CAB)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Hora,Foto,TipoCebId,MiembrosCEBid,Usuario,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] CEB_CAB cEB_CAB)
         {
             if (id != cEB_CAB.Id)
             {
@@ -128,7 +128,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Preuba/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null)
             {
@@ -158,7 +158,7 @@ namespace mmc.Areas.HelpDesk.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CEB_CABExists(int id)
+        private bool CEB_CABExists(string id)
         {
             return _context.CEB_CABs.Any(e => e.Id == id);
         }

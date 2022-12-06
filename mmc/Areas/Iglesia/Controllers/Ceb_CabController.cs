@@ -71,82 +71,82 @@ namespace mmc.Areas.Iglesia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Ceb_CabVM CasaEstudioVM)
-        {
-            if (ModelState.IsValid)
-            {
-                // Cargar Imagenes
-                string webRootPath = _hostEnvironment.WebRootPath;
-                var files = HttpContext.Request.Form.Files;
-                if (files.Count > 0)
-                {
-                    string filename = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"imagenes\Iglesia\CEB\Imagenes");
-                    var extension = Path.GetExtension(files[0].FileName);
-                    if (CasaEstudioVM.CasaEstudioCab.Foto != null)
-                    {
-                        //Esto es para editar, necesitamos borrar la imagen anterior
-                        var imagenPath = Path.Combine(webRootPath, CasaEstudioVM.CasaEstudioCab.Foto.TrimStart('\\'));
-                        if (System.IO.File.Exists(imagenPath))
-                        {
-                            System.IO.File.Delete(imagenPath);
-                        }
-                    }
+        //public IActionResult Upsert(Ceb_CabVM CasaEstudioVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Cargar Imagenes
+        //        string webRootPath = _hostEnvironment.WebRootPath;
+        //        var files = HttpContext.Request.Form.Files;
+        //        if (files.Count > 0)
+        //        {
+        //            string filename = Guid.NewGuid().ToString();
+        //            var uploads = Path.Combine(webRootPath, @"imagenes\Iglesia\CEB\Imagenes");
+        //            var extension = Path.GetExtension(files[0].FileName);
+        //            if (CasaEstudioVM.CasaEstudioCab.Foto != null)
+        //            {
+        //                //Esto es para editar, necesitamos borrar la imagen anterior
+        //                var imagenPath = Path.Combine(webRootPath, CasaEstudioVM.CasaEstudioCab.Foto.TrimStart('\\'));
+        //                if (System.IO.File.Exists(imagenPath))
+        //                {
+        //                    System.IO.File.Delete(imagenPath);
+        //                }
+        //            }
 
-                    using (var filesStreams = new FileStream(Path.Combine(uploads, filename + extension), FileMode.Create))
-                    {
-                        files[0].CopyTo(filesStreams);
-                    }
-                    CasaEstudioVM.CasaEstudioCab.Foto = @"\imagenes\Iglesia\CEB\Imagenes\" + filename + extension;
-                }
-                else
-                {
-                    // Si en el Update el usuario no cambia la imagen
-                    if (CasaEstudioVM.CasaEstudioCab.Id != 0)
-                    {
-                        CEB_CAB CasaEstudioDB = _unidadTrabajo.CEB_CAB.Obtener(CasaEstudioVM.CasaEstudioCab.Id);
-                        CasaEstudioVM.CasaEstudioCab.Foto = CasaEstudioDB.Foto;
-                    }
-                }
+        //            using (var filesStreams = new FileStream(Path.Combine(uploads, filename + extension), FileMode.Create))
+        //            {
+        //                files[0].CopyTo(filesStreams);
+        //            }
+        //            CasaEstudioVM.CasaEstudioCab.Foto = @"\imagenes\Iglesia\CEB\Imagenes\" + filename + extension;
+        //        }
+        //        else
+        //        {
+        //            // Si en el Update el usuario no cambia la imagen
+        //            if (CasaEstudioVM.CasaEstudioCab.Id != null)
+        //            {
+        //                CEB_CAB CasaEstudioDB = _unidadTrabajo.CEB_CAB.Obtener(CasaEstudioVM.CasaEstudioCab.Id);
+        //                CasaEstudioVM.CasaEstudioCab.Foto = CasaEstudioDB.Foto;
+        //            }
+        //        }
 
 
-                if (CasaEstudioVM.CasaEstudioCab.Id == 0)
-                {
-                    CasaEstudioVM.CasaEstudioCab.FechaAlta = DateTime.Now;
-                    CasaEstudioVM.CasaEstudioCab.Usuario = User.Identity.Name;//obtiene el nombre del usuario de la session activa
-                    CasaEstudioVM.CasaEstudioCab.Estado = true;
-                    _unidadTrabajo.CEB_CAB.Agregar(CasaEstudioVM.CasaEstudioCab);
-                }
-                else
-                {
-                    CasaEstudioVM.CasaEstudioCab.FechaAlta = DateTime.Now;
-                    CasaEstudioVM.CasaEstudioCab.Usuario = User.Identity.Name;
-                    _unidadTrabajo.CEB_CAB.Actualizar(CasaEstudioVM.CasaEstudioCab);
-                }
-                _unidadTrabajo.Guardar();
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                CasaEstudioVM.TipoCEBLista = _unidadTrabajo.TiposCEB.ObtenerTodos().Select(c => new SelectListItem
-                {
-                    Text = c.Tipo,
-                    Value = c.Id.ToString()
-                });
-                CasaEstudioVM.MiembroCEBLista = _unidadTrabajo.MiembrosCEB.ObtenerTodos().Select(m => new SelectListItem
-                {
-                    Text = m.Name,
-                    Value = m.Id.ToString()
-                });
+        //        if (CasaEstudioVM.CasaEstudioCab.Id == null)
+        //        {
+        //            CasaEstudioVM.CasaEstudioCab.FechaAlta = DateTime.Now;
+        //            CasaEstudioVM.CasaEstudioCab.Usuario = User.Identity.Name;//obtiene el nombre del usuario de la session activa
+        //            CasaEstudioVM.CasaEstudioCab.Estado = true;
+        //            _unidadTrabajo.CEB_CAB.Agregar(CasaEstudioVM.CasaEstudioCab);
+        //        }
+        //        else
+        //        {
+        //            CasaEstudioVM.CasaEstudioCab.FechaAlta = DateTime.Now;
+        //            CasaEstudioVM.CasaEstudioCab.Usuario = User.Identity.Name;
+        //            _unidadTrabajo.CEB_CAB.Actualizar(CasaEstudioVM.CasaEstudioCab);
+        //        }
+        //        _unidadTrabajo.Guardar();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    else
+        //    {
+        //        CasaEstudioVM.TipoCEBLista = _unidadTrabajo.TiposCEB.ObtenerTodos().Select(c => new SelectListItem
+        //        {
+        //            Text = c.Tipo,
+        //            Value = c.Id.ToString()
+        //        });
+        //        CasaEstudioVM.MiembroCEBLista = _unidadTrabajo.MiembrosCEB.ObtenerTodos().Select(m => new SelectListItem
+        //        {
+        //            Text = m.Name,
+        //            Value = m.Id.ToString()
+        //        });
 
-                if (CasaEstudioVM.CasaEstudioCab.Id != 0)
-                {
-                    CasaEstudioVM.CasaEstudioCab = _unidadTrabajo.CEB_CAB.Obtener(CasaEstudioVM.CasaEstudioCab.Id);
-                }
+        //        if (CasaEstudioVM.CasaEstudioCab.Id != null)
+        //        {
+        //            CasaEstudioVM.CasaEstudioCab = _unidadTrabajo.CEB_CAB.Obtener(CasaEstudioVM.CasaEstudioCab.Id);
+        //        }
 
-            }
-            return View(CasaEstudioVM.CasaEstudioCab);
-        }
+        //    }
+        //    return View(CasaEstudioVM.CasaEstudioCab);
+        //}
 
         #region Creacion de Detalle**********************************************************************
         public IActionResult Upsert2(int? id)
@@ -182,78 +182,78 @@ namespace mmc.Areas.Iglesia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert2(Ceb_DetVM CasaEstudioVM)
-        {
-            if (ModelState.IsValid)
-            {
-                // Cargar Imagenes
-                string webRootPath = _hostEnvironment.WebRootPath;
-                var files = HttpContext.Request.Form.Files;
-                if (files.Count > 0)
-                {
-                    string filename = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"imagenes\Iglesia\CEB\Imagenes");
-                    var extension = Path.GetExtension(files[0].FileName);
-                    if (CasaEstudioVM.CasaEstudioDet.Foto != null)
-                    {
-                        //Esto es para editar, necesitamos borrar la imagen anterior
-                        var imagenPath = Path.Combine(webRootPath, CasaEstudioVM.CasaEstudioDet.Foto.TrimStart('\\'));
-                        if (System.IO.File.Exists(imagenPath))
-                        {
-                            System.IO.File.Delete(imagenPath);
-                        }
-                    }
+        //public IActionResult Upsert2(Ceb_DetVM CasaEstudioVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Cargar Imagenes
+        //        string webRootPath = _hostEnvironment.WebRootPath;
+        //        var files = HttpContext.Request.Form.Files;
+        //        if (files.Count > 0)
+        //        {
+        //            string filename = Guid.NewGuid().ToString();
+        //            var uploads = Path.Combine(webRootPath, @"imagenes\Iglesia\CEB\Imagenes");
+        //            var extension = Path.GetExtension(files[0].FileName);
+        //            if (CasaEstudioVM.CasaEstudioDet.Foto != null)
+        //            {
+        //                //Esto es para editar, necesitamos borrar la imagen anterior
+        //                var imagenPath = Path.Combine(webRootPath, CasaEstudioVM.CasaEstudioDet.Foto.TrimStart('\\'));
+        //                if (System.IO.File.Exists(imagenPath))
+        //                {
+        //                    System.IO.File.Delete(imagenPath);
+        //                }
+        //            }
 
-                    using (var filesStreams = new FileStream(Path.Combine(uploads, filename + extension), FileMode.Create))
-                    {
-                        files[0].CopyTo(filesStreams);
-                    }
-                    CasaEstudioVM.CasaEstudioDet.Foto = @"\imagenes\Iglesia\CEB\Imagenes\" + filename + extension;
-                }
-                else
-                {
-                    // Si en el Update el usuario no cambia la imagen
-                    if (CasaEstudioVM.CasaEstudioDet.Id != 0)
-                    {
-                        CEB_CAB CasaEstudioDB = _unidadTrabajo.CEB_CAB.Obtener(CasaEstudioVM.CasaEstudioDet.Id);
-                        CasaEstudioVM.CasaEstudioDet.Foto = CasaEstudioDB.Foto;
-                    }
-                }
-
-
-                if (CasaEstudioVM.CasaEstudioDet.Id == 0)
-                {
-                    CasaEstudioVM.CasaEstudioDet.FechaAlta = DateTime.Now;
-                    CasaEstudioVM.CasaEstudioDet.Usuario = User.Identity.Name;//obtiene el nombre del usuario de la session activa
-                    CasaEstudioVM.CasaEstudioDet.Estado = true;
-                    _unidadTrabajo.CEB_DET.Agregar(CasaEstudioVM.CasaEstudioDet);
-                }
-                else
-                {
-                    CasaEstudioVM.CasaEstudioDet.Fechamodifica = DateTime.Now;
-                    CasaEstudioVM.CasaEstudioDet.Usuario = User.Identity.Name;
-                    _unidadTrabajo.CEB_DET.Actualizar(CasaEstudioVM.CasaEstudioDet);
-                }
-                _unidadTrabajo.Guardar();
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                CasaEstudioVM.Cabeceraid = _unidadTrabajo.CEB_CAB.ObtenerTodos().Select(c => new SelectListItem
-                {
-                    Text = c.MiembroLider.ToString(),
-                    Value = c.MiembrosCEBid.ToString()
-                });
+        //            using (var filesStreams = new FileStream(Path.Combine(uploads, filename + extension), FileMode.Create))
+        //            {
+        //                files[0].CopyTo(filesStreams);
+        //            }
+        //            CasaEstudioVM.CasaEstudioDet.Foto = @"\imagenes\Iglesia\CEB\Imagenes\" + filename + extension;
+        //        }
+        //        else
+        //        {
+        //            // Si en el Update el usuario no cambia la imagen
+        //            if (CasaEstudioVM.CasaEstudioDet.Id != null)
+        //            {
+        //                CEB_CAB CasaEstudioDB = _unidadTrabajo.CEB_CAB.Obtener(CasaEstudioVM.CasaEstudioDet.Id);
+        //                CasaEstudioVM.CasaEstudioDet.Foto = CasaEstudioDB.Foto;
+        //            }
+        //        }
 
 
-                if (CasaEstudioVM.CasaEstudioDet.Id != 0)
-                {
-                    CasaEstudioVM.CasaEstudioDet = _unidadTrabajo.CEB_DET.Obtener(CasaEstudioVM.CasaEstudioDet.Id);
-                }
+        //        if (CasaEstudioVM.CasaEstudioDet.Id == 0)
+        //        {
+        //            CasaEstudioVM.CasaEstudioDet.FechaAlta = DateTime.Now;
+        //            CasaEstudioVM.CasaEstudioDet.Usuario = User.Identity.Name;//obtiene el nombre del usuario de la session activa
+        //            CasaEstudioVM.CasaEstudioDet.Estado = true;
+        //            _unidadTrabajo.CEB_DET.Agregar(CasaEstudioVM.CasaEstudioDet);
+        //        }
+        //        else
+        //        {
+        //            CasaEstudioVM.CasaEstudioDet.Fechamodifica = DateTime.Now;
+        //            CasaEstudioVM.CasaEstudioDet.Usuario = User.Identity.Name;
+        //            _unidadTrabajo.CEB_DET.Actualizar(CasaEstudioVM.CasaEstudioDet);
+        //        }
+        //        _unidadTrabajo.Guardar();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    else
+        //    {
+        //        CasaEstudioVM.Cabeceraid = _unidadTrabajo.CEB_CAB.ObtenerTodos().Select(c => new SelectListItem
+        //        {
+        //            Text = c.MiembroLider.ToString(),
+        //            Value = c.MiembrosCEBid.ToString()
+        //        });
 
-            }
-            return View(CasaEstudioVM.CasaEstudioDet);
-        }
+
+        //        if (CasaEstudioVM.CasaEstudioDet.Id != 0)
+        //        {
+        //            CasaEstudioVM.CasaEstudioDet = _unidadTrabajo.CEB_DET.Obtener(CasaEstudioVM.CasaEstudioDet.Id);
+        //        }
+
+        //    }
+        //    return View(CasaEstudioVM.CasaEstudioDet);
+        //}
         #endregion
 
 

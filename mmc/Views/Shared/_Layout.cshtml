@@ -90,13 +90,25 @@
                             </li>
                         }
 
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Ticket))
+                        {
+                            <li class="nav-item dropdown bg-primary">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Graficas
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Graficas" asp-controller="DashBoard" asp-action="Index">Grafica</a>
+                                </div>
+                            </li>
+                        }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container bg-white">
+    <div class="container bg-light">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

@@ -18,6 +18,6 @@ namespace mmc.Modelos.ViewModels.IglesiaVM
         public string Dia { get; set; }
         public string Tipo { get; set; }
         public string Cargo { get; set; }
-        public int cebid { get; set; }
+        public string cebid { get; set; }
     }
 }
