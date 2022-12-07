@@ -5,10 +5,14 @@
 }
 
 
-<h2>Graficas</h2>
+<h2 class="text-center">Graficas Iglesia de Jesucristo la Familia de Dios</h2>
 
 <div id="container"></div>
-
+<hr />
+<div id="barras"></div>
+<br />
+<br />
+<br />
 @section Scripts {
     @{
         <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -18,7 +22,9 @@
         <script>
             var urlBase = 'http://' + '@Context.Request.Host' + '@Context.Request.Path'
         </script>
+
         <script src="~/js/Graficas/GraficaPastel.js"></script>
+        <script src="~/js/Graficas/GraficaBarras.js"></script>
 
 
     }

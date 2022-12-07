@@ -4,17 +4,19 @@
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: urlBase + '/DataPastel',
+        url:"https://localhost:44318/Graficas/DashBoard/DataPastel",
+        //url: urlBase + '/DataPastel',
         error: function () {
             alert("Ocurrio un error al consultar los datos");
         },
         success: function (data) {
+            console.log(data);
             GraficaPastel(data);
         }
     })
 });
 
-function GraficaPastel() {
+function GraficaPastel(data) {
 
     Highcharts.chart('container', {
         colors: ['#01BAF2', '#f6fa4b', '#FAA74B', '#baf201', '#f201ba'],
@@ -46,7 +48,7 @@ function GraficaPastel() {
             {
                 name: 'Percentage',
                 colorByPoint: true,
-                data:data
+                data: data
             }
         ]
     });
