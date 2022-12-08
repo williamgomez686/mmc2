@@ -4,8 +4,8 @@
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url:"https://localhost:44318/Graficas/DashBoard/DataPastel",
-        //url: urlBase + '/DataPastel',
+        //url:"https://localhost:44318/Graficas/DashBoard/DataPastel",
+        url: urlBase + '/DataPastel',
         error: function () {
             alert("Ocurrio un error al consultar los datos");
         },
@@ -31,7 +31,7 @@ function GraficaPastel(data) {
         },
         subtitle: {
             text:
-                'Procentaje'
+                'Porcentaje que hay distribuido en las casas de estudio bíblico'
         },
         plotOptions: {
             pie: {

@@ -1,13 +1,15 @@
-﻿$(document).ready(function () {
+﻿var prueba = urlBase + '/DataBarras';
+$(document).ready(function () {
     //Peticion a API
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: "https://localhost:44318/Graficas/DashBoard/DataBarras",
-        //url: urlBase + '/DataPastel',
+        //url: "https://localhost:44318/Graficas/DashBoard/DataBarras",
+        //url: urlBase + "/DataBarras",
+        url: prueba,
         error: function () {
-            alert("Ocurrio un error al consultar los datos");
+            alert("Ocurrio un error al consultar la grafica de barras");
         },
         success: function (data) {
             console.log(data);
@@ -17,16 +19,17 @@
 });
 
 
+
 function GraficaBarras(data) {
     Highcharts.chart('barras', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Casas de estudio biblico por region'
+            text: 'Casas de estudio biblico por región'
         },
         subtitle: {
-            text: 'hola'
+            text: 'Este es el total de casas que hay por región'
         },
         xAxis: {
             type: 'category',
@@ -48,7 +51,7 @@ function GraficaBarras(data) {
             enabled: false
         },
         tooltip: {
-            pointFormat: 'Population in 2021: <b>{point.y:.1f} millions</b>'
+            pointFormat: 'Hay un total de <b>{point.y} Casas de estudio biblico</b>'
         },
         series: [{
             name: 'Population',
@@ -59,7 +62,7 @@ function GraficaBarras(data) {
                 rotation: -90,
                 color: '#FFFFFF',
                 align: 'right',
-                format: '{point.y:.1f}', // one decimal
+                format: '{point.y}', // one decimal
                 y: 10, // 10 pixels down from the top
                 style: {
                     fontSize: '13px',
