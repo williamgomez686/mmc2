@@ -11,6 +11,10 @@ namespace mmc.Utilidades
         public const string Role_Cliente = "Cliente";
         public const string Role_Admin = "Admin";
         public const string Role_Iglesia = "Iglesia";
+        public const string Role_Bodega = "Bodega";
+        public const string Role_Contabilidad = "Contabilidad";
+        public const string Role_Compras = "Compras";
+        public const string Role_Qumram = "Qumram";
         public const string Role_Ticket = "Ticket";
         public const string Role_SeteguaBiblioteca = "Biblioteca";
         public const string Role_Setegua = "Setegua";
