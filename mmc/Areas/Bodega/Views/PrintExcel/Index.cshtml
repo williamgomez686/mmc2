@@ -1,0 +1,37 @@
+﻿@{
+    List<SelectListItem> Bodega = (List<SelectListItem>)ViewBag.bodega;
+    List<SelectListItem> Empresa = (List<SelectListItem>)ViewBag.empresa;
+}
+
+<div class="container text-center">
+    <div class="h3"><label class="text-center">Inventarios</label></div>
+
+    <div class="row">
+        <div class="col-md-3">
+            .
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Listado de Existencias
+                </div>
+                <div class="card-body">
+                    <form asp-action="printExcel" asp-controller="PrintExcel" method="post">
+
+                        <div class="form-group">
+                            @Html.DropDownList("EMPCOD", Empresa, "SELECCIONE  EMPRESA", new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DropDownList("TIECOD", Bodega, "SELECCIONE  UNA BODEGA", new { @class = "form-control" })
+                        </div>
+
+                        <button class="btn btn-success" type="submit">Descargar <i class="fa-solid fa-file-excel"></i></button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
