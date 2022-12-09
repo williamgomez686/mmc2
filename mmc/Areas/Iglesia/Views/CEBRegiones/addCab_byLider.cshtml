@@ -1,7 +1,7 @@
 ﻿@model mmc.Modelos.IglesiaModels.CEB_CAB
 
 @{
-    ViewData["Title"] = "Crear";
+    ViewData["Title"] = "Crear Nuevo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,8 +13,8 @@
 
 <br />
 <div class="row">
-    <div class="col-3 text-white">.</div>
-    <div class="col-6">
+    <div class="col-12 text-white">.</div>
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <form asp-action="addCab_byLider">
@@ -69,17 +69,24 @@
                     </div>*@
 
                     <div class="form-group">
-                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                        <div class="c"
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+@*
 <div>
     <a asp-action="Index">Cancelar</a>
 </div>
+
+                <div class="col">
+                    <a href="/Iglesia/CEBRegiones/LiderdeCEB/@ViewBag.id" class="btn btn-danger text-white" style="cursor:pointer">
+                        Cancelar <i class="fa-sharp fa-solid fa-rotate-left"></i>
+                    </a>
+                </div>
+                *@
 
 @section Scripts {
     @{

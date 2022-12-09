@@ -20,12 +20,12 @@
         <h2 class="text-primary">@titulo</h2>
     </div>
 
-    <div class="col-8 pt-4">
+    <div class="col-11 pt-4">
         <div class="form-group row">
             <div class="col-4">
                 <label asp-for="RegionName"></label>
             </div>
-            <div class="col-8">
+            <div class="col-sm-6">
                 <input asp-for="RegionName" class="form-control" />
                 <span asp-validation-for="RegionName" class="text-danger"></span>
             </div>
@@ -36,17 +36,17 @@
             <div class="col-4">
                 <label asp-for="RegionAddress"></label>
             </div>
-            <div class="col-8">
+            <div class="col-sm-6">
                 <input asp-for="RegionAddress" class="form-control" />
                 <span asp-validation-for="RegionAddress" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row">
-            <div class="col-4">
+            <div class="col-sm-6">
                 <label asp-for="Estado"></label>
             </div>
-            <div class="col-4">
+            <div class="col-sm-6">
                 <select asp-for="Estado" class="form-control">
                     <option value=true>Activo</option>
                     <option value=false>Inactivo</option>
