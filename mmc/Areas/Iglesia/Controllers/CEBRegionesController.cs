@@ -111,13 +111,17 @@ namespace mmc.Areas.Iglesia.Controllers
                 ViewBag.cabCargo = cabecera.Cargo;
             }
             ViewBag.id = id;
-
+            // query para optener el detalle de ceb
             var detalle = from cabecera in _unidadTrabajo.CEB_CAB.ObtenerTodos()
                           join det in _unidadTrabajo.CEB_DET.ObtenerTodos()
                               on cabecera.Id equals det.CEBid
                           where cabecera.Id == id
+                          orderby det.FechaCEB descending
                           select det;
 
+            ViewBag.totalDetalle = detalle.Count();
+            //query tipo metodo para optener la suma toal de lo ofrendado en esta casa
+            ViewBag.totalOfrenda = _unidadTrabajo.CEB_DET.ObtenerTodos().Where(det => det.CEBid == id).Sum(sum => sum.Ofrenda);
 
             //Datos del Lider
             return View(detalle.ToList());
@@ -231,5 +235,21 @@ namespace mmc.Areas.Iglesia.Controllers
 
             return View(model);
         }
+
+
+        #region Api
+        [HttpDelete]
+        public IActionResult Delete(string id)
+        {
+            var CEB_DET_DB = _unidadTrabajo.CEB_DET.ObtenerPorIdString(id);
+            if (CEB_DET_DB == null)
+            {
+                return Json(new { success = false, message = "Error al Borrar" });
+            }
+            _unidadTrabajo.CEB_DET.Remover(CEB_DET_DB);
+            _unidadTrabajo.Guardar();
+            return Json(new { success = true, message = "Registro Borrado Exitosamente" });
+        }
+        #endregion
     }
 }

@@ -11,13 +11,15 @@
     </div>
     <div class="col-md-8">
         <div class="col-md-12">
-            <h2 class="text-primary"> Casa de Estudio Biblico de @ViewBag.lider @ViewBag.apaellido </h2>
+            <h2 class="text-primary"> Casa de Estudio Biblico de: @ViewBag.lider @ViewBag.apaellido </h2>
         </div>
         <div class="col-md-8 text-primary h5">
-            <b> Dia:</b> @ViewBag.cabDia <br />
+            <b>Dia:</b> @ViewBag.cabDia <br />
             <b>Hora:</b> @ViewBag.cabHora <br />
             <b>Tipo de casa:</b> @ViewBag.cabTipo <br />
             <b>Cargo</b>: @ViewBag.cabCargo <br />
+            <b>Total dias</b>: @ViewBag.totalDetalle<br/>
+            <b>Total ofrendado en esta casa: Q</b> @ViewBag.totalOfrenda <br/>
         </div>
 
         <div class="col-md-12 text-right">
@@ -27,7 +29,31 @@
 </div>
 <hr />
 
+<div class="row">
+            @foreach (var item in Model)
+        {
+    <div class="col-md-4 mb-4">
+     <div class="card text-center">
+      <img class="card-img-top" src="" alt="">
+        <div class="card-header">
+            Fecha: @Html.DisplayFor(modelItem => item.FechaCEB)
+        </div>
+        <div class="card-body">
+            <h6 class="card-title"><b>Total: </b>@Html.DisplayFor(modelItem => item.Total)</h6>
+            <p class="card-text"><b>Cristianos: </b>@Html.DisplayFor(modelItem => item.Cristianos)</p>
+            <p class="card-text"><b>Invconversos: </b>@Html.DisplayFor(modelItem => item.NoCistianos)</p>
+            <p class="card-text"><b>Niños: </b>@Html.DisplayFor(modelItem => item.Ninios)</p>
+            <p class="card-text"><b>Ofrenda: </b>Q @Html.DisplayFor(modelItem => item.Ofrenda)</p>
+            <p class="card-text"><b>id: </b> @Html.DisplayFor(modelItem => item.Id)</p>
+             <a onclick=Delete("/Iglesia/CEBRegiones/Delete/@item.Id")><i class="fa-solid fa-trash-can text-danger"></i></a>
+        </div>
+      </div>
+    </div>
 
+        }
+</div>
+
+@*
 <table class="table table-striped table-bordered" id="myTable">
     <thead class="thead-dark">
         <tr>
@@ -90,6 +116,7 @@
     </tbody>
 </table>
 
+*@
 <br />
 <hr />
 @section Scripts {

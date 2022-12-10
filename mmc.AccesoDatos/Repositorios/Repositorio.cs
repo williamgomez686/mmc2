@@ -32,6 +32,12 @@ namespace mmc.AccesoDatos.Repositorios
             return dbSet.Find(id); //Este codigo es equivalente a hacer un Select * From 
         }
 
+        public T ObtenerPorIdString(string id)
+        {
+            //Este metodo busca con id que son cadenas de texto
+            return dbSet.Find(id); //Este codigo es equivalente a hacer un Select * From 
+        }
+
         public T ObtenerPrimero(Expression<Func<T, bool>> filter = null, string incluirPropiedades = null)
         {
             IQueryable<T> Consulta = dbSet;
