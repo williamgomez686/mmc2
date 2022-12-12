@@ -72,5 +72,3 @@ namespace mmc.AccesoDatos.Data
     }
 }
 
-
-//antes de instalar e tema

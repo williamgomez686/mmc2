@@ -26,13 +26,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i> Inicio</a>
                         </li>
+                        @*Menu de Iglesia*@
                         @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia))
                         {
                            <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Iglesia
+                                    <i class="fa-solid fa-church"></i> Iglesia
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Iglesia" asp-controller="PrivilegioCEB" asp-action="Index">Privilegios</a>
@@ -46,11 +47,37 @@
                                 </div>
                             </li>
                             }
+                        @*Menu de Bodega*@
+                        @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
+                        {
+                            <li class="nav-item dropdown bg-primary">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-warehouse"></i> Bodega
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Bodega" asp-controller="PrintExcel" asp-action="Index">Generar Excel</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                            </li>
+                        }
+                        @*Menu de contabilidad*@
+                        @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
+                        {
+                            <li class="nav-item dropdown bg-primary">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-list-ol"></i> Contabilidad
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Contabilidad" asp-controller="Contabilidad" asp-action="Index">Inicio</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                            </li>
+                        }
                         @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Cliente))
                         {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Soluciones
+                                    <i class="fa-solid fa-building-circle-xmark"></i> Soluciones
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Estados" asp-action="Index">Estados</a>
@@ -70,7 +97,7 @@
                         {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Usuario
+                                    <i class="fa-solid fa-users-gear"></i>  Usuarios
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Usuario" asp-action="Index">Usuarios</a>
@@ -82,7 +109,7 @@
                         {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    HelpDesk
+                                    <i class="fa-solid fa-mobile-retro"></i> HelpDesk
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="HelpDesk" asp-controller="Tickets" asp-action="Index">Tickets</a>
@@ -94,7 +121,7 @@
                         {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Graficas
+                                    <i class="fa-solid fa-chart-area"></i>  Graficas
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Graficas" asp-controller="DashBoard" asp-action="Index">Grafica</a>

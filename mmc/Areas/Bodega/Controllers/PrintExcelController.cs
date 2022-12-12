@@ -119,7 +119,7 @@ namespace mmc.Areas.Bodega.Controllers
                                 "AND ii.INVEXI > 0 " +
                                 "ORDER BY ii.PaiCod , ii.EmpCod , ii.TieCod  , ia.CatCod , ia.SubCatCod , ia.SsubCatCod , ia.ArtDes ";
 
-            DataTable tabla = new DataTable();
+            DataTable tabla = new();
 
             using (var conexion = new OracleConnection(_cadena))
             {

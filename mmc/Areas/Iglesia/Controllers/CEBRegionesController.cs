@@ -65,12 +65,12 @@ namespace mmc.Areas.Iglesia.Controllers
         {
             //Consulta con Joins para obtener datos de la cabecera y el lider
             var result = from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
-                         join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
-                             on m.Id equals cc.MiembrosCEBid
-                         join tc in _unidadTrabajo.TiposCEB.ObtenerTodos()
-                             on cc.TipoCebId equals tc.Id
-                         join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
-                             on m.CargosCEBId equals p.Id
+                             join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
+                                 on m.Id equals cc.MiembrosCEBid
+                             join tc in _unidadTrabajo.TiposCEB.ObtenerTodos()
+                                 on cc.TipoCebId equals tc.Id
+                             join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
+                                 on m.CargosCEBId equals p.Id
                          where cc.Id == id
                          orderby p.Cargos descending
                          select new CebLiderPrivilegioVM()
@@ -113,8 +113,8 @@ namespace mmc.Areas.Iglesia.Controllers
             ViewBag.id = id;
             // query para optener el detalle de ceb
             var detalle = from cabecera in _unidadTrabajo.CEB_CAB.ObtenerTodos()
-                          join det in _unidadTrabajo.CEB_DET.ObtenerTodos()
-                              on cabecera.Id equals det.CEBid
+                              join det in _unidadTrabajo.CEB_DET.ObtenerTodos()
+                                  on cabecera.Id equals det.CEBid
                           where cabecera.Id == id
                           orderby det.FechaCEB descending
                           select det;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 //TEMPLATE DE EMAILS PROVISIONAL
 namespace mmc.Utilidades
 {
-    //hacemos que herede de IEmailSender que se instala y depues implementamos la interface es lo unico que se hace en esta clase
+    //hacemos que herede de IEmailSender que se instala y despues implementamos la interface es lo unico que se hace en esta clase
     public class EmailSender : IEmailSender
     {
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
