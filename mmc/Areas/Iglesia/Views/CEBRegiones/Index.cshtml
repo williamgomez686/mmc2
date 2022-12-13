@@ -80,14 +80,18 @@
                     <td>
                     <a href="/Iglesia/CEBRegiones/LiderdeCEB/@item.cebid" class="text-primary" style="cursor:pointer">
                             <i class="fa-solid fa-house-medical-flag"></i>
-                        </a>|
-
-                    <a href="/Iglesia/MiembrosCEB/Upsert/@item.id" class="text-success" style="cursor:pointer">
-                        <i class="fas fa-edit"></i>
+                        </a>
+                    <a href="/Iglesia/CEBRegiones/EditarCabCeb/@item.cebid" class="text-warning" style="cursor:pointer">
+                        <i class="fa-solid fa-house-medical-circle-check"></i>
                     </a>
 
+                    <a onclick=Delete("/Iglesia/CEBRegiones/DeleteCab/@item.cebid")>
+                        <i class="fa-solid fa-trash-can text-danger"></i>
+                        </a>
+                    <a href="/Iglesia/MiembrosCEB/Upsert/@item.id" class="text-success" style="cursor:pointer">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </a>
 
-                    <a onclick=Delete("/Iglesia/CEBRegiones/DeleteCab/@item.cebid")><i class="fa-solid fa-trash-can text-danger"></i></a>
                     </td>
                 </tr>
             }

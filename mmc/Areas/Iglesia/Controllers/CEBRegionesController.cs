@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.InkML;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using mmc.AccesoDatos.Data;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
 using mmc.Modelos.IglesiaModels;
 using mmc.Modelos.ViewModels.IglesiaVM;
@@ -12,6 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace mmc.Areas.Iglesia.Controllers
 {
@@ -21,11 +24,13 @@ namespace mmc.Areas.Iglesia.Controllers
     {
         private readonly IUnidadTrabajo _unidadTrabajo;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly ApplicationDbContext _context;
 
-        public CEBRegionesController(IUnidadTrabajo unidadTrabajo, IWebHostEnvironment hostEnvironment)
+        public CEBRegionesController(IUnidadTrabajo unidadTrabajo, IWebHostEnvironment hostEnvironment, ApplicationDbContext context)
         {
             _unidadTrabajo = unidadTrabajo;
             _hostEnvironment = hostEnvironment;
+            _context = context;
         }
         //funciona
         public IActionResult Index(int id)
@@ -64,8 +69,7 @@ namespace mmc.Areas.Iglesia.Controllers
             }
             catch (Exception)
             {
-
-                throw;
+                return NotFound();
             }
         }
 
@@ -135,6 +139,55 @@ namespace mmc.Areas.Iglesia.Controllers
             return View(detalle.ToList());
         }
 
+        public async Task<IActionResult> EditarCabCeb (string? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                var oModel = await _context.CEB_CABs.FindAsync(id);
+                if(oModel==null)
+                {
+                    return NotFound();
+                }
+                @ViewBag.id = id;
+                ViewData["MiembrosCEBid"] = new SelectList(_context.Miembros, "Id", "Name", oModel.MiembrosCEBid);
+                ViewData["TipoCebId"] = new SelectList(_context.TiposCEB, "Id", "Tipo", oModel.TipoCebId);
+                return View(oModel);
+            }
+            catch (Exception)
+            {
+                return NotFound(); 
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditarCabCeb(string id, CEB_CAB Model)
+        {
+            if(id != Model.Id)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    Model.Fechamodifica = DateTime.Now;
+                    Model.UsuarioModifica = User.Identity.Name;
+                    _context.Update(Model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "RegionesCEB");
+                }
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            return View(Model);
+        }
 
         public IActionResult AddDet(string? id)
         {

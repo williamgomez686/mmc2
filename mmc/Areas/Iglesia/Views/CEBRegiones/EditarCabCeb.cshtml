@@ -1,0 +1,75 @@
+﻿@model mmc.Modelos.IglesiaModels.CEB_CAB
+
+@{
+    ViewData["Title"] = "Editar Cab";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 class="text-center">Casa de estudio Bíblico </h4>
+<hr />
+
+<div class="card">
+    <div class="card-header">
+        Header
+    </div>
+    <div class="card-body">
+        <div class="col-md-8">
+            <form asp-action="EditarCabCeb">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <label asp-for="dia" class="control-label"></label>
+                            <input asp-for="dia" class="form-control" />
+                            <span asp-validation-for="dia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Hora" class="control-label"></label>
+                        <input asp-for="Hora" class="form-control" />
+                        <span asp-validation-for="Hora" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TipoCebId" class="control-label"></label>
+                        <select asp-for="TipoCebId" class="form-control" asp-items="ViewBag.TipoCebId"></select>
+                        <span asp-validation-for="TipoCebId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MiembrosCEBid" class="control-label"></label>
+                        <select asp-for="MiembrosCEBid" class="form-control" asp-items="ViewBag.MiembrosCEBid"></select>
+                        <span asp-validation-for="MiembrosCEBid" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label asp-for="Estado"></label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select asp-for="Estado" class="form-control">
+                                <option value=true>Activo</option>
+                                <option value=false>Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary form-control">Guardar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="/Iglesia/RegionesCEB" class="btn btn-danger text-white" style="cursor:pointer">
+                               Cancelar <i class="fa-sharp fa-solid fa-rotate-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+        </div>            
+    </div>
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
