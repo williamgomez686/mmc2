@@ -119,8 +119,8 @@ namespace mmc
             {
                 endpoints.MapControllerRoute(
                     name: "default",
+                    //pattern: "{area=Graficas}/{controller=DashBoard}/{action=Index}/{id?}");
                     pattern: "{area=HelpDesk}/{controller=Home}/{action=Index}/{id?}");
-                    //pattern: "{area=HelpDesk}/{controller=Home}/{action=Index}/{estadoId?}");
                 endpoints.MapRazorPages();
             });
         }

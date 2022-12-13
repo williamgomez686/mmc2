@@ -30,35 +30,43 @@ namespace mmc.Areas.Iglesia.Controllers
         //funciona
         public IActionResult Index(int id)
         {
-            var region = _unidadTrabajo.RegionCEB.Obtener(id);
-            ViewBag.region = region.RegionName;
-            ViewBag.regionId = region.Id;
+            try
+            {
+                var region = _unidadTrabajo.RegionCEB.Obtener(id);
+                ViewBag.region = region.RegionName;
+                ViewBag.regionId = region.Id;
 
-            var casas = (from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
-                         join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
-                           on m.Id equals cc.MiembrosCEBid
-                         join tc in _unidadTrabajo.TiposCEB.ObtenerTodos()
-                           on cc.TipoCebId equals tc.Id
-                         join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
-                           on m.CargosCEBId equals p.Id
-                         join rc in _unidadTrabajo.RegionCEB.ObtenerTodos()
-                            on m.RegionId equals rc.Id
-                         where rc.Id == id
-                         orderby p.Cargos descending
-                         select new CebLiderPrivilegioVM()
-                         {
-                             id = m.Id,
-                             Nombre = m.Name,
-                             Apellido = m.lastName,
-                             Direccion = m.Addres,
-                             Telefono = m.phone,
-                             Hora = cc.Hora,
-                             Dia = cc.dia,
-                             Tipo = tc.Tipo,
-                             Cargo = p.Cargos,
-                             cebid = cc.Id
-                         }).ToList();
-            return View(casas);
+                var casas = (from m in _unidadTrabajo.MiembrosCEB.ObtenerTodos()
+                             join cc in _unidadTrabajo.CEB_CAB.ObtenerTodos()
+                               on m.Id equals cc.MiembrosCEBid
+                             join tc in _unidadTrabajo.TiposCEB.ObtenerTodos()
+                               on cc.TipoCebId equals tc.Id
+                             join p in _unidadTrabajo.PrivilegiosCEB.ObtenerTodos()
+                               on m.CargosCEBId equals p.Id
+                             join rc in _unidadTrabajo.RegionCEB.ObtenerTodos()
+                                on m.RegionId equals rc.Id
+                             where rc.Id == id
+                             orderby p.Cargos descending
+                             select new CebLiderPrivilegioVM()
+                             {
+                                 id = m.Id,
+                                 Nombre = m.Name,
+                                 Apellido = m.lastName,
+                                 Direccion = m.Addres,
+                                 Telefono = m.phone,
+                                 Hora = cc.Hora,
+                                 Dia = cc.dia,
+                                 Tipo = tc.Tipo,
+                                 Cargo = p.Cargos,
+                                 cebid = cc.Id
+                             }).ToList();
+                return View(casas);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public IActionResult LiderdeCEB(string id)
@@ -241,14 +249,42 @@ namespace mmc.Areas.Iglesia.Controllers
         [HttpDelete]
         public IActionResult Delete(string id)
         {
-            var CEB_DET_DB = _unidadTrabajo.CEB_DET.ObtenerPorIdString(id);
-            if (CEB_DET_DB == null)
+            try
             {
-                return Json(new { success = false, message = "Error al Borrar" });
+                var CEB_DET_DB = _unidadTrabajo.CEB_DET.ObtenerPorIdString(id);
+                if (CEB_DET_DB == null)
+                {
+                    return Json(new { success = false, message = "Error al Borrar" });
+                }
+                _unidadTrabajo.CEB_DET.Remover(CEB_DET_DB);
+                _unidadTrabajo.Guardar();
+                return Json(new { success = true, message = "Registro Borrado Exitosamente" });
             }
-            _unidadTrabajo.CEB_DET.Remover(CEB_DET_DB);
-            _unidadTrabajo.Guardar();
-            return Json(new { success = true, message = "Registro Borrado Exitosamente" });
+            catch (Exception error)
+            {
+
+                return Json(new { success = false, message = "Error al Borrar: " + error.Message.ToString() });
+            }
+        }
+        [HttpDelete]
+        public IActionResult DeleteCab(string id)
+        {
+            try
+            {
+                var CEB_DET_DB = _unidadTrabajo.CEB_CAB.ObtenerPorIdString(id);
+                if (CEB_DET_DB == null)
+                {
+                    return Json(new { success = false, message = "Error al Borrar" });
+                }
+                _unidadTrabajo.CEB_CAB.Remover(CEB_DET_DB);
+                _unidadTrabajo.Guardar();
+                return Json(new { success = true, message = "Registro Borrado Exitosamente" });
+            }
+            catch (Exception error)
+            {
+
+                return Json(new { success = false, message = "Ocurrió un error es posible que contenga registros. Revise que no tenga detalles esta Casa. Pruebe eliminarlo y vuelva a intentar: " + error.Message.ToString() });
+            }
         }
         #endregion
     }

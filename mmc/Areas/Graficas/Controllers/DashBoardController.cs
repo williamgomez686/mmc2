@@ -35,6 +35,11 @@ namespace mmc.Areas.Graficas.Controllers
             return Json(GetDataPie());
         }
 
+        public JsonResult DataPastelporDia()
+        {
+            return Json(GetDataPieporDIas());
+        }
+
         public JsonResult DataBarras()
         {
             var listBarras = (from m in _contex.Miembros.ToList()
@@ -42,7 +47,7 @@ namespace mmc.Areas.Graficas.Controllers
                                  on m.Id equals cc.MiembrosCEBid
                               join rc in _contex.RegionesCEB.ToList()
                                 on m.RegionId equals rc.Id
-                                where rc.Estado= true
+                                where rc.Estado = true
                                 orderby rc.RegionName
                               group rc by new {rc.RegionName} into resultado                       
                               select new
@@ -82,6 +87,20 @@ namespace mmc.Areas.Graficas.Controllers
             {
 
                 lista.Add(new ModelPastel(item.Tipo, item.Cantidad));
+            }
+
+            return lista;
+        }
+        public List<ModelPastel> GetDataPieporDIas()
+        {
+            var total = _contex.CEB_CABs.ToList().GroupBy(d => d.dia);
+
+            List<ModelPastel> lista = new();
+
+            foreach (var item in total)
+            {
+
+                lista.Add(new ModelPastel(item.Key, item.Count()));
             }
 
             return lista;

@@ -81,9 +81,13 @@
                     <a href="/Iglesia/CEBRegiones/LiderdeCEB/@item.cebid" class="text-primary" style="cursor:pointer">
                             <i class="fa-solid fa-house-medical-flag"></i>
                         </a>|
-                        <a href="/Iglesia/MiembrosCEB/Upsert/@item.id" class="text-success" style="cursor:pointer">
-                            <i class="fas fa-edit"></i>
-                        </a>
+
+                    <a href="/Iglesia/MiembrosCEB/Upsert/@item.id" class="text-success" style="cursor:pointer">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+
+                    <a onclick=Delete("/Iglesia/CEBRegiones/DeleteCab/@item.cebid")><i class="fa-solid fa-trash-can text-danger"></i></a>
                     </td>
                 </tr>
             }
@@ -99,5 +103,33 @@
         $(document).ready(function () {
             $('#myTable').DataTable();
         });
+
+
+        function Delete(url) {
+            swal({
+                title: "Esta Seguro que quiere Eliminar el registro?",
+                text: "Este Registro no se podra recuperar",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then((borrar) => {
+                if (borrar) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        success: function (data) {
+                            if (data.success) {
+                                toastr.success(data.message);
+                                datatable.ajax.reload();
+                                location.reload();
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        }
+                    });
+                }
+            });
+        }
     </script>
 }

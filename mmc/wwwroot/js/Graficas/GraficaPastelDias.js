@@ -4,34 +4,33 @@
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        //url:"https://localhost:44318/Graficas/DashBoard/DataPastel",
-        url: urlBase + '/DataPastel',
+        url: urlBase + '/DataPastelporDia',
         error: function () {
             alert("Ocurrio un error al consultar los datos");
         },
         success: function (data) {
             console.log(data);
-            GraficaPastel(data);
+            GraficaPastel2(data);
         }
     })
 });
 
-function GraficaPastel(data) {
+function GraficaPastel2(data) {
 
-    Highcharts.chart('Pastel', {
-        colors: ['#01BAF2', '#f6fa4b', '#FAA74B', '#baf201', '#f201ba'],
+    Highcharts.chart('PastelDia', {
+        colors: ['#3498DB', '#fdfd96', '#FAA74B', '#baf201', '#a3ffac'],
         chart: {
             type: 'pie'
         },
         title: {
-            text: 'Tipos de casas de estudio Biblico'
+            text: 'Días en los que se realizan las casas de estudio'
         },
         tooltip: {
             valueSuffix: '%'
         },
         subtitle: {
             text:
-                'Porcentaje que hay distribuido en las casas de estudio bíblico'
+                'Porcentaje de los días en que se realizan las casas de estudio'
         },
         plotOptions: {
             pie: {
