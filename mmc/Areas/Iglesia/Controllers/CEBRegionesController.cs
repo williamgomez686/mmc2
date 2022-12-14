@@ -63,7 +63,8 @@ namespace mmc.Areas.Iglesia.Controllers
                                  Dia = cc.dia,
                                  Tipo = tc.Tipo,
                                  Cargo = p.Cargos,
-                                 cebid = cc.Id
+                                 cebid = cc.Id,
+                                 Estado = cc.Estado
                              }).ToList();
                 return View(casas);
             }
@@ -96,7 +97,8 @@ namespace mmc.Areas.Iglesia.Controllers
                              Dia = cc.dia,
                              Tipo = tc.Tipo,
                              Cargo = p.Cargos,
-                             cebid = cc.Id
+                             cebid = cc.Id,
+                             Estado = cc.Estado
                          };
             //ForEach que se encarga de llenar los ViewBag para la cabecera y datos del lider 
             foreach (var lider in result)

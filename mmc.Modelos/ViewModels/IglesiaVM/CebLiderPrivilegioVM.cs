@@ -19,5 +19,6 @@ namespace mmc.Modelos.ViewModels.IglesiaVM
         public string Tipo { get; set; }
         public string Cargo { get; set; }
         public string cebid { get; set; }
+        public bool Estado { get; set; }
     }
 }

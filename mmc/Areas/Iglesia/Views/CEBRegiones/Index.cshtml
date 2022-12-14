@@ -21,11 +21,11 @@
     <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
+                    Nombres
                 </th>
-                <th>
-                    @Html.DisplayNameFor(Model => Model.Apellido)
-                </th>
+            @*                <th>
+            @Html.DisplayNameFor(Model => Model.Apellido)
+            </th>*@
                 <th>
                     @Html.DisplayNameFor(Model => Model.Direccion)
                 </th>
@@ -45,6 +45,9 @@
                     @Html.DisplayNameFor(Model => Model.Cargo)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(Model => Model.Estado)
+                </th>
+                <th>
                     Acciones
                 </th>
             </tr>
@@ -54,11 +57,11 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
+                    @Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.Apellido)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Apellido)
-                    </td>
+                    @*<td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Direccion)
                     </td>
@@ -77,6 +80,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Cargo)
                     </td>
+                     @if(item.Estado == true)
+                        {
+                        <td class="text-success">
+                            <b>Activo</b>
+                        </td>
+                        }
+                     else if(item.Estado == false)
+                        {
+                        <td class="text-danger">
+                            <b>Inactivo</b>
+                        </td>
+                        }
                     <td>
                     <a href="/Iglesia/CEBRegiones/LiderdeCEB/@item.cebid" class="text-primary" style="cursor:pointer">
                             <i class="fa-solid fa-house-medical-flag"></i>
