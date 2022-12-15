@@ -71,18 +71,14 @@ namespace mmc.Areas.Contabilidad.Controllers
                             Selected = false
                         };
                     });
-
                     ViewBag.Motivos = MotList;
                     ViewBag.Empresas = EmpresasList;
-
                 }
             }
             catch (Exception)
             {
-
                 return NotFound();
             }
-
             return View();
         }
 
@@ -125,6 +121,8 @@ namespace mmc.Areas.Contabilidad.Controllers
             return View(oDiarioxMotivo);        
         }
 
+        #region Metodos que contienen la logica de Negocios *****************************************************************************************************************
+
         public async Task<IActionResult> DescargaExcel(string MOTIVO, DateTime FIni, DateTime Ffin)
         {
             var fechaInicio = FIni.Day + "/" + FIni.Month + "/" + FIni.Year;
@@ -155,7 +153,7 @@ namespace mmc.Areas.Contabilidad.Controllers
             {
                 IWorkbook workbook = new NPOI.XSSF.UserModel.XSSFWorkbook();
                 ISheet excelSheet = workbook.CreateSheet("Libro1");
-               
+
                 ISheet sheet1 = workbook.CreateSheet("sheet1");
                 sheet1.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(10, 10, 0, 10));
 
@@ -168,6 +166,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                 row.CreateCell(6).SetCellValue("NOMBRE");
                 row.CreateCell(7).SetCellValue("CODIGO");
                 row.CreateCell(8).SetCellValue("PROMESA");
+                row.CreateCell(9).SetCellValue("MOTIVOS");
                 sheet1.AutoSizeColumn(1);
                 sheet1.GetType();
                 sheet1.Autobreaks = true;
@@ -176,7 +175,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                 //Titulo
                 row = excelSheet.CreateRow(1);
                 row.CreateCell(5).SetCellValue("DIARIO POR MOTIVO ");
-                sheet1.RowSumsBelow= true;
+                sheet1.RowSumsBelow = true;
                 //row.RowStyle.Alignment;
 
                 row = excelSheet.CreateRow(2);
@@ -207,6 +206,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                     row.CreateCell(7).SetCellValue(item.CLIENTE);
                     sheet1.AutoSizeColumn(2);
                     row.CreateCell(8).SetCellValue(item.PROMESA);
+                    row.CreateCell(9).SetCellValue(item.MOTIVO_DESC);
                     sheet1.AutoSizeColumn(0);
                     sheet1.Autobreaks = true;
                     contador++;
@@ -222,16 +222,16 @@ namespace mmc.Areas.Contabilidad.Controllers
             return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", NombreArchivo);
         }
 
-        #region Metodos que contienen la logica de Negocios *****************************************************************************************************************
         static OracleDataReader ObetenerDporTodosMotivo(string fechaInicio, string fechaFin, List<DiarioXMotivoVM> oDiarioxMotivo, OracleConnection connection)
         {
-            string Query = @"select b.liqcajrecnum Documento, d.CAPTIPPAG Tipo,  a.liqcajfch fecha, (LiqCajRutaMonAbo * LiqCajDetTasCam) Total, a.LIQCAJNUM liquidacion, j.CLIRAZSOC nombre, b.clicod cliente, d.CAPNUM Promesa
+            string Query = @"select b.liqcajrecnum Documento, d.CAPTIPPAG Tipo,  a.liqcajfch fecha, (LiqCajRutaMonAbo * LiqCajDetTasCam) Total, a.LIQCAJNUM liquidacion, j.CLIRAZSOC nombre, b.clicod cliente, d.CAPNUM Promesa, pmc.MOTDES Descripcioin
                                     from REC_LIQUIDACIONES a
                                     join REC_LIQUIDACIONESRECIBOS b
                                         on a.PAICOD = b.PAICOD
                                         and a.EMPCOD = b.EMPCOD
                                         and a.LIQCAJCOD = b.LIQCAJCOD
-                                        and a.LIQCAJNUM = b.LIQCAJNUM
+                                        and a.LIQCAJNUM = b.LIQCAJNUM 
+                                    JOIN PRM_MOTIVOS_CONCEPTOS pmc ON b.LIQCAJMOTCOD = pmc.MOTCOD AND b.PAICOD = pmc.PAICOD AND b.EMPCOD = pmc.EMPCOD 
                                     join CXC_CAPTACIONES d
                                         on b.PAICOD = d.PAICOD
                                         and b.EMPCOD = d.EMPCOD
@@ -247,9 +247,10 @@ namespace mmc.Areas.Contabilidad.Controllers
                                     and b.LiqCajRutaMonAbo > 0 
                                     and a.LiqCajTipRutCod in ('00002', ' ','DDI','00004')
                                     and a.LIQCAJFCH between '" + fechaInicio + "' and '" + fechaFin + "' union ALL " +
-                                                        " select  a.FACRECNUMDOC Documento, d.CAPTIPPAG Tipo, a.FacRecFecAlt fecha, b.FACRECDETMON Total, 0 liquidacion, j.CLIRAZSOC nombre, a.clicod cliente, d.CAPNUM Promesa " +
+                                                        " select  a.FACRECNUMDOC Documento, d.CAPTIPPAG Tipo, a.FacRecFecAlt fecha, b.FACRECDETMON Total, 0 liquidacion, j.CLIRAZSOC nombre, a.clicod cliente, d.CAPNUM Promesa, pmc.MOTDES Descripcioin " +
                                                    " from CAJA_FACTURAS_RECIBOS a" +
                                                     " right join CAJA_FACTURAS_RECIBOS_DETALLE b  on a.PAICOD = b.PAICOD and a.EMPCOD = b.EMPCOD and a.TIECOD = b.TIECOD and a.CAJCOD = b.CAJCOD and a.CLICOD = b.CLICOD and a.TTRCOD = b.TTRCOD and a.FACRECNOTX = b.FACRECNOTX and a.FACRECSERDOC = b.FACRECSERDOC and a.FACRECNUMDOC = b.FACRECNUMDOC" +
+                                                   " JOIN PRM_MOTIVOS_CONCEPTOS pmc ON a.PAICOD = pmc.PAICOD AND a.EMPCOD = pmc.EMPCOD AND a.MOTCOD = pmc.MOTCOD" +
                                                    " Join PRM_TIPOS_TRANSACCIONES c  on a.PAICOD = c.PAICOD and a.EMPCOD = c.EMPCOD and a.TTRCOD = c.TTRCOD " +
                                                     " join CXC_CAPTACIONES d on b.PAICOD = d.PAICOD and b.EMPCOD = d.EMPCOD and b.FACRECDETCAPNUM = d.CAPNUM" +
                                                     " join CXC_CLIENTES j on b.PAICOD = j.PAICOD and b.EMPCOD = j.EMPCOD and b.CLICOD = j.CLICOD " +
@@ -272,6 +273,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                     Model.NOMBRE = Convert.ToString(reader["nombre"]);
                     Model.CLIENTE = Convert.ToString(reader["cliente"]);
                     Model.PROMESA = Convert.ToInt64(reader["Promesa"]);
+                    Model.MOTIVO_DESC = Convert.ToString(reader["Descripcioin"]);
                 }
                 oDiarioxMotivo.Add(Model);
             }
@@ -281,13 +283,14 @@ namespace mmc.Areas.Contabilidad.Controllers
 
         static OracleDataReader ObetenerDporUnMotivo(string MOTIVO, string fechaInicio, string fechaFin, List<DiarioXMotivoVM> oDiarioxMotivo, OracleConnection connection)
         {
-            string Query = @"select b.liqcajrecnum Documento, d.CAPTIPPAG Tipo,  a.liqcajfch fecha, (LiqCajRutaMonAbo * LiqCajDetTasCam) Total, a.LIQCAJNUM liquidacion, j.CLIRAZSOC nombre, b.clicod cliente, d.CAPNUM Promesa
+            string Query = @"select b.liqcajrecnum Documento, d.CAPTIPPAG Tipo,  a.liqcajfch fecha, (LiqCajRutaMonAbo * LiqCajDetTasCam) Total, a.LIQCAJNUM liquidacion, j.CLIRAZSOC nombre, b.clicod cliente, d.CAPNUM Promesa, pmc.MOTDES Descripcioin 
                                     from REC_LIQUIDACIONES a
                                     join REC_LIQUIDACIONESRECIBOS b
                                         on a.PAICOD = b.PAICOD
                                         and a.EMPCOD = b.EMPCOD
                                         and a.LIQCAJCOD = b.LIQCAJCOD
-                                        and a.LIQCAJNUM = b.LIQCAJNUM
+                                        and a.LIQCAJNUM = b.LIQCAJNUM 
+                                    JOIN PRM_MOTIVOS_CONCEPTOS pmc ON b.LIQCAJMOTCOD = pmc.MOTCOD AND b.PAICOD = pmc.PAICOD AND b.EMPCOD = pmc.EMPCOD
                                     join CXC_CAPTACIONES d
                                         on b.PAICOD = d.PAICOD
                                         and b.EMPCOD = d.EMPCOD
@@ -303,10 +306,11 @@ namespace mmc.Areas.Contabilidad.Controllers
                                     and b.LiqCajRutaMonAbo > 0 
                                     and a.LiqCajTipRutCod in ('00002', ' ','DDI','00004')
                                     and a.LIQCAJFCH between '" + fechaInicio + "' and '" + fechaFin + "' and b.LiqCajMotCod = " + MOTIVO + " union ALL " +
-                                                        " select  a.FACRECNUMDOC Documento, d.CAPTIPPAG Tipo, a.FacRecFecAlt fecha, b.FACRECDETMON Total, 0 liquidacion, j.CLIRAZSOC nombre, a.clicod cliente, d.CAPNUM Promesa " +
+                                                        " select  a.FACRECNUMDOC Documento, d.CAPTIPPAG Tipo, a.FacRecFecAlt fecha, b.FACRECDETMON Total, 0 liquidacion, j.CLIRAZSOC nombre, a.clicod cliente, d.CAPNUM Promesa, pmc.MOTDES Descripcioin " +
                                                    " from CAJA_FACTURAS_RECIBOS a" +
                                                     " right join CAJA_FACTURAS_RECIBOS_DETALLE b  on a.PAICOD = b.PAICOD and a.EMPCOD = b.EMPCOD and a.TIECOD = b.TIECOD and a.CAJCOD = b.CAJCOD and a.CLICOD = b.CLICOD and a.TTRCOD = b.TTRCOD and a.FACRECNOTX = b.FACRECNOTX and a.FACRECSERDOC = b.FACRECSERDOC and a.FACRECNUMDOC = b.FACRECNUMDOC" +
-                                                   " Join PRM_TIPOS_TRANSACCIONES c  on a.PAICOD = c.PAICOD and a.EMPCOD = c.EMPCOD and a.TTRCOD = c.TTRCOD " +
+                                                   " JOIN PRM_MOTIVOS_CONCEPTOS pmc ON a.PAICOD = pmc.PAICOD AND a.EMPCOD = pmc.EMPCOD AND a.MOTCOD = pmc.MOTCOD " +
+                                                   "Join PRM_TIPOS_TRANSACCIONES c  on a.PAICOD = c.PAICOD and a.EMPCOD = c.EMPCOD and a.TTRCOD = c.TTRCOD " +
                                                     " join CXC_CAPTACIONES d on b.PAICOD = d.PAICOD and b.EMPCOD = d.EMPCOD and b.FACRECDETCAPNUM = d.CAPNUM" +
                                                     " join CXC_CLIENTES j on b.PAICOD = j.PAICOD and b.EMPCOD = j.EMPCOD and b.CLICOD = j.CLICOD " +
                                                     " where a.EMPCOD = '00001'" +
@@ -328,6 +332,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                     Model.NOMBRE = Convert.ToString(reader["nombre"]);
                     Model.CLIENTE = Convert.ToString(reader["cliente"]);
                     Model.PROMESA = Convert.ToInt64(reader["Promesa"]);
+                    Model.MOTIVO_DESC = Convert.ToString(reader["Descripcioin"]);
                 }
                 oDiarioxMotivo.Add(Model);
             }

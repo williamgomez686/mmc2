@@ -4,10 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3 class="text-center">@ViewBag.Titulo </h3>
+@if (@ViewBag.Titulo == null)
+{
+    <h3 class="text-center">MOTIVO: TODOS LOS MOTIVOS </h3>
+}else 
+{
+    <h3 class="text-center">MOTIVO: @ViewBag.Titulo </h3>
+}
 
-<table class="table">
-    <thead>
+
+<table class="table table-striped table-bordered" id="myTable">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.DOCUMENTO)
@@ -33,7 +40,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.PROMESA)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.MOTIVO_DESC)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -72,7 +81,50 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PROMESA)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MOTIVO_DESC)
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<hr />
+<hr />
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+            console.log("hola");
+        });
+
+
+        function Delete(url) {
+            swal({
+                title: "Esta Seguro que quiere Eliminar el registro?",
+                text: "Este Registro no se podra recuperar",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then((borrar) => {
+                if (borrar) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        success: function (data) {
+                            if (data.success) {
+                                toastr.success(data.message);
+                                datatable.ajax.reload();
+                                location.reload();
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

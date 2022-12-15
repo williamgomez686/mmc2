@@ -17,5 +17,6 @@ namespace mmc.Modelos.ContabilidadModels
         public string NOMBRE { get; set; }
         public string CLIENTE { get; set; }
         public long PROMESA { get; set; }
+        public string MOTIVO_DESC { get; set; }
     }
 }
