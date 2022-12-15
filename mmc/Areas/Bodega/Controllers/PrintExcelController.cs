@@ -11,6 +11,8 @@ using System.Data;
 using System.Linq;
 using System.IO;
 using ClosedXML.Excel;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
 namespace mmc.Areas.Bodega.Controllers
 {
@@ -19,9 +21,11 @@ namespace mmc.Areas.Bodega.Controllers
     public class PrintExcelController : Controller
     {
         private readonly string _cadena;
-        public PrintExcelController(IConfiguration cadena)
+        private IHostingEnvironment _hostingEnvironment;
+        public PrintExcelController(IConfiguration cadena, IHostingEnvironment hostingEnvironment)
         {
             _cadena = cadena.GetConnectionString("OrecleString");
+            _hostingEnvironment = hostingEnvironment;
         }
         public IActionResult Index()
         {
@@ -147,5 +151,7 @@ namespace mmc.Areas.Bodega.Controllers
                 }
             }
         }
+
+       
     }
 }

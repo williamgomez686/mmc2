@@ -1,0 +1,78 @@
+﻿@model IEnumerable<mmc.Modelos.ContabilidadModels.DiarioXMotivoVM>
+@{
+    ViewData["Title"] = "Diario por Motivo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="text-center">@ViewBag.Titulo </h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DOCUMENTO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TIPO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FECHA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TOTAL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LIQUIDACION)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NOMBRE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CLIENTE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PROMESA)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOCUMENTO)
+                </td>
+                @if (item.TIPO == "RU")
+                {
+                <td>
+                    RUTA
+                </td>
+                } else if (item.TIPO == "CA" || item.TIPO == "DE" )
+                {
+                 <td>
+                    CAJA
+                </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.FECHA)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.TOTAL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LIQUIDACION)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLIENTE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PROMESA)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
