@@ -18,10 +18,12 @@
                 <div class="card-body">
                     <form asp-action="DporMotivo" asp-controller="Contabilidad" method="post">
 
-                        <div class="form-group">
-                            @Html.DropDownList("EMPCOD", Empresa, "SELECCIONE  EMPRESA", new { @class = "form-control" })
-                        </div>
+                        @*
 
+                        <div class="form-group">
+                        @Html.DropDownList("EMPCOD", Empresa, "SELECCIONE  EMPRESA", new { @class = "form-control" })
+                        </div>
+                        *@
                         <div class="form-group">
                             @Html.DropDownList("MOTIVO", Motivos, "TODOS LOS MOTIVOS. ", new { @class = "form-control" })
                         </div>
@@ -44,6 +46,8 @@
     </div>
 
 </div>
+
+<br /><hr />
 
 
 

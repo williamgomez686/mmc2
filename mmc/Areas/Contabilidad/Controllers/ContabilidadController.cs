@@ -118,7 +118,8 @@ namespace mmc.Areas.Contabilidad.Controllers
             {
                 return NotFound();
             }
-            return View(oDiarioxMotivo);        
+            var orden = oDiarioxMotivo.OrderByDescending(o => o.MOTIVO_DESC);
+            return View(orden);        
         }
 
         #region Metodos que contienen la logica de Negocios *****************************************************************************************************************
@@ -185,13 +186,22 @@ namespace mmc.Areas.Contabilidad.Controllers
                 row.CreateCell(6).SetCellValue(fechaFin);
 
                 var contador = 5;
-                foreach (var item in oDiarioxMotivo)
+
+                var orden = oDiarioxMotivo.OrderByDescending(o => o.MOTIVO_DESC);
+
+                foreach (var item in orden)
                 {
                     var fch = item.FECHA.Day + "/" + item.FECHA.Month + "/" + item.FECHA.Year;
                     row = excelSheet.CreateRow(contador); // se crean las filas
                     row.CreateCell(1).SetCellValue(item.DOCUMENTO);
                     sheet1.AutoSizeColumn(0);
-                    row.CreateCell(2).SetCellValue(item.TIPO);
+                    if (item.TIPO == "CA" || item.TIPO == "DE")
+                    {
+                        row.CreateCell(2).SetCellValue("CAJA");
+                    }else if (item.TIPO == "RU")
+                    {
+                        row.CreateCell(2).SetCellValue("RUTA");
+                    }
                     sheet1.AutoSizeColumn(0);
                     row.CreateCell(3).SetCellValue(fch);
                     sheet1.AutoSizeColumn(0);
@@ -433,9 +443,9 @@ namespace mmc.Areas.Contabilidad.Controllers
                 }
                 oDiarioxMotivo.Add(Model);
             }
-
             return oDiarioxMotivo;
         }
+
         #endregion ***********************************************************************************************************************************************************
 
     }
