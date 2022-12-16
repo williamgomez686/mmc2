@@ -12,7 +12,7 @@ namespace mmc.Modelos.ContabilidadModels
         public int DOCUMENTO { get; set; }
         public string TIPO { get; set; }
         public DateTime FECHA { get; set; }
-        public int TOTAL { get; set; }
+        public double TOTAL { get; set; }
         public long LIQUIDACION { get; set; }
         public string NOMBRE { get; set; }
         public string CLIENTE { get; set; }

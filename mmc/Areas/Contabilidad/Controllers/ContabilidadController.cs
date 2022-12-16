@@ -278,7 +278,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                     Model.DOCUMENTO = Convert.ToInt32(reader["Documento"]);
                     Model.TIPO = Convert.ToString(reader["Tipo"]);
                     Model.FECHA = Convert.ToDateTime(reader["fecha"]);
-                    Model.TOTAL = Convert.ToInt32(reader["Total"]);
+                    Model.TOTAL = Convert.ToDouble(reader["Total"]);
                     Model.LIQUIDACION = Convert.ToInt64(reader["liquidacion"]);
                     Model.NOMBRE = Convert.ToString(reader["nombre"]);
                     Model.CLIENTE = Convert.ToString(reader["cliente"]);
@@ -337,7 +337,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                     Model.DOCUMENTO = Convert.ToInt32(reader["Documento"]);
                     Model.TIPO = Convert.ToString(reader["Tipo"]);
                     Model.FECHA = Convert.ToDateTime(reader["fecha"]);
-                    Model.TOTAL = Convert.ToInt32(reader["Total"]);
+                    Model.TOTAL = Convert.ToDouble(reader["Total"]);
                     Model.LIQUIDACION = Convert.ToInt64(reader["liquidacion"]);
                     Model.NOMBRE = Convert.ToString(reader["nombre"]);
                     Model.CLIENTE = Convert.ToString(reader["cliente"]);
@@ -434,7 +434,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                     Model.DOCUMENTO = Convert.ToInt32(reader["Documento"]);
                     Model.TIPO = Convert.ToString(reader["Tipo"]);
                     Model.FECHA = Convert.ToDateTime(reader["fecha"]);
-                    Model.TOTAL = Convert.ToInt32(reader["Total"]);
+                    Model.TOTAL = Convert.ToDouble(reader["Total"]);
                     Model.LIQUIDACION = Convert.ToInt32(reader["liquidacion"]);
                     Model.NOMBRE = Convert.ToString(reader["nombre"]);
                     Model.CLIENTE = Convert.ToString(reader["cliente"]);
