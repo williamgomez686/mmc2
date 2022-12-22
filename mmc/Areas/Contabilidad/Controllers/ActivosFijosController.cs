@@ -67,7 +67,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                 if (files.Count > 0)
                 {
                     string filename = activoFijoDB.CODIGOACTIVO;//Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"\\192.168.0.3\FotosActivosFijos"); // @"imagenes\Contabilidad\ActivosFijos");
+                    var uploads = Path.Combine(webRootPath, @"imagenes\Contabilidad\ActivosFijos"); //@"\\192.168.0.3\FotosActivosFijos");
                     var extension = Path.GetExtension(files[0].FileName);
                     if (activoFijoDB.ACFIFOTO != null)
                     {
@@ -82,8 +82,8 @@ namespace mmc.Areas.Contabilidad.Controllers
                     {
                         files[0].CopyTo(filesStreams);
                     }
-                    //activoFijoDB.ACFIFOTO = @"\imagenes\Contabilidad\ActivosFijos\" + filename + extension;
-                    activoFijoDB.ACFIFOTO = @"\\192.168.0.3\FotosActivosFijos\" + filename + extension;
+                    activoFijoDB.ACFIFOTO = @"\imagenes\Contabilidad\ActivosFijos\" + filename + extension;
+                   // activoFijoDB.ACFIFOTO = @"\\192.168.0.3\FotosActivosFijos\" + filename + extension;
                 }
 
                 Actualizar(activoFijoDB, conexion());
