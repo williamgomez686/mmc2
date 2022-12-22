@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Perfil";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
@@ -20,10 +20,36 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+
+              <div class="form-group">
+                <label asp-for="Input.Nombres"></label>
+                <input asp-for="Input.Nombres" class="form-control" />
+                <span asp-validation-for="Input.Nombres" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Apellidos"></label>
+                <input asp-for="Input.Apellidos" class="form-control" />
+                <span asp-validation-for="Input.Apellidos" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Departamento"></label>
+                <input asp-for="Input.Departamento" class="form-control" />
+                <span asp-validation-for="Input.Departamento" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Extencion"></label>
+                <input asp-for="Input.Extencion" class="form-control" />
+                <span asp-validation-for="Input.Extencion" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
 </div>
+<br />
+<hr />
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

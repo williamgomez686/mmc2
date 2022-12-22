@@ -1,0 +1,33 @@
+﻿<div class="container text-center">
+    <div class="h3"><label class="text-center">Inventarios</label></div>
+
+    <div class="row">
+        <div class="col-md-3">
+            .
+        </div>
+        <div class="col-sm-7">
+            <div class="card">
+                <div class="card-header">
+                    Buscar de activo
+                </div>
+                <div class="card-body">
+                    <form asp-action="ActivosFIjosFoto" asp-controller="ActivosFijos" method="get">
+
+                        <div class="form-group">
+                            <label class="text-muted">Buscar Codigo</label>
+                            <input type="text" name="ArtCod" id="fIni" />
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+
+                        <input type="submit" name="Export" value="Descargar Excel" class="btn btn-success" asp-action="DescargaExcel" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br />
+<hr />
