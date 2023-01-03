@@ -48,7 +48,7 @@ namespace mmc.Areas.Graficas.Controllers
                               join rc in _contex.RegionesCEB.ToList()
                                 on m.RegionId equals rc.Id
                                 where rc.Estado = true
-                                orderby rc.RegionName
+                                orderby rc.Id
                               group rc by new {rc.RegionName} into resultado                       
                               select new
                              {

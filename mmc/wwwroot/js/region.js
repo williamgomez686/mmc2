@@ -10,6 +10,7 @@ function loadDataTable() {
             "url": "/Iglesia/RegionesCEB/ObtenerTodos"
         },
         "columns": [
+            { "data": "id", "width": "5%" },
             { "data": "regionName", "width": "20%" },
             { "data": "regionAddress", "width": "40%" },
             {
@@ -21,7 +22,7 @@ function loadDataTable() {
                     else {
                         return "Inactivo";
                     }
-                }, "width": "20%"
+                }, "width": "10%"
             },
             {
                 "data": "id",

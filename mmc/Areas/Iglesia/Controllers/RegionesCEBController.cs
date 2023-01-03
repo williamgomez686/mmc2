@@ -107,9 +107,15 @@ namespace mmc.Areas.Admin.Controllers
 
         #region API
         [HttpGet]
-        public IActionResult ObtenerTodos()
+        public IActionResult ObtenerTodos2()
         {
-            var todos = _unidadTrabajo.RegionCEB.ObtenerTodos().Where(est => est.Estado == true);
+            var todos = _unidadTrabajo.RegionCEB.ObtenerTodos().Where(est => est.Estado == true).OrderBy(test => test.Id);
+            return Json(new { data = todos });
+        }
+        [HttpGet]
+        public JsonResult ObtenerTodos()
+        {
+            var todos = _unidadTrabajo.RegionCEB.ObtenerTodos().OrderBy(test => test.Id);
             return Json(new { data = todos });
         }
 
