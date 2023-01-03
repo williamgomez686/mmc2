@@ -43,7 +43,7 @@ namespace mmc.Areas.Contabilidad.Controllers
             try
             {
                 var result = new AF_Activos_Fijos();
-                using (var connection = new OracleConnection(_cadenaTest))
+                using (var connection = new OracleConnection(_cadena))
                 {
                     connection.Open();
                     result = Get_AF_byId(connection, ArtCod);
@@ -66,8 +66,9 @@ namespace mmc.Areas.Contabilidad.Controllers
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count > 0)
                 {
-                    string filename = activoFijoDB.CODIGOACTIVO;//Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"imagenes\Contabilidad\ActivosFijos"); //@"\\192.168.0.3\FotosActivosFijos");
+                    string filename = activoFijoDB.CODIGOACTIVO;//Guid.NewGuid().ToString();  \\192.168.0.3\ActivosFijos
+                    var uploads = Path.Combine(webRootPath, @"\\TomCat\ActivosFijos");
+                    //var uploads = Path.Combine(webRootPath, @"imagenes\Contabilidad\ActivosFijos"); //@"\\192.168.0.3\FotosActivosFijos");
                     var extension = Path.GetExtension(files[0].FileName);
                     if (activoFijoDB.ACFIFOTO != null)
                     {
@@ -82,8 +83,8 @@ namespace mmc.Areas.Contabilidad.Controllers
                     {
                         files[0].CopyTo(filesStreams);
                     }
-                    activoFijoDB.ACFIFOTO = @"\imagenes\Contabilidad\ActivosFijos\" + filename + extension;
-                   // activoFijoDB.ACFIFOTO = @"\\192.168.0.3\FotosActivosFijos\" + filename + extension;
+                    //activoFijoDB.ACFIFOTO = @"\imagenes\Contabilidad\ActivosFijos\" + filename + extension;
+                   activoFijoDB.ACFIFOTO = filename + extension; //@"\\TomCat\ActivosFijos\" + filename + extension;
                 }
 
                 Actualizar(activoFijoDB, conexion());
@@ -101,7 +102,7 @@ namespace mmc.Areas.Contabilidad.Controllers
             try
             {
                 //using (var connection = new OracleConnection(_cadenaTest))
-                var connection = new OracleConnection(_cadenaTest);
+                var connection = new OracleConnection(_cadena);
                 //{
                 connection.Open();
                 return connection;
