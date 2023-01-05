@@ -1,32 +1,31 @@
-﻿//var prueba = urlBase + '/DataBarras';
+﻿//var prueba = urlBase + '/DataBarras_inactivas';
 $(document).ready(function () {
     //Peticion a API
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: urlBase + '/DataBarras', 
+        url: urlBase + '/DataBarras_activas', 
         error: function () {
             alert("Ocurrio un error al consultar la grafica de barras");
         },
         success: function (data) {
             console.log(data);
-            GraficaBarras(data);
+            GraficaBarras_activas(data);
         }
     })
 });
 
-
-function GraficaBarras(data) {
-    Highcharts.chart('barras', {
+function GraficaBarras_activas(data) {
+    Highcharts.chart('barras_activas', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Casas de estudio biblico por región'
+            text: 'Casas de estudio biblico por región Activas'
         },
         subtitle: {
-            text: 'Este es el total de casas que hay por región'
+            text: 'Total de casas de estudio biblico Activas por region'
         },
         xAxis: {
             type: 'category',
@@ -57,7 +56,7 @@ function GraficaBarras(data) {
             dataLabels: {
                 enabled: true,
                 rotation: -90,
-                color: '#FFFFFF',
+                color: '#07F327',
                 align: 'right',
                 format: '{point.y}', // one decimal
                 y: 10, // 10 pixels down from the top

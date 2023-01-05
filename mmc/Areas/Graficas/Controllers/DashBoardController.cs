@@ -40,6 +40,7 @@ namespace mmc.Areas.Graficas.Controllers
             return Json(GetDataPieporDIas());
         }
 
+        //Grafica de barras del total de casas de estudio biblico
         public JsonResult DataBarras()
         {
             var listBarras = (from m in _contex.Miembros.ToList()
@@ -68,6 +69,64 @@ namespace mmc.Areas.Graficas.Controllers
 
             return Json(data);
         }
+        //Grafica de barras del total de casas de estudio biblico activas
+        public JsonResult DataBarras_activas()
+        {
+            var listBarras = (from m in _contex.Miembros.ToList()
+                              join cc in _contex.CEB_CABs.ToList()
+                                 on m.Id equals cc.MiembrosCEBid
+                              join rc in _contex.RegionesCEB.ToList()
+                                on m.RegionId equals rc.Id
+                              where rc.Estado = true && cc.Estado == true
+                              orderby rc.Id
+                              group rc by new { rc.RegionName } into resultado
+                              select new
+                              {
+                                  region = resultado.Key.RegionName,
+                                  cantidad = resultado.Count(),
+                              }).ToList();
+
+            var cantArray = listBarras.Count;
+
+            object[] data = new object[cantArray];
+            int contar = 0;
+            foreach (var item in listBarras)
+            {
+                data[contar] = new object[] { item.region, item.cantidad };
+                contar++;
+            }
+            return Json(data);
+        }
+
+        //Grafica de barras del total de casas de estudio biblico Inactivo
+        public JsonResult DataBarras_inactivas()
+        {
+            var listBarras = (from m in _contex.Miembros.ToList()
+                              join cc in _contex.CEB_CABs.ToList()
+                                 on m.Id equals cc.MiembrosCEBid
+                              join rc in _contex.RegionesCEB.ToList()
+                                on m.RegionId equals rc.Id
+                              where rc.Estado = true && cc.Estado == false
+                              orderby rc.Id
+                              group rc by new { rc.RegionName } into resultado
+                              select new
+                              {
+                                  region = resultado.Key.RegionName,
+                                  cantidad = resultado.Count(),
+                              }).ToList();
+
+            var cantArray = listBarras.Count;
+
+            object[] data = new object[cantArray];
+            int contar = 0;
+            foreach (var item in listBarras)
+            {
+                data[contar] = new object[] { item.region, item.cantidad };
+                contar++;
+            }
+            return Json(data);
+        }
+
         public List<ModelPastel> GetDataPie()
         {
             var total = (from a in _contex.CEB_CABs.ToList()

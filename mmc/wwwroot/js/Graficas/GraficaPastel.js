@@ -27,7 +27,7 @@ function GraficaPastel(data) {
             text: 'Tipos de casas de estudio Biblico'
         },
         tooltip: {
-            valueSuffix: '%'
+            valueSuffix: ' Casas'
         },
         subtitle: {
             text:
@@ -46,7 +46,7 @@ function GraficaPastel(data) {
         },
         series: [
             {
-                name: 'Percentage',
+                name: 'Cantidad ',
                 colorByPoint: true,
                 data: data
             }

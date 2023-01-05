@@ -26,7 +26,7 @@ function GraficaPastel2(data) {
             text: 'Días en los que se realizan las casas de estudio'
         },
         tooltip: {
-            valueSuffix: '%'
+            valueSuffix: ' Casas'
         },
         subtitle: {
             text:
@@ -45,7 +45,7 @@ function GraficaPastel2(data) {
         },
         series: [
             {
-                name: 'Percentage',
+                name: 'Cantidad',
                 colorByPoint: true,
                 data: data
             }

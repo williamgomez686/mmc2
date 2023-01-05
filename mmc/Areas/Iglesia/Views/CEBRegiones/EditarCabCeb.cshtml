@@ -4,13 +4,13 @@
     ViewData["Title"] = "Editar Cab";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h4 class="text-center">Casa de estudio Bíblico </h4>
+<hr />
+<h4 class="text-center text-primary">Casa de estudio Bíblico </h4>
 <hr />
 
 <div class="card">
-    <div class="card-header">
-        Header
+    <div class="card-header text-center">
+        Editar Casa de Estudio 
     </div>
     <div class="card-body">
         <div class="col-md-8">
@@ -64,7 +64,7 @@
         </div>            
     </div>
     <div class="card-footer text-muted">
-        Footer
+        @DateTime.Now.ToString();
     </div>
 </div>
 
