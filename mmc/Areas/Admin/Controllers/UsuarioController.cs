@@ -25,6 +25,14 @@ namespace mmc.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult Roles()
+        {
+            var userRole = _db.UserRoles.ToList();//esta variable tendra todos los roles por usuario
+            var roles = _db.Roles.ToList();//en esta variable optendremos todos los roles que esten el la Db
+            
+            return View(roles);
+        }
+
         #region API
 
         [HttpGet]
