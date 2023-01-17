@@ -1,0 +1,36 @@
+﻿@model IEnumerable<mmc.Modelos.ContabilidadModels.ViewModels.ChequeDetallesVM>
+
+@{
+    ViewData["Title"] = "TestCheque";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cabecera.FECHA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cabecera.MONTOLETRAS)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Detalle.CONMOVMAYVALDET)
+            </th>
+        </tr>
+    </thead>
+     <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cabecera.FECHA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detalle.CONMOVMAYVALDET)
+            </td>
+         </tr>
+        }
+    </tbody>
+</table>
