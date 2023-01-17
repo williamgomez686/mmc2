@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace mmc.Areas.Iglesia.Controllers
 {
     [Area("Iglesia")]
-    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia)]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia + "," + DS.Role_RegionesIglesia)]
     public class CEBRegionesController : Controller
     {
         private readonly IUnidadTrabajo _unidadTrabajo;

@@ -1,18 +1,18 @@
-﻿@model mmc.Modelos.Marca
+﻿@model mmc.Modelos.Rol
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var titulo = "Crear Marca";
+    var titulo = "Crear Nuevo Rol";
 }
 
 <form method="post">
     <div class="row p-3 border-0">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
-    @if (Model.Id != 0)
+    @if (Model.Id != null)
     {
         // Actualizar
-        titulo = "Actualizar Marca";
+        titulo = "Actualizar Rol";
     }
 
     <div class="col-12 border-bottom">
@@ -21,29 +21,20 @@
     <div class="col-md-8 pt-4">
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="Nombre"></label>
+                <label asp-for="Name"></label>
             </div>
             <div class="col-8">
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-        </div>
-        
-        <div class="form-group row">
-            <div class="col-4">
-                <label asp-for="Estado"></label>
-            </div>
-            <div class="col-4">
-                <select asp-for="Estado" class="form-control">
-                    <option value=true>Activo</option>
-                    <option value=false>Inactivo</option>
-                </select>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-8 offset-4">
-                @if (Model.Id != 0)
+@*                    <div class="col">
+        <button type="submit" class="btn btn-primary form-control">Crear</button>
+    </div>*@
+                @if (Model.Id != null)
                 {
                     <partial name="_BotonesActualizarYRegresar" model="Model.Id" />
                 }
@@ -53,17 +44,9 @@
                 }
             </div>
         </div>
-
     </div>
-
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-
-
-
-
-

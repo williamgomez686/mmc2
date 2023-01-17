@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 namespace mmc.Areas.Graficas.Controllers
 {
     [Area("Graficas")]
-    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia)]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia + "," + DS.Role_RegionesIglesia)]
     public class DashBoardController : Controller
     {
         private readonly IUnidadTrabajo _unidadTrabajo;

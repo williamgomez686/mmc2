@@ -29,24 +29,30 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-house"></i> Inicio</a>
                         </li>
                         @*Menu de Iglesia*@
-                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia))
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia) || User.IsInRole(DS.Role_RegionesIglesia))
                         {
-                           <li class="nav-item dropdown bg-primary">
+                            <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-solid fa-church"></i> Iglesia
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="PrivilegioCEB" asp-action="Index">Privilegios</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="TipoCEB" asp-action="Index">Tipos</a>
+
                                     <a class="dropdown-item" asp-area="Iglesia" asp-controller="RegionesCEB" asp-action="Index">Regiones</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Index">Lideres</a>
-                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Regionales">Regionales</a>
-                                    
+
+                                    @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia))
+                                    {
+                                        <a class="dropdown-item" asp-area="Iglesia" asp-controller="PrivilegioCEB" asp-action="Index">Privilegios</a>
+                                        <a class="dropdown-item" asp-area="Iglesia" asp-controller="TipoCEB" asp-action="Index">Tipos</a>
+                                        <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Index">Lideres</a>
+                                        <a class="dropdown-item" asp-area="Iglesia" asp-controller="MiembrosCEB" asp-action="Regionales">Regionales</a>
+                                    }
+
+
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Reportes</a>
+                                    <a class="dropdown-item" href="#">Reportes(Proximamente)</a>
                                 </div>
                             </li>
-                            }
+                        }
                         @*Menu de Bodega*@
                         @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
                         {
@@ -94,7 +100,7 @@
                             </li>
 
                         }
-
+                        @*usuarios*@
                         @if (User.IsInRole(DS.Role_Admin))
                         {
                             <li class="nav-item dropdown bg-primary">
@@ -103,6 +109,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Usuario" asp-action="Index">Usuarios</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Usuario" asp-action="Roles">Roles</a>
                                 </div>
                             </li>
                         }
@@ -118,8 +125,8 @@
                                 </div>
                             </li>
                         }
-
-                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia))
+                        @*GRAFICAS*@
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia) || User.IsInRole(DS.Role_RegionesIglesia))
                         {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

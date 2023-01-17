@@ -44,6 +44,8 @@ namespace mmc.Areas.Iglesia.Controllers
         }
 
         #region Nuevo UPsert/////////////////////////////////////////////////////////////////////////////////////////////
+        [HttpGet]
+        //[Authorize(Roles = "Admin,Iglesia,RegionalesIglesia")]
         public IActionResult Upsert(int? id)
         {
             MiembroVM MiembroVM = new MiembroVM()
@@ -84,6 +86,7 @@ namespace mmc.Areas.Iglesia.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin,Iglesia,RegionalesIglesia")]
         public IActionResult Upsert(MiembroVM miembroVM)
         {
             if (ModelState.IsValid)
