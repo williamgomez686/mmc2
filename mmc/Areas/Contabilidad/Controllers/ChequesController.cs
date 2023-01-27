@@ -31,7 +31,7 @@ namespace mmc.Areas.Contabilidad.Controllers
             var test2 = new ChequeDetallesVM();
             var test = ObtenerChequePorPoliza(tempPoliza);
             test2.cabecera = test;
-            test2.Detalle = test.chequeDetalles;
+            //test2.Detalle = test.chequeDetalles;
 
             return View(test2);
         }
