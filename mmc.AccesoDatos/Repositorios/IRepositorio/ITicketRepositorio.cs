@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace mmc.AccesoDatos.Repositorios.IRepositorio
 {
-    public interface ITicketRepositorio: IRepositorio<Ticket>
-    {
+    //public interface ITicketRepositorio: IRepositorio<Ticket>
+    //{
 
-    }
+    //}
 }

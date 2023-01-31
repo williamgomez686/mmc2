@@ -1,0 +1,60 @@
+﻿@model mmc.Modelos.TicketModels.EstadosTK
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>EstadosTK</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsuarioAlta" class="control-label"></label>
+                <input asp-for="UsuarioAlta" class="form-control" />
+                <span asp-validation-for="UsuarioAlta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsuarioModifica" class="control-label"></label>
+                <input asp-for="UsuarioModifica" class="form-control" />
+                <span asp-validation-for="UsuarioModifica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaAlta" class="control-label"></label>
+                <input asp-for="FechaAlta" class="form-control" />
+                <span asp-validation-for="FechaAlta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fechamodifica" class="control-label"></label>
+                <input asp-for="Fechamodifica" class="form-control" />
+                <span asp-validation-for="Fechamodifica" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

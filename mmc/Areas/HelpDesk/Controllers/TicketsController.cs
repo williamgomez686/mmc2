@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mmc.AccesoDatos.Data;
-using mmc.Modelos;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
-using mmc.Utilidades;
-/*
+using mmc.Modelos.TicketModels;
+
 namespace mmc.Areas.HelpDesk.Controllers
 {
     [Area("HelpDesk")]
-    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Ticket)]
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,20 +22,30 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Tickets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? flag)
         {
-            if(User.IsInRole(DS.Role_Admin))
+            List<EstadosTK> listao =_context.EstadosTKs.ToList();
+
+            List<SelectListItem> ListadoOpciones = listao.ConvertAll(x =>
             {
-                return View(await _context.Tickets.Where(u => u.Estado == "Activo").ToListAsync());
-            }
-            else
+                return new SelectListItem()
+                {
+                    Text = x.Descripcion.ToString(),//empcod  NOMBRE
+                    Value = x.Id.ToString(),//nombre
+                    Selected = false
+                };
+            });
+            ViewBag.flag = ListadoOpciones;
+
+            if (flag == null)
             {
-                var nombre = User.Identity.Name;
-                var Ticket = await _context.Tickets.Where(u => u.UsuarioAplicacionId == nombre && u.Estado == "Activo").ToListAsync();
-                //var ticket2 = 
-                return View(Ticket);
+                flag = 1;
             }
 
+            var applicationDbContext = _context.Tickets.Include(t => t.AreaSoporte).Include(t => t.EstadosTK)
+                                                       .Include(t => t.SedeTK).Include(t => t.Urgencia)
+                                                       .Where(t => t.Estado == true && t.EstadoTKId == flag );
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: HelpDesk/Tickets/Details/5
@@ -50,6 +57,10 @@ namespace mmc.Areas.HelpDesk.Controllers
             }
 
             var ticket = await _context.Tickets
+                .Include(t => t.AreaSoporte)
+                .Include(t => t.EstadosTK)
+                .Include(t => t.SedeTK)
+                .Include(t => t.Urgencia)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
@@ -62,6 +73,10 @@ namespace mmc.Areas.HelpDesk.Controllers
         // GET: HelpDesk/Tickets/Create
         public IActionResult Create()
         {
+            ViewData["AreaSoporteId"] = new SelectList(_context.AreaSoporteTK, "Id", "Descripcion");
+            ViewData["EstadoTKId"] = new SelectList(_context.EstadosTKs, "Id", "Descripcion");
+            ViewData["SedeId"] = new SelectList(_context.EmpresasTK, "Id", "Descripcion");
+            ViewData["UrgenciaId"] = new SelectList(_context.UrgenciasTK, "Id", "Descripcion");
             return View();
         }
 
@@ -69,22 +84,25 @@ namespace mmc.Areas.HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Ticket ticket)
         {
-            var nombre = User.Identity.Name;//obtiene el nombre del usuario de la session activa
-            var usuario = User.Identity.IsAuthenticated.ToString();
-            var oTicket = new Ticket();
-            if (!ModelState.IsValid)
-            {
-                //oTicket.Id = Guid.NewGuid().ToString();
-                oTicket.UsuarioAplicacionId = nombre;
-                oTicket.Estado = "Activo";
-                oTicket.Asunto = ticket.Asunto;
-                oTicket.Descripcion = ticket.Descripcion;
-                oTicket.FechaAlta = DateTime.Now;
+            var cantidadTIkcets = _context.Tickets.Count();
+            ticket.Id = "TK-" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + cantidadTIkcets;
+            ticket.FechaAlta = DateTime.Now;
+            //ticket.Usuario = "wgomez";
+            ticket.Estado = true;
+            ticket.UsuarioAlta = User.Identity.Name;
+            ticket.Tecnico = User.Identity.Name;
+            ticket.EstadoTKId = 1;
 
-                _context.Add(oTicket);
+            if (ticket.Asunto != null && ticket.Descripcion != "")
+            {
+                _context.Add(ticket);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AreaSoporteId"] = new SelectList(_context.AreaSoporteTK, "Id", "Descripcion", ticket.AreaSoporteId);
+            ViewData["EstadoTKId"] = new SelectList(_context.EstadosTKs, "Id", "Descripcion", ticket.EstadoTKId);
+            ViewData["SedeId"] = new SelectList(_context.EmpresasTK, "Id", "Descripcion", ticket.SedeId);
+            ViewData["UrgenciaId"] = new SelectList(_context.UrgenciasTK, "Id", "Descripcion", ticket.UrgenciaId);
             return View(ticket);
         }
 
@@ -101,6 +119,10 @@ namespace mmc.Areas.HelpDesk.Controllers
             {
                 return NotFound();
             }
+            ViewData["AreaSoporteId"] = new SelectList(_context.AreaSoporteTK, "Id", "Descripcion", ticket.AreaSoporteId);
+            ViewData["EstadoTKId"] = new SelectList(_context.EstadosTKs, "Id", "Descripcion", ticket.EstadoTKId);
+            ViewData["SedeId"] = new SelectList(_context.EmpresasTK, "Id", "Descripcion", ticket.SedeId);
+            ViewData["UrgenciaId"] = new SelectList(_context.UrgenciasTK, "Id", "Descripcion", ticket.UrgenciaId);
             return View(ticket);
         }
 
@@ -109,7 +131,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UsuarioAplicacionId,Estado,Asunto,Descripcion,FechaAlta,Solucion,FechaSolucion,Tecnico")] Ticket ticket)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Usuario,Asunto,Descripcion,Solucion,FechaSolucion,Tecnico,ImagenUrl,EstadoTKId,UrgenciaId,AreaSoporteId,SedeId,UsuarioAlta,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] Ticket ticket)
         {
             if (id != ticket.Id)
             {
@@ -120,20 +142,11 @@ namespace mmc.Areas.HelpDesk.Controllers
             {
                 try
                 {
+                    ticket.UsuarioModifica = User.Identity.Name;
+                    ticket.FechaSolucion = DateTime.Now;
+                    ticket.Fechamodifica = DateTime.Now;
                     _context.Update(ticket);
                     await _context.SaveChangesAsync();
-
-
-                    //oTicket.Id = Guid.NewGuid().ToString();
-                    //oTicket.UsuarioAplicacionId = nombre;
-                    //oTicket.Estado = "Activo";
-                    //oTicket.Asunto = ticket.Asunto;
-                    //oTicket.Descripcion = ticket.Descripcion;
-                    //oTicket.FechaAlta = DateTime.Now;
-
-                    //_context.Add(oTicket);
-                    //await _context.SaveChangesAsync();
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,6 +161,10 @@ namespace mmc.Areas.HelpDesk.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AreaSoporteId"] = new SelectList(_context.AreaSoporteTK, "Id", "Descripcion", ticket.AreaSoporteId);
+            ViewData["EstadoTKId"] = new SelectList(_context.EstadosTKs, "Id", "Descripcion", ticket.EstadoTKId);
+            ViewData["SedeId"] = new SelectList(_context.EmpresasTK, "Id", "Descripcion", ticket.SedeId);
+            ViewData["UrgenciaId"] = new SelectList(_context.UrgenciasTK, "Id", "Descripcion", ticket.UrgenciaId);
             return View(ticket);
         }
 
@@ -160,6 +177,10 @@ namespace mmc.Areas.HelpDesk.Controllers
             }
 
             var ticket = await _context.Tickets
+                .Include(t => t.AreaSoporte)
+                .Include(t => t.EstadosTK)
+                .Include(t => t.SedeTK)
+                .Include(t => t.Urgencia)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {
@@ -186,4 +207,3 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
     }
 }
-*/

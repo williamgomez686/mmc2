@@ -16,7 +16,7 @@ namespace mmc.AccesoDatos.Repositorios
         public IBodegaRepositorio Bodega { get; private set; }
         public IEstadoRepositorio Estado { get; private set; }
         public IUsuarioAplicacionRepositorio UsuarioAplicacion { get; private set; }
-        public ITicketRepositorio Ticket { get; private set; }
+        //public ITicketRepositorio Ticket { get; private set; }
         public ICategoriaRepositorio Categoria { get; private set; }
         public IMarcaRepositorio Marca { get; private set; }
         public IPrivilegioRepositorio PrivilegiosCEB { get; private set; }
@@ -34,7 +34,7 @@ namespace mmc.AccesoDatos.Repositorios
             Bodega = new BodegaRepositorio(_db);
             Estado = new EstadoRepositorio(_db); //Inisialisando
             UsuarioAplicacion = new UsuarioAplicacionRepositorio(_db);
-            Ticket = new TicketRepositorio(_db);
+            //Ticket = new TicketRepositorio(_db);
             Marca = new MarcaRepositorio(_db);
             Categoria = new CategoriaRepositorio(_db);
             PrivilegiosCEB = new PrivilegioRepositorio(_db);

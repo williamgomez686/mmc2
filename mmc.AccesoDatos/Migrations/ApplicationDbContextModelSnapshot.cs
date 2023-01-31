@@ -602,6 +602,207 @@ namespace mmc.AccesoDatos.Migrations
                     b.ToTable("Productos");
                 });
 
+            modelBuilder.Entity("mmc.Modelos.TicketModels.AreaSoporteTK", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("FechaAlta")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("Fechamodifica")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UsuarioAlta")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UsuarioModifica")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AreaSoporteTK");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.TicketModels.EmpresaTK", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("FechaAlta")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("Fechamodifica")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UsuarioAlta")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UsuarioModifica")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmpresasTK");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.TicketModels.EstadosTK", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("FechaAlta")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("Fechamodifica")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UsuarioAlta")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UsuarioModifica")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EstadosTKs");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.TicketModels.Ticket", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("AreaSoporteId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Asunto")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("EstadoTKId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("FechaAlta")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("FechaSolucion")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("Fechamodifica")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("ImagenUrl")
+                        .HasColumnType("text");
+
+                    b.Property<int>("SedeId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Solucion")
+                        .HasMaxLength(400)
+                        .HasColumnType("character varying(400)");
+
+                    b.Property<string>("Tecnico")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("UrgenciaId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Usuario")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("UsuarioAlta")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UsuarioModifica")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaSoporteId");
+
+                    b.HasIndex("EstadoTKId");
+
+                    b.HasIndex("SedeId");
+
+                    b.HasIndex("UrgenciaId");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.TicketModels.UrgenciaTK", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("FechaAlta")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("Fechamodifica")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UsuarioAlta")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UsuarioModifica")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UrgenciasTK");
+                });
+
             modelBuilder.Entity("mmc.Modelos.estado", b =>
                 {
                     b.Property<int>("Id")
@@ -794,6 +995,41 @@ namespace mmc.AccesoDatos.Migrations
                     b.Navigation("Marca");
 
                     b.Navigation("Padre");
+                });
+
+            modelBuilder.Entity("mmc.Modelos.TicketModels.Ticket", b =>
+                {
+                    b.HasOne("mmc.Modelos.TicketModels.AreaSoporteTK", "AreaSoporte")
+                        .WithMany()
+                        .HasForeignKey("AreaSoporteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("mmc.Modelos.TicketModels.EstadosTK", "EstadosTK")
+                        .WithMany()
+                        .HasForeignKey("EstadoTKId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("mmc.Modelos.TicketModels.EmpresaTK", "SedeTK")
+                        .WithMany()
+                        .HasForeignKey("SedeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("mmc.Modelos.TicketModels.UrgenciaTK", "Urgencia")
+                        .WithMany()
+                        .HasForeignKey("UrgenciaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AreaSoporte");
+
+                    b.Navigation("EstadosTK");
+
+                    b.Navigation("SedeTK");
+
+                    b.Navigation("Urgencia");
                 });
 #pragma warning restore 612, 618
         }

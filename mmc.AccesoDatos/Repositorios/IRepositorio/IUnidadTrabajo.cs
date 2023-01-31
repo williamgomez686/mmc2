@@ -11,7 +11,7 @@ namespace mmc.AccesoDatos.Repositorios.IRepositorio
         IBodegaRepositorio Bodega { get; }
         IEstadoRepositorio Estado { get; }
         IUsuarioAplicacionRepositorio UsuarioAplicacion { get; }
-        ITicketRepositorio Ticket { get; }
+        //ITicketRepositorio Ticket { get; }
         ICategoriaRepositorio Categoria { get; }
         IMarcaRepositorio Marca { get; }
         IProductoRepositorio Producto { get; }

@@ -3,15 +3,13 @@
 @using mmc.Utilidades
 @{
     ViewData["Title"] = "Registro";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-
-<div class="col-md-7 mx-auto">
+<div class="col-md-12 mx-auto">
     <div class="card">
         <div class="card-header">
-            <h4 class="text-center">Crea tu cuenta.</h4>
+            <h4 class="text-center">Crea una nueva cuenta.</h4>
         </div>
         <div class="card-body">
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">

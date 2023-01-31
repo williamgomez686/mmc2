@@ -1,27 +1,22 @@
-﻿@model mmc.Modelos.Ticket
+﻿@model mmc.Modelos.TicketModels.Ticket
 
 @{
-    ViewData["Title"] = "Borrar";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
 }
-@*
-<h1>@ViewBag.Title</h1>
 
-<h3>Esta seguro que desea eliminar el Ticket?</h3>
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
 <div>
+    <h4>Ticket</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UsuarioAplicacionId)
+            @Html.DisplayNameFor(model => model.Usuario)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UsuarioAplicacionId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model)
+            @Html.DisplayFor(model => model.Usuario)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Asunto)
@@ -36,18 +31,88 @@
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Solucion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Solucion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaSolucion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaSolucion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tecnico)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tecnico)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImagenUrl)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImagenUrl)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadosTK)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EstadosTK.Descripcion)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Urgencia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Urgencia.Descripcion)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AreaSoporte)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AreaSoporte.Descripcion)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SedeTK)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SedeTK.Descripcion)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioAlta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioAlta)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioModifica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UsuarioModifica)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FechaAlta)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaAlta)
         </dd>
-
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fechamodifica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fechamodifica)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="btn btn-info" asp-action="Index">Regresar <i class="fa-solid fa-rotate-left"></i></a>
+        <a asp-action="Index">Back to List</a>
     </form>
 </div>
- *@

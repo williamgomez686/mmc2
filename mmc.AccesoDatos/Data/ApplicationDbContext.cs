@@ -7,6 +7,7 @@ using System.Text;
 using static mmc.AccesoDatos.Data.ApplicationDbContext;
 using mmc.Modelos;
 using mmc.Modelos.IglesiaModels;
+using mmc.Modelos.TicketModels;
 
 namespace mmc.AccesoDatos.Data
 {
@@ -18,7 +19,7 @@ namespace mmc.AccesoDatos.Data
         }
         public DbSet<Bodega> Bodegas { get; set; }
         public DbSet<estado> estado { get; set; }
-        public DbSet<UsuarioAplicacion> UsuarioAplicacion{get; set;}
+        public DbSet<UsuarioAplicacion> UsuarioAplicacion { get; set; }
         //public DbSet<Ticket> Tickets { get; set; }
 
         public DbSet<Marca> Marca { get; set; }
@@ -33,6 +34,14 @@ namespace mmc.AccesoDatos.Data
         public DbSet<CasaEstudioBiblico> CasasEstudioBiblico { get; set; }
         public DbSet<CEB_CAB> CEB_CABs { get; set; }
         public DbSet<CEB_DET> CEB_DETs { get; set; }
+
+        //*******************TICKET*************************************************
+        public DbSet<AreaSoporteTK> AreaSoporteTK {get; set;}
+        public DbSet<EstadosTK> EstadosTKs { get; set; }
+        public DbSet<EmpresaTK> EmpresasTK { get; set; }
+
+        public DbSet<UrgenciaTK> UrgenciasTK { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

@@ -1,0 +1,362 @@
+﻿@*@addTagHelper *, LazZiya.TagHelpers
+@using Microsoft.AspNetCore.Identity
+@using Cervantes.CORE
+@using System.Globalization
+@using LazZiya.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager*@
+@*@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}*@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - Setegua</title>
+    @RenderSection("Styles", required: false)
+    <link rel="stylesheet" href="~/lib2/theme/css/adminlte.css">
+    <link href="~/lib2/summernote/summernote-bs4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav id="navbarsetegua" class="main-header navbar navbar-expand navbar-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" asp-route-culture="" localize-content>Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a class="nav-link" asp-area="" asp-controller="Editoriales" asp-action="Index" asp-route-culture="" localize-content>Editorial</a>
+                </li>
+
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul id="navbarsetegua" class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div id="navbarsetegua" class="navbar-search-block">
+                        <form asp-area="" asp-controller="Search" asp-action="Search" class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" id="search" name="search" type="search" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </li>
+                <li class="nav-item dropdown show">
+                    <language-nav class="nav-link" flags="true" language-label="NativeName" cookie-handler-url="@(Url.Action("OnGetSetCultureCookie", "Home", new {area = "", cltr = "{0}", returnUrl = "{1}"}))"></language-nav>
+                </li>
+
+                @* @await Html.PartialAsync("_LoginUser")*@
+
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside id="navbarsetegua" class="main-sidebar sidebar-dark-primary sidebar-collapse elevation-4">
+            <!-- Brand Logo -->
+            <a asp-area="" asp-controller="Home" asp-route-culture="" asp-action="Index" class="brand-link">
+
+                <img src="~/Imagenes/Logos/logo_setegua.png" alt="Logo" class="brand-image" style="opacity: .8">
+                <span class="brand-text font-weight-light">Biblioteca</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div id="navbarsetegua" class="sidebar">
+
+                <!-- Sidebar Menu -->
+<!--***************************************************************TICKETS*********************************************************************************-->
+
+                <nav id="navbarsetegua" class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
+                        @*                        @if (User.IsInRole("Admin") || User.IsInRole("SuperUser") || User.IsInRole("User"))
+                        {*@
+                        <li class="nav-header">Tickets</li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>
+                                    <span localize-content>Empresas</span><i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-area="HelpDesk" asp-controller="EmpresasTK" asp-action="Index" asp-route-culture="" class="nav-link">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p localize-content>Listado</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="HelpDesk" asp-controller="EmpresasTK" asp-action="Create" asp-route-culture="" class="nav-link">
+                                        <i class="fas fa-plus nav-icon"></i>
+                                        <p localize-content>Crear Nuevo</p>
+
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>
+                                    <span localize-content>Estados del Ticket</span><i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-area="HelpDesk" asp-controller="EstadosTK" asp-action="Index" asp-route-culture="" class="nav-link">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p localize-content>Listado</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="HelpDesk" asp-controller="EstadosTK" asp-action="Create" asp-route-culture="" class="nav-link">
+                                        <i class="fas fa-plus nav-icon"></i>
+                                        <p localize-content>Crear Nuevo</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>
+                                    <span localize-content>Nivel de Urgencia</span><i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-area="HelpDesk" asp-controller="UrgenciaTK" asp-action="Index" asp-route-culture="" class="nav-link">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p localize-content>Listado</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="HelpDesk" asp-controller="UrgenciaTK" asp-action="Create" asp-route-culture="" class="nav-link">
+                                        <i class="fas fa-plus nav-icon"></i>
+                                        <p localize-content>Crear Nuevo</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" localize-content>
+                                    <i class="nav-icon fas fa-caret-right"></i>
+                                    
+                                    <p>
+                                        <span localize-content>Area</span><i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="HelpDesk" asp-controller="AreaSoporteTK" asp-action="Index" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p localize-content>Listado de Areas</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a asp-area="HelpDesk" asp-controller="AreaSoporteTK" asp-action="Create" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-plus nav-icon"></i>
+                                            <p localize-content>Crear nuevo</p>
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" localize-content>
+                                   @* <i class="nav-icon fas fa-file-word"></i>*@
+                                    <i class="nav-icon fas fa-ticket"></i>
+                                    <p>
+                                        <span localize-content>Tickets</span><i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="HelpDesk" asp-controller="Tickets" asp-action="Index" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-list nav-icon text-green"></i>
+                                            <p localize-content>Lista de Ticket Activos</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a asp-area="HelpDesk" asp-controller="Tickets" asp-action="Create" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-plus nav-icon"></i>
+                                            <p localize-content>Crear Nuevo Ticket</p>
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        }
+                        
+<!--***************************************************************Admin*********************************************************************************-->
+
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <li class="nav-header">ADMIN</li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" localize-content>
+                                    <i class="nav-icon fas fa-file-word"></i>
+                                    <p>
+                                        <span localize-content>Roles</span><i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Usuario" asp-action="Roles" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p localize-content>Lista de Roles</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Usuario" asp-action="Upsert" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-plus nav-icon"></i>
+                                            <p localize-content>Crear Rol</p>
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" localize-content>
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        <span localize-content>Usuarios</span><i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Usuario" asp-action="Index" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p localize-content>Lista de Usuarios</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a asp-area="Identity" asp-controller="Account" asp-action="Register" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-plus nav-icon"></i>
+                                            <p localize-content>Agregar</p>
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        }
+<!--***************************************************************General*********************************************************************************-->
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-header">GENERAL</li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-folder"></i>
+                                    <p>
+                                        <span localize-content>Projects</span><i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-controller="" asp-action="" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-list nav-icon"></i>
+                                            <p localize-content>My Projects</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div id="test" class="rectangulo">
+            <div class="text-center h2 text-white">
+                @ViewData["Title"]
+
+            </div>
+        </div>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <div class="container">
+
+                @RenderBody()
+            </div>
+
+        </div>
+        <!-- /.content-wrapper -->
+
+        <footer id="footer2" class="main-footer">
+            <div class="float-right d-none d-sm-block">
+                <b>Version</b> Alpha-0.4
+            </div>
+            <strong class="text-white">Copyright &copy; @DateTime.Now.Year <a href="https://setegua.org">Setegua</a>.</strong> All rights reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <script src="~/lib2/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib2/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib2/theme/js/adminlte.min.js"></script>
+    <link href="~/lib2/DataTables/datatables.min.css" rel="stylesheet">
+    <script src="~/lib2/DataTables/datatables.min.js"></script>
+    <link href="~/lib2/fontawesome/css/all.css" rel="stylesheet">
+
+    <script src="~/lib2/summernote/summernote-bs4.min.js"></script>
+    <script src="~/lib2/chartjs/chart.min.js"></script>
+    @await RenderSectionAsync("Scripts", false)
+</body>
+</html>
