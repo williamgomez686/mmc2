@@ -105,7 +105,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                    //activoFijoDB.ACFIFOTO = filename + extension; //@"\\TomCat\ActivosFijos\" + filename + extension;
                 }
 
-                Actualizar(activoFijoDB.IDCONTA, activoFijoDB.ACFIFOTO, conexion());
+                Actualizar(activoFijoDB, conexion());
 
                 return RedirectToAction(nameof(Index));
             }
@@ -170,11 +170,11 @@ namespace mmc.Areas.Contabilidad.Controllers
 
         #region Logina de negocio
 
-        public void Actualizar(string idconta, string imagen, OracleConnection connection)
+        public void Actualizar(ActivoFijoUpdateVW activoFijoDB, OracleConnection connection)
         {
-            var foto = imagen;
-            var query = @"UPDATE AF_ACTIVOS_FIJOS
-	                        SET ACFIFOTO='" + foto +"'  WHERE PAICOD='00001' AND EMPCOD='00001' AND ACFICOD='" + idconta + "'";
+            //var foto = imagen;
+            var query = @"UPDATE AF_ACTIVOS_FIJOS 
+	            SET ACFIFOTO='" + activoFijoDB.ACFIFOTO + "', ACFIOBS='"+ activoFijoDB.ACFIOBS + "' WHERE PAICOD='00001' AND EMPCOD='00001' AND ACFICOD='" + activoFijoDB.IDCONTA + "'";
 
             using (var cmd = new OracleCommand(query, connection))
             {

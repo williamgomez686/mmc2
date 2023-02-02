@@ -73,6 +73,12 @@
 
                     <hr />
 
+                    <div class="form-group">
+                        <label asp-for="ACFIOBS" class="control-label"></label>
+                        <input asp-for="ACFIOBS" class="form-control" />
+                        <span asp-validation-for="ACFIOBS" class="text-danger"></span>
+                    </div>
+
                     </form>
                 
             </div>
@@ -121,11 +127,7 @@
                     <span asp-validation-for="DESCRIPCION" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
-                    <label asp-for="ACFIOBS" class="control-label"></label>
-                    <input asp-for="ACFIOBS" class="form-control" />
-                    <span asp-validation-for="ACFIOBS" class="text-danger"></span>
-                </div>
+
             </div>
         </div>
     </div>

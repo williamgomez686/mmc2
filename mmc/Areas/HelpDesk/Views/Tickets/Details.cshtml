@@ -1,15 +1,19 @@
 ﻿@model mmc.Modelos.TicketModels.Ticket
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de su ticket";
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
 }
+<br />
+<h3 class="text-center">
 
-<h1>Details</h1>
+        Ticket id:
+        @Html.DisplayFor(model => model.Id)
+
+</h3>
 
 <div>
-    <h4>Ticket</h4>
-    <hr />
+    <br />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Usuario)
@@ -47,14 +51,14 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Tecnico)
         </dd>
-        <dt class = "col-sm-2">
+@*        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ImagenUrl)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ImagenUrl)
-        </dd>
+        </dd>*@
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EstadosTK)
+            Estatus del Ticket
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.EstadosTK.Descripcion)
@@ -66,13 +70,13 @@
             @Html.DisplayFor(model => model.Urgencia.Descripcion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AreaSoporte)
+            Area de informatica que lleva el caso
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AreaSoporte.Descripcion)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SedeTK)
+            Empresa
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SedeTK.Descripcion)
@@ -95,12 +99,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaAlta)
         </dd>
-        <dt class = "col-sm-2">
+@*        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Fechamodifica)
-        </dt>
-        <dd class = "col-sm-10">
+        </dt>*@
+@*        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Fechamodifica)
-        </dd>
+        </dd>*@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
         </dt>
@@ -109,7 +113,12 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+ <div class="row">
+     <div class="col-md-6">
+        <a class="btn btn-primary form-control" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> 
+    </div>
+    <div class="col-md-6">
+        <a class="btn btn-danger form-control" asp-action="Index">Cancelar</a>
+    </div>
+ </div>

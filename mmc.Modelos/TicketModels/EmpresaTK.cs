@@ -16,5 +16,10 @@ namespace mmc.Modelos.TicketModels
         [MaxLength(50)]
         [Display(Name = "Descripcion")]
         public string Descripcion { get; set; }
+
+        public static implicit operator EmpresaTK(int v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Graficas";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
+}
+<br />
+<h2 class="text-center"> Graficas de Tickets de soporte Informática </h2>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <div id="Pastel"></div>
+    </div>
+
+    <div class="col-md-6">
+        <div id="PastelDia"></div>
+    </div>
+</div>
+
+<hr />
+<div id="barras"></div>
+<br />
+<hr />
+<div id="barras_activas"></div>
+<br />
+<hr />
+<div id="barras_inactivas"></div>
+<br />
+
+<br />
+
+@*<div id="test"></div>*@
+
+<br />
+@section Scripts {
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        var urlBase = 'https://' + '@Context.Request.Host' + '@Context.Request.Path'
+    </script>
+    <script src="~/js/Graficas/GraficaPastelTK.js"></script>
+    <script src="~/js/Graficas/GraficaPastelEstadosTK.js"></script>
+
+}

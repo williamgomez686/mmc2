@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mmc.AccesoDatos.Data;
 using mmc.Modelos.TicketModels;
+using mmc.Utilidades;
 
 namespace mmc.Areas.HelpDesk.Controllers
 {
     [Area("HelpDesk")]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia + "," +DS.Role_Bodega )]
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,6 +27,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         // GET: HelpDesk/Tickets
         public async Task<IActionResult> Index(int? flag)
         {
+            var usuarioLogiado = User.Identity.Name;
             List<EstadosTK> listao =_context.EstadosTKs.ToList();
 
             List<SelectListItem> ListadoOpciones = listao.ConvertAll(x =>
@@ -42,10 +46,22 @@ namespace mmc.Areas.HelpDesk.Controllers
                 flag = 1;
             }
 
-            var applicationDbContext = _context.Tickets.Include(t => t.AreaSoporte).Include(t => t.EstadosTK)
-                                                       .Include(t => t.SedeTK).Include(t => t.Urgencia)
-                                                       .Where(t => t.Estado == true && t.EstadoTKId == flag );
-            return View(await applicationDbContext.ToListAsync());
+            if(User.IsInRole(DS.Role_Admin))
+            {
+                var applicationDbContext = _context.Tickets.Include(t => t.AreaSoporte).Include(t => t.EstadosTK)
+                                       .Include(t => t.SedeTK).Include(t => t.Urgencia)
+                                       .Where(t => t.Estado == true && t.EstadoTKId == flag);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else 
+                {
+                var applicationDbContext = _context.Tickets.Include(t => t.AreaSoporte).Include(t => t.EstadosTK)
+                   .Include(t => t.SedeTK).Include(t => t.Urgencia)
+                   .Where(t => t.Estado == true && t.EstadoTKId == flag && t.Usuario == usuarioLogiado);
+                return View(await applicationDbContext.ToListAsync());
+            }
+
+
         }
 
         // GET: HelpDesk/Tickets/Details/5
@@ -84,13 +100,19 @@ namespace mmc.Areas.HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Ticket ticket)
         {
+
+            if (!User.IsInRole(DS.Role_Admin))
+            {
+                ticket.Usuario = User.Identity.Name;
+                ticket.SedeId = 1;
+                ticket.AreaSoporteId = 1;
+            }
             var cantidadTIkcets = _context.Tickets.Count();
             ticket.Id = "TK-" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + cantidadTIkcets;
             ticket.FechaAlta = DateTime.Now;
-            //ticket.Usuario = "wgomez";
             ticket.Estado = true;
             ticket.UsuarioAlta = User.Identity.Name;
-            ticket.Tecnico = User.Identity.Name;
+            //ticket.Tecnico = User.Identity.Name;
             ticket.EstadoTKId = 1;
 
             if (ticket.Asunto != null && ticket.Descripcion != "")

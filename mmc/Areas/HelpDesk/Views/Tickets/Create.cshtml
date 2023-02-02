@@ -1,10 +1,10 @@
-﻿@model mmc.Modelos.TicketModels.Ticket
+﻿@using mmc.Utilidades;
+@model mmc.Modelos.TicketModels.Ticket
 
 @{
     ViewData["Title"] = "Crear Ticket";
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
 }
-
 
 <div class="row">
     <div class="col-md-8">
@@ -15,11 +15,15 @@
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>*@
+
+           @if (User.IsInRole(DS.Role_Admin))
+                        {
             <div class="form-group">
                 <label asp-for="Usuario" class="control-label"></label>
                 <input asp-for="Usuario" class="form-control" />
                 <span asp-validation-for="Usuario" class="text-danger"></span>
             </div>
+                        }
             <div class="form-group">
                 <label asp-for="Asunto" class="control-label"></label>
                 <input asp-for="Asunto" class="form-control" />
@@ -45,11 +49,14 @@
                 <input asp-for="Tecnico" class="form-control" />
                 <span asp-validation-for="Tecnico" class="text-danger"></span>
             </div>*@
+                       @if (User.IsInRole(DS.Role_Admin))
+                        {
             <div class="form-group">
                 <label asp-for="ImagenUrl" class="control-label"></label>
                 <input asp-for="ImagenUrl" class="form-control" />
                 <span asp-validation-for="ImagenUrl" class="text-danger"></span>
             </div>
+                        }
 @*            <div class="form-group">
                 <label asp-for="EstadoTKId" class="control-label"></label>
                 <select asp-for="EstadoTKId" class ="form-control" asp-items="ViewBag.EstadoTKId"></select>
@@ -58,14 +65,17 @@
                 <label asp-for="UrgenciaId" class="control-label"></label>
                 <select asp-for="UrgenciaId" class ="form-control" asp-items="ViewBag.UrgenciaId"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="AreaSoporteId" class="control-label"></label>
-                <select asp-for="AreaSoporteId" class ="form-control" asp-items="ViewBag.AreaSoporteId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SedeId" class="control-label"></label>
+                       @if (User.IsInRole(DS.Role_Admin))
+            {
+                <div class="form-group">
+                    <label asp-for="AreaSoporteId" class="control-label"></label>
+                    <select asp-for="AreaSoporteId" class ="form-control" asp-items="ViewBag.AreaSoporteId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SedeId" class="control-label"></label>
                 <select asp-for="SedeId" class ="form-control" asp-items="ViewBag.SedeId"></select>
             </div>
+            }
            @* <div class="form-group">
                 <label asp-for="UsuarioAlta" class="control-label"></label>
                 <input asp-for="UsuarioAlta" class="form-control" />
@@ -91,16 +101,27 @@
                     <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
             </div>*@
-            <div class="form-group">
+
+
+
+@*            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+*@
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" value="Crear" class="btn btn-primary form-control" />
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-danger form-control" asp-action="Index">Cancelar</a>
+                </div>
+            </div>
+
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<br />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
