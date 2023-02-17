@@ -134,14 +134,14 @@
                         @if (User.IsInRole(DS.Role_Admin))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="HelpDesk" asp-controller="Tickets" asp-action="Index"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>
+                                <a class="nav-link text-white" asp-area="HelpDesk" asp-controller="GraficasTickets" asp-action="Index"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>
                             </li>
                         }
 
                         @if (!User.IsInRole(DS.Role_Admin))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="HelpDesk" asp-controller="Tickets" asp-action="Index"><i class="fa-solid fa-screwdriver-wrench"></i> Ticket de soporte</a>
+                                <a class="nav-link text-white" asp-area="HelpDesk" asp-controller="GraficasTickets" asp-action="Index"><i class="fa-solid fa-screwdriver-wrench"></i> Ticket de soporte</a>
                             </li>
                         }
 
