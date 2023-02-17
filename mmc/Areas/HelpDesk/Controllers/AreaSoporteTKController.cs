@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mmc.AccesoDatos.Data;
 using mmc.Modelos.TicketModels;
+using NPOI.SS.Formula.Functions;
 
 namespace mmc.Areas.HelpDesk.Controllers
 {
@@ -21,9 +22,12 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/AreaSoporteTK
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.AreaSoporteTK.ToListAsync());
+            var result2 = await _context.AreaSoporteTK.ToListAsync();
+
+
+            return View(result2.ToList());
         }
 
         // GET: HelpDesk/AreaSoporteTK/Details/5
@@ -50,9 +54,7 @@ namespace mmc.Areas.HelpDesk.Controllers
             return View();
         }
 
-        // POST: HelpDesk/AreaSoporteTK/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descripcion,UsuarioAlta,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] AreaSoporteTK areaSoporteTK)
@@ -82,9 +84,7 @@ namespace mmc.Areas.HelpDesk.Controllers
             return View(areaSoporteTK);
         }
 
-        // POST: HelpDesk/AreaSoporteTK/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,UsuarioAlta,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] AreaSoporteTK areaSoporteTK)
@@ -150,5 +150,22 @@ namespace mmc.Areas.HelpDesk.Controllers
         {
             return _context.AreaSoporteTK.Any(e => e.Id == id);
         }
+
+        #region Apis
+
+        public JsonResult BuscarApi(string searchString)
+        {
+            var result = from s in _context.AreaSoporteTK
+                         select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(s => s.Descripcion.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            return Json(result);
+        }
+
+        #endregion
     }
 }
