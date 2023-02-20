@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Iglesia</title>
+    <title>@ViewData["Title"] - SMMC</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
@@ -119,7 +119,7 @@
                         }
 *@
                         @*GRAFICAS*@
-                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia) || User.IsInRole(DS.Role_RegionesIglesia))
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Iglesia) || User.IsInRole(DS.Role_Contabilidad) || User.IsInRole(DS.Role_Canal27))
                         {
                             <li class="nav-item dropdown bg-primary">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

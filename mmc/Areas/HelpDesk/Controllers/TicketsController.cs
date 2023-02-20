@@ -14,7 +14,7 @@ using mmc.Utilidades;
 namespace mmc.Areas.HelpDesk.Controllers
 {
     [Area("HelpDesk")]
-    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia + "," +DS.Role_Bodega + "," + DS.Role_Canal27)]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia + "," +DS.Role_Bodega + "," + DS.Role_Contabilidad + "," + DS.Role_Setegua + "," + DS.Role_Canal27)]
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewData["Title"] - Setegua</title>
+    <title>@ViewData["Title"] - SMMC</title>
     @RenderSection("Styles", required: false)
     <link rel="stylesheet" href="~/lib2/theme/css/adminlte.css">
     <link href="~/lib2/summernote/summernote-bs4.min.css" rel="stylesheet">
@@ -91,9 +91,27 @@
         <aside id="navbarsetegua" class="main-sidebar sidebar-dark-primary sidebar-collapse elevation-4">
             <!-- Brand Logo -->
             <a asp-area="" asp-controller="Home" asp-route-culture="" asp-action="Index" class="brand-link">
+                @if (User.IsInRole(DS.Role_Admin))
+                {
+                    <img src="~/Imagenes/Logos/02-ministerio.png" alt="Logo" class="brand-image">
+                    <span class="brand-text font-weight-light">Motivación Cristiana</span>
+                } 
+                @if (User.IsInRole(DS.Role_Iglesia))
+                {
+                    <img src="~/Imagenes/Logos/05-iglesia.png" alt="Logo" class="brand-image">
+                    <span class="brand-text font-weight-light">Iglesia</span>
+                }
+                @if (User.IsInRole(DS.Role_Setegua))
+                {
+                    <img src="~/Imagenes/logos/logo_setegua.png" alt="Logo" class="brand-image">
+                    <span class="brand-text font-weight-light">Setegua</span>
+                }
+                @if (User.IsInRole(DS.Role_Canal27))
+                {
+                    <img src="~/Imagenes/Logos/04-canal.png" alt="Logo" class="brand-image">
+                    <span class="brand-text font-weight-light">Canal 27</span>
+                }
 
-                <img src="~/Imagenes/Logos/logo_setegua.png" alt="Logo" class="brand-image" style="opacity: .8">
-                <span class="brand-text font-weight-light">Biblioteca</span>
             </a>
 
             <!-- Sidebar -->
@@ -209,8 +227,8 @@
                                 </ul>
                             </li>
                          }
-                          
-                         @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)) || (User.IsInRole(DS.Role_Iglesia)))
+
+                        @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)) || (User.IsInRole(DS.Role_Canal27)) || (User.IsInRole(DS.Role_Contabilidad)) || (User.IsInRole(DS.Role_Setegua)) || (User.IsInRole(DS.Role_Iglesia)))
                         {
 
                             <li class="nav-item">

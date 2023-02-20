@@ -11,7 +11,7 @@ namespace mmc.Modelos.TicketModels
 {
     public class Ticket:BaseModel
     {
-        [Key][Required][MaxLength(50)][Display(Name = "Codigo")]
+        [Key][Required][MaxLength(50)][Display(Name = "Código")]
         public string Id { get; set; }
         [MaxLength(50)]
         [Display(Name = "Usuario")]
@@ -22,15 +22,15 @@ namespace mmc.Modelos.TicketModels
         public string Asunto { get; set; }
         [Required]
         //[MaxLength(2000)]
-        [Display(Name = "Descripcion")]
+        [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
         [MaxLength(400)]
-        [Display(Name = "Solucion")]
+        [Display(Name = "Solución")]
         public string Solucion { get; set; }
-        [Display(Name = "Fecha de Solucion")]
+        [Display(Name = "Fecha de Solución")]
         public DateTime? FechaSolucion { get; set; }
-        [MaxLength(50)][Display(Name = "Tecnico")]
+        [MaxLength(50)][Display(Name = "Técnico")]
         public string Tecnico { get; set; }
         [Display(Name = "Imagen")]
         public string ImagenUrl { get; set; }

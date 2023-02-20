@@ -10,7 +10,7 @@ using System.Linq;
 namespace mmc.Areas.HelpDesk.Controllers
 {
     [Area("HelpDesk")]
-    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia + "," + DS.Role_Bodega)]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Iglesia + "," + DS.Role_Bodega + "," + DS.Role_Canal27 + "," + DS.Role_Setegua + "," + DS.Role_Contabilidad)]
     public class GraficasTicketsController : Controller
     {
 
