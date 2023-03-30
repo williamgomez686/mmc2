@@ -22,9 +22,10 @@
         });
 
 //      FUNCION ENCARGADA DE HACER LA CONSULTA AL SERVIDOR Y LA DEVUELVE RENDERISANDOLA EN PANTALLA 
-        $(function () {
+        $(function() {
             //alert("prueba")
             $("#btnbuscar").click(function () {
+            
                 var Result = {};
                 Result.name = "";
                 $.ajax({
@@ -57,3 +58,16 @@
                 });
             });
         });
+
+/// la hace focus al boton
+
+        document.getElementById('Nombrevar').addEventListener('keydown', inputCharacters);
+
+        function inputCharacters(event) {
+
+            if (event.keyCode == 13) {
+                document.getElementById('btnbuscar').focus();
+            }
+
+        }
+

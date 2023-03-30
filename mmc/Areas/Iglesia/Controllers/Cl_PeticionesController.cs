@@ -9,6 +9,7 @@ using mmc.Utilidades;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,7 +35,35 @@ namespace mmc.Areas.Iglesia.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Peticiones.ToArrayAsync());
+            var mes =DateTime.Now.Month;
+            var anio = DateTime.Now.Year;
+
+            var fini = "01/" +mes +"/"+ anio;
+            
+            //var fini = '01/ + substring(DtoC((fecha,3,10))'
+            //var ffin = Fc(fecha)
+
+
+            
+
+             //select codigo, nombre from clpeticones  where nombre = "pepe" orderbay desc
+
+            var ordenmetodo = await _context.Peticiones
+                                        .OrderByDescending(f=>f.Fecha)
+                                        .ToListAsync();
+
+            var ordenquery = from query in await  _context.Peticiones.ToListAsync()
+                             //where query.Nombres == "hola pepe"
+                             orderby query.Fecha descending
+                             select new
+                             {
+                                 codigo = query.Codigo,
+                                 nombre = query.Nombres,
+                                 peticion = query.Peticion,
+                                 fecha = query.Fecha
+                             };
+
+            return View(ordenmetodo);
         }
         [HttpGet]
         public async Task<IActionResult> Detalles(int? id)

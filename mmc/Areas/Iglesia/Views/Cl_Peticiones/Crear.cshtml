@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Nombres" class="control-label"></label>
-                <input id="Nombrevar" asp-for="Nombres" class="form-control" />
+                <input id="Nombrevar" asp-for="Nombres" class="form-control"/>
                 <input type="button" value="Buscar" id="btnbuscar" class="btn btn-success">
                 <span asp-validation-for="Nombres" class="text-danger"></span>
 
@@ -37,6 +37,7 @@
 
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
+                @*<a class="btn" asp-action="Crear">Guardar</a>*@
                 <a class="btn btn-danger" asp-action="Index">Cancelar</a>
             </div>
 
@@ -69,4 +70,6 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script src="~/js/iglesia/petisiones.js"></script>
+
+
 }

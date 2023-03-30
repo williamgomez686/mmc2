@@ -15,5 +15,6 @@ namespace mmc.Modelos.IglesiaModels.OracleModels
         public string CliTel1 { get; set; }
         public string CliTel2 { get; set; }
         public string CliShDirAct { get; set; }
+        public DateTime CliFecAlt { get; set; }
     }
 }
