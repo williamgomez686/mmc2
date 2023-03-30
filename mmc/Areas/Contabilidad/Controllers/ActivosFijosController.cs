@@ -176,6 +176,14 @@ namespace mmc.Areas.Contabilidad.Controllers
             var query = @"UPDATE AF_ACTIVOS_FIJOS 
 	            SET ACFIFOTO='" + activoFijoDB.ACFIFOTO + "', ACFIOBS='"+ activoFijoDB.ACFIOBS + "' WHERE PAICOD='00001' AND EMPCOD='00001' AND ACFICOD='" + activoFijoDB.IDCONTA + "'";
 
+            var query2 = @"UPDATE AF_ACTIVOS_FIJOS 
+	            SET ACFIOBS='" + activoFijoDB.ACFIOBS + "' WHERE PAICOD='00001' AND EMPCOD='00001' AND ACFICOD='" + activoFijoDB.IDCONTA + "'";
+
+            //if (activoFijoDB.ACFIFOTO = " hols")
+            //{
+
+            //}
+
             using (var cmd = new OracleCommand(query, connection))
             {
                 cmd.CommandType = System.Data.CommandType.Text;
