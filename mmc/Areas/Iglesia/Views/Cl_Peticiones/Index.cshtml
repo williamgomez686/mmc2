@@ -1,0 +1,61 @@
+﻿@model IEnumerable<mmc.Modelos.IglesiaModels.Cl_Peticiones>
+
+@{
+    ViewData["Title"] = "Peticiones de Oración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Crear">Agregar Petición</a>
+</p>
+<table class="table border">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Peticion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombres)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peticion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Editar" asp-route-id="@item.Id"><i class="fa-solid fa-file-pen"></i></a> |
+                    <a class="btn btn-primary" asp-action="Detalles" asp-route-id="@item.Id"><i class="fa-regular fa-clipboard"></i></a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

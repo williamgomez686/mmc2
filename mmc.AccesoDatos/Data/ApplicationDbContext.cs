@@ -27,6 +27,7 @@ namespace mmc.AccesoDatos.Data
         public DbSet<Producto> Productos { get; set; }
 
         //***************************iglesia***************************************
+        public DbSet<Cl_Peticiones> Peticiones { get; set; }
         public DbSet<TiposCEB> TiposCEB { get; set; }
         public DbSet<PrivilegioCEB> privilegios { get; set; }
         public DbSet<RegionesCEB> RegionesCEB { get; set; }

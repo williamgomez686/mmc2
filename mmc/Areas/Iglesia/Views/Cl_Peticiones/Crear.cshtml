@@ -1,0 +1,72 @@
+﻿@model mmc.Modelos.IglesiaModels.Cl_Peticiones
+
+@{
+    ViewData["Title"] = "Peticiones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Crear">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombres" class="control-label"></label>
+                <input id="Nombrevar" asp-for="Nombres" class="form-control" />
+                <input type="button" value="Buscar" id="btnbuscar" class="btn btn-success">
+                <span asp-validation-for="Nombres" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Codigo" class="control-label"></label>
+                <input id="Codigovar" asp-for="Codigo" class="form-control" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Peticion" class="control-label"></label>
+                <textarea asp-for="Peticion" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Peticion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-8">
+        <table class="table table-striped table-bordered dt-responsive" style="width:100%" id="TabResult">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Telefóno</th>
+                    <th>Telefóno 2</th>
+                    <th>Dirección</th>
+                </tr>
+            </thead>
+            <tbody id="tabla">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<hr />
+<br />
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/iglesia/petisiones.js"></script>
+}

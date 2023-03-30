@@ -1,0 +1,14 @@
+﻿@model mmc.Modelos.IglesiaModels.Cl_Peticiones
+
+@{
+    ViewData["Title"] = "Ocurrio Un Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2> parece que ocurrio un error</h2>
+<p>@ViewBag.error</p>
+
+<p>
+    <a class="btn btn-primary" asp-action="Index">Regresar al inicio</a>
+</p>

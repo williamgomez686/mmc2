@@ -52,6 +52,19 @@
                                     <a class="dropdown-item" href="#">Reportes(Proximamente)</a>
                                 </div>
                             </li>
+
+                            <li class="nav-item dropdown bg-primary">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-church"></i> Peticiones
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" asp-area="Iglesia" asp-controller="Cl_Peticiones" asp-action="Index">Agregar Peticiones</a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Reportes(Proximamente)</a>
+                                </div>
+                            </li>
                         }
                         @*Menu de Bodega*@
                         @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
