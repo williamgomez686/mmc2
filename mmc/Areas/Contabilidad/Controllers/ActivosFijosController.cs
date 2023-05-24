@@ -168,7 +168,7 @@ namespace mmc.Areas.Contabilidad.Controllers
 
         #endregion
 
-        #region Logina de negocio
+        #region Logica de negocio
 
         public void Actualizar(ActivoFijoUpdateVW activoFijoDB, OracleConnection connection)
         {
