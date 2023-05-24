@@ -102,3 +102,9 @@ body {
 #footer2 {
     background-color: #0063ae;
 }
+
+.navbarindexcolor {
+    background-color: #12153c;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
