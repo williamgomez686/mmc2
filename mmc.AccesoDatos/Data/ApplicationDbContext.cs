@@ -8,6 +8,7 @@ using static mmc.AccesoDatos.Data.ApplicationDbContext;
 using mmc.Modelos;
 using mmc.Modelos.IglesiaModels;
 using mmc.Modelos.TicketModels;
+using mmc.Modelos.IglesiaModels.lafamiliadedios;
 
 namespace mmc.AccesoDatos.Data
 {
@@ -35,6 +36,11 @@ namespace mmc.AccesoDatos.Data
         public DbSet<CasaEstudioBiblico> CasasEstudioBiblico { get; set; }
         public DbSet<CEB_CAB> CEB_CABs { get; set; }
         public DbSet<CEB_DET> CEB_DETs { get; set; }
+        //**************************Igelsia Reuniones *******************************
+        public DbSet<IglesiaDepartamentos> IglesiaDepartamentos { get; set; }
+        public DbSet<IglesiaReuniones> IglesiaReuniones { get; set; }
+        public DbSet<IglesiaServidores> IglesiaServidores { get; set; }
+        public DbSet<IglesiaServidoresReunion> IglesiaServidoresReuniones { get; set; } 
 
         //*******************TICKET*************************************************
         public DbSet<AreaSoporteTK> AreaSoporteTK {get; set;}
