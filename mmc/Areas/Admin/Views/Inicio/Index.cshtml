@@ -1,4 +1,5 @@
-﻿@{
+﻿@using mmc.Utilidades;
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -47,10 +48,36 @@
     <!-- As a link -->
     <nav class="navbar navbar-light navbarindexcolor">
         <div class="container-fluid">
-                <ul class="navbar-nav flex-grow-1">
+            <ul class="navbar-nav flex-grow-1">
 
-                </ul>
-            <a style="color: #fce55c;" class="nav-link" asp-area="Identity" asp-page="/Account/Login">Iniciar Sesión</a>
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
+                {
+                    <li class="nav-item">
+                        <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-warehouse"></i> Iglesia
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a style="color: #fce55c;"  class="nav-link" asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores"><i class="fa-solid fa-screwdriver-wrench"></i>Iglesia Asistencia</a>
+                        </div>
+                    </li>
+                }
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
+                {
+                    <li class="nav-item dropdown">
+                        <a style="color: #fce55c;" class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-warehouse"></i> CEB
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a style="color: #fce55c;" class="nav-link" asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores"><i class="fa-solid fa-screwdriver-wrench"></i>Regiones</a>
+                        </div>
+                    </li>
+                }
+            </ul>
+                <partial name="_LoginPartialCustom" />
         </div>
     </nav>
      
