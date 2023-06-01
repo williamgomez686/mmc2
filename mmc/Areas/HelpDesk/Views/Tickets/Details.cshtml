@@ -11,117 +11,7 @@
         @Html.DisplayFor(model => model.Id)
 
 </h3>
-@*
-<div>
-    <br />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Usuario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Asunto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Asunto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Solucion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Solucion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaSolucion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaSolucion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tecnico)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tecnico)
-        </dd>
-@*        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagenUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImagenUrl)
-        </dd>*@
 
-        @*
-        <dt class = "col-sm-2">
-            Estatus del Ticket
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EstadosTK.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Urgencia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Urgencia.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            Area de informatica que lleva el caso
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AreaSoporte.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            Empresa
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SedeTK.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UsuarioAlta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UsuarioAlta)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UsuarioModifica)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UsuarioModifica)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaAlta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaAlta)
-        </dd>
-@*        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fechamodifica)
-        </dt>*@
-@*        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fechamodifica)
-        </dd>*@
-
-        @*
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-    </dl>
-</div>
-*@
-
-<div>
-
-</div>
 
 <div class="card">
     <div class="card-header">
@@ -150,7 +40,8 @@
             <div class="h6">
                 @Html.DisplayNameFor(model => model.Descripcion)
             </div>
-            <textarea id="description" asp-for="Descripcion" class="form-control" rows="4"></textarea>
+           @* <textarea id="description" asp-for="Descripcion" class="form-control" rows="4"></textarea>*@
+            @Html.Raw(Model.Descripcion)
         </div>
 
         <div class="card-body">
@@ -162,7 +53,8 @@
                 <div class="h4">
                     @Html.DisplayNameFor(model => model.Solucion)
                 </div>
-                <textarea id="solucion" asp-for="Solucion" class="form-control" rows="4"></textarea>
+               @* <textarea id="solucion" asp-for="Solucion" class="form-control" rows="4"></textarea>*@
+                @Html.Raw(Model.Solucion)
             </div>
 
         </div>
@@ -191,26 +83,6 @@
     </div>
  </div>
 
-
-@*     <div id="example">
-        <div class="configurator">
-            <div class="box-col">
-                <h4>Export page content</h4>
-                <div class="box-col">
-                    <button class='export-pdf'>Export as PDF</button>
-                <button id='export-pdf'>Exportar as PDF</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="container" id="render">
-            <div class="card">
-                <div class="card-header">Esta es la cabecera</div>
-                <div class="card-body">
-                    uno
-                </div>
-            </div>
-        </div></div>*@
 
  <br /><hr />
 @section Scripts {
