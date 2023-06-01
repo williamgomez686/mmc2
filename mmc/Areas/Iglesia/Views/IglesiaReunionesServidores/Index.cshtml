@@ -1,0 +1,58 @@
+﻿@model IEnumerable<IglesiaServidoresReunion>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<p class="text-center">
+    <a asp-action="CrearEvento">crear evento</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Asiste)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Acompañantes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reuniones)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Servidores)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Asiste)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Acompañantes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reuniones.NombreReunion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servidores.Nombres)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,87 @@
+﻿@using mmc.Modelos.ViewModels.IglesiaVM;
+@model mmc.Utilidades.DataPaginador<VMReuniones>
+
+<div class="container">
+    <div>
+        <form action="/Iglesia/IglesiaReunionesServidores/RegistraServidores" method="get">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="search" name="Search" class="form-control" placeholder="ingrese el nombre a buscar" />
+                </div>
+
+                <div class="col-md-5 ">
+                    <label>Cantidad de registros deseados</label>
+                    <select name="Registros">
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </div>
+                <br />
+            </div>
+        </form>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-7">
+
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombres</th>
+                        <th>Invitado</th>
+                        <th>Asisitio?</th>
+                        <th>Departamento</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Lista)
+                    {
+                        <tr>
+                            <td>@item.ServidorId</td>
+                            <td>@item.Nombres</td>
+                            <td class="text-center">
+                                <input style="width:40px" type="text" class="input-carnet form-control" value="@item.Acompañantes" data-empleado-id="@item.ServidorId" autofocus />
+                            </td>
+                            <td class="text-center">
+                                <input type="checkbox" class="check-asistencia form-check-input" value="@item.ServidorId" @(item.Asiste ? "checked" : "") />
+                            </td>
+                            <td>@item.Departamento</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center">
+                @Html.Raw(Model.Pagi_info)
+                <br />
+                @Html.Raw(Model.Pagi_navegacion)
+            </div>
+        </div>
+        <div class="col-md-5">
+            <table class="table table-striped" id="tablaEmpleados">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Invitado</th>
+                        <th>Asisitio?</th>
+                        <th>Departamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/iglesia/asistenciaiglesia.js"></script>
+}
