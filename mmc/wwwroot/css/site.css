@@ -77,7 +77,7 @@ body {
 
 /*Estilos personalisados*/
 #navbarsetegua {
-    background-color: #002745;
+    background-color: #12153c;
 }
 
 .rectangulo {
@@ -100,11 +100,15 @@ body {
 }
 
 #footer2 {
-    background-color: #0063ae;
+    background-color: #444444;
 }
 
 .navbarindexcolor {
     background-color: #12153c;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.textos {
+    color: #fce55c;
 }

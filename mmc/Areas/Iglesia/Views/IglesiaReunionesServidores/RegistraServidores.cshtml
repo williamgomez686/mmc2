@@ -1,6 +1,11 @@
 ﻿@using mmc.Modelos.ViewModels.IglesiaVM;
 @model mmc.Utilidades.DataPaginador<VMReuniones>
 
+@{
+    ViewData["Title"] = "Registrar Reuniones";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
+}
+
 <div class="container">
     <div>
         <form action="/Iglesia/IglesiaReunionesServidores/RegistraServidores" method="get">

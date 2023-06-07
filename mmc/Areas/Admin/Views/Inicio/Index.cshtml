@@ -44,48 +44,168 @@
     </div>
     <!-- end loader -->
 
+    <style>
+        .navbar {
+            background-color: #12153c;
+            margin-bottom: 0%;
+        }
+        .navlinkbg {
+            background-color: #5691ff;
+            color: white !important;
+            
+        }
 
-    <!-- As a link -->
-    <nav class="navbar navbar-light navbarindexcolor">
-        <div class="container-fluid">
-            <ul class="navbar-nav flex-grow-1">
+        .navlinkcus:hover {
+            background-color: #242a7b;
+            color: #fce55c;
+            
+        }
+    </style>
 
-                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
+    <nav class="navbar navbar-expand-md navbar-light">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto mr-auto">
+
+                @****************************************************IGLESIA********************************************************@
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Iglesia)))
                 {
-                    <li class="nav-item">
+                    <li class="nav-item dropdown">
                         <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-warehouse"></i> Iglesia
+                            Iglesia
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a style="color: #fce55c;"  class="nav-link" asp-area="Iglesia"
+                        <div class="dropdown-menu navlinkbg" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-white navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaServidores"
+                           asp-action="Index">Servidores por Departamento</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaDepartamentos"
+                           asp-action="Index">Departamentos Iglesia</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReuniones"
+                           asp-action="Index">Reuniones</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
                            asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores"><i class="fa-solid fa-screwdriver-wrench"></i>Iglesia Asistencia</a>
+                           asp-action="RegistraServidores">Lista Asistenccia</a>
                         </div>
                     </li>
                 }
+                @********************************************** casas de estudio biblico ********************************************************** *@
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Iglesia)))
+                {
+                <li class="nav-item dropdown">
+                    <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        C.E.B
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores">Regiones</a>
+
+                        <a class="dropdown-item"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores">Lideres</a>
+
+                        <a class="dropdown-item" 
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores">Regionales</a>
+
+                        <a class="dropdown-item" asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores"><i class="fa-solid fa-screwdriver-wrench"></i>Iglesia Asistencia</a>
+                    </div>
+                </li>
+                }
+                @*-------------------------------------------------------Bodega---------------------------------------------------------------*@
                 @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)))
                 {
                     <li class="nav-item dropdown">
-                        <a style="color: #fce55c;" class="nav-link"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-warehouse"></i> CEB
+                        <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Bodega
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a style="color: #fce55c;" class="nav-link" asp-area="Iglesia"
+                            <a class="dropdown-item"
+                           asp-area="Iglesia"
                            asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores"><i class="fa-solid fa-screwdriver-wrench"></i>Regiones</a>
+                           asp-action="RegistraServidores">Genera Excel</a>
+
+                        </div>
+                    </li>
+                }
+                @*-------------------------------------------------------Contabilidad---------------------------------------------------------------*@
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Contabilidad)))
+                {
+                    <li class="nav-item dropdown">
+                        <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Contabilidad
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores">Diario por Motivos</a>
+
+                            <a class="dropdown-item"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores">Buscar Activo Fijo</a>
+
+                            <a class="dropdown-item"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores">Activo Fijo con Foto</a>
+                        </div>
+                    </li>
+                }
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Bodega)) || (User.IsInRole(DS.Role_Canal27)) || (User.IsInRole(DS.Role_Contabilidad)) || (User.IsInRole(DS.Role_Setegua)) || (User.IsInRole(DS.Role_Iglesia)))
+                {
+                    <li class="nav-item dropdown">
+                        <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tickets
+                        </a>
+                        <div class="dropdown-menu navlinkbg" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-white navlinkcus"
+                           asp-area="HelpDesk"
+                           asp-controller="GraficasTickets"
+                           asp-action="Index">Graficas</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="HelpDesk"
+                           asp-controller="Tickets"
+                           asp-action="Index">Lista de Tickets</a>
                         </div>
                     </li>
                 }
             </ul>
-                <partial name="_LoginPartialCustom" />
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <partial name="_LoginPartialCustom" />
+                </li>
+            </ul>
         </div>
     </nav>
-     
 
+
+
+    <!-- As a link -->
     <header>
         <!-- header inner -->
         <div class="header">
-            <div class="container">
+            <div class="container test">
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
                         <div class="full">
@@ -103,7 +223,7 @@
     <!-- end header inner -->
     <!-- end header -->
     <!-- banner -->
-    <section class="banner_main">
+    <section class="banner_main navbar">
         <div class="container-fluid">
             <div class="row d_flex">
                 <div class="col-xl-6 col-lg-6 col-md-6 ">
