@@ -18,15 +18,61 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap4.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
  
-    
-
-
 
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="icon" href="~/favicon.ico" type="image/x-icon">
 
 </head>
 <body class="hold-transition sidebar-mini">
+
+    <style>
+        html {
+            margin: 0%;
+            padding: 0%;
+        }
+
+/*        .navbar {
+            background-color: #3b92e9;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }*/
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-nav li {
+            margin-right: 5px; /*Espacios entre cada menu horizontal*/
+           
+        }
+
+        .navlinkbg {
+            background-color: #f4f6f9;
+            opacity: 0.9;
+            color: white !important;
+        }
+        .navbar-nav li a:hover {
+            background-color: transparent;
+            color: #12153c;
+            position: relative;
+            font-weight: bold;
+            transition: all 0.15s ease-out;
+            font-size: 20px;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .espacio {
+            margin-bottom: 5px;
+        }
+    </style>
+    
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -39,7 +85,47 @@
                     </a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block textos">
-                    <a class="nav-link" asp-area="Admin" asp-controller="Inicio" asp-action="Index" asp-route-culture="" localize-content>Home</a>
+                    <a style="color: #fce55c;" class="nav-link" asp-area="Admin" asp-controller="Inicio" asp-action="Index" asp-route-culture="" localize-content>Home</a>
+                </li>
+
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Iglesia)))
+                {
+                    <li class="nav-item dropdown">
+                        <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Iglesia
+                        </a>
+                        <div class="dropdown-menu navlinkbg" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaServidores"
+                           asp-action="Index">Servidores por Departamento</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaDepartamentos"
+                           asp-action="Index">Departamentos Iglesia</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReuniones"
+                           asp-action="Index">Reuniones</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="IglesiaReunionesServidores"
+                           asp-action="RegistraServidores">Lista Asistenccia</a>
+                        </div>
+                    </li>
+                }
+
+
+                <li class="nav-item dropdown">
+                    <a style="color: #fce55c;" class="nav-link" href="#">CEB</a>
+                    <ul class="dropdown-menu">
+                        <li class="espacio"><a href="#">Regiones</a></li>
+                        <li class="espacio"><a href="#">Lideres</a></li>
+                        <li class="espacio"><a href="#">Regionales</a></li>
+                    </ul>
                 </li>
 
             </ul>
