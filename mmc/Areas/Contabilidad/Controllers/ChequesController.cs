@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System;
 using mmc.Modelos.ContabilidadModels.ViewModels;
 using NPOI.SS.Formula.Functions;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace mmc.Areas.Contabilidad.Controllers
 {
@@ -18,8 +20,9 @@ namespace mmc.Areas.Contabilidad.Controllers
     {
         private readonly string _cadena;
         private readonly string _cadenaTest;
-        //private IHostingEnvironment _hostingEnvironment;
-        public ChequesController(IConfiguration cadena)
+
+		//private IHostingEnvironment _hostingEnvironment;
+		public ChequesController(IConfiguration cadena)
         {
             _cadena = cadena.GetConnectionString("OrecleString");
             _cadenaTest = cadena.GetConnectionString("OrecleStringExternaTest");
@@ -137,6 +140,47 @@ namespace mmc.Areas.Contabilidad.Controllers
 
             return Detalles;
         }
-        #endregion
-    }
+		#endregion
+
+		#region Pruebas
+        public async Task<bool> ProsedimientoAlmacenado()
+        {
+            try
+            {
+				using (OracleConnection connection = new OracleConnection(_cadenaTest))
+				{
+					connection.Open();
+					string serie = "2546";
+					int numero = 256;
+					decimal monto = 25;
+					DateTime fecha = DateTime.Now;
+					string usuario = "sistem";
+
+					using (OracleCommand command = new OracleCommand("SP_CreaRecibos", connection))
+					{
+						command.CommandType = CommandType.StoredProcedure;
+
+						// Agrega los parámetros requeridos por el procedimiento almacenado
+						command.Parameters.Add("serie", OracleDbType.Varchar2).Value = serie;
+						command.Parameters.Add("numero", OracleDbType.Int32).Value = numero;
+						command.Parameters.Add("monto", OracleDbType.Decimal).Value = monto;
+						command.Parameters.Add("fecha", OracleDbType.Date).Value = fecha;
+						command.Parameters.Add("usuario", OracleDbType.Varchar2).Value = usuario;
+
+						// Ejecuta el procedimiento almacenado
+						var test = command.ExecuteNonQueryAsync();
+                        
+						return true;
+					}
+				}
+			}
+            catch (Exception)
+            {
+
+                return false;
+            }
+		}
+
+		#endregion
+	}
 }
