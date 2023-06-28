@@ -50,7 +50,7 @@ namespace mmc
 
             //por medio de inyeccion de dependencias inyectamos Nuestra Unida de trabajo y la interface de IUnidadtrabajo *********************************************************
             services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///
             services.AddControllersWithViews();
             //agregamos este servisio para que soporte vistas de razor
