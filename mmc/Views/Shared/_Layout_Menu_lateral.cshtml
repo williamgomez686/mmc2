@@ -87,7 +87,7 @@
                 <li class="nav-item d-none d-sm-inline-block textos">
                     <a style="color: #fce55c;" class="nav-link" asp-area="Admin" asp-controller="Inicio" asp-action="Index" asp-route-culture="" localize-content>Home</a>
                 </li>
-
+                <!--*********************************************************Iglesia****************************************************-->
                 @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Iglesia)))
                 {
                     <li class="nav-item dropdown">
@@ -117,16 +117,32 @@
                         </div>
                     </li>
                 }
+                <!--*********************************************************CONTABILIDAD****************************************************-->
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Contabilidad)))
+                {
+                    <li class="nav-item dropdown">
+                        <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Contabilidad
+                        </a>
+                        <div class="dropdown-menu navlinkbg" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Contabilidad"
+                           asp-controller="Contabilidad"
+                           asp-action="Index">Diario por Motivo</a>
 
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Contabilidad"
+                           asp-controller="ActivosFijos"
+                           asp-action="Index">Buscar Activo</a>
 
-                <li class="nav-item dropdown">
-                    <a style="color: #fce55c;" class="nav-link" href="#">CEB</a>
-                    <ul class="dropdown-menu">
-                        <li class="espacio"><a href="#">Regiones</a></li>
-                        <li class="espacio"><a href="#">Lideres</a></li>
-                        <li class="espacio"><a href="#">Regionales</a></li>
-                    </ul>
-                </li>
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Contabilidad"
+                           asp-controller="ActivosFijos"
+                           asp-action="ActivosConFoto">Activos con Foto</a>
+
+                        </div>
+                    </li>
+                }
 
             </ul>
 

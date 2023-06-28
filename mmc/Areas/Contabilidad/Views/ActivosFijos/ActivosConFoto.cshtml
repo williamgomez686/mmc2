@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
 }
 
-<h2 class="text-center text-primary">Activos Con Foto</h2>
+
 <br />
 <hr />
 
@@ -29,11 +29,9 @@
                             <p>Observaciones: <b> @ActivoFijo.ACFIOBS</b></p>
                         </div>
                     </div>
-                    <div>
-                            
+                    <div class="align-content-center">                    
                         @*<a href="/Contabilidad/ActivosFijos/ActivosFIjosFoto?ArtCod=@ActivoFijo.CODIGOACTIVO" class="btn btn-primary form-control">Detalles</a>*@
                             <a href="/Contabilidad/ActivosFijos/ActivosFIjosFoto?CODIGOACTIVO=@ActivoFijo.CODIGOACTIVO" class="btn btn-primary form-control">Detalles</a>
-
                     </div>
                 </div>
             </div>

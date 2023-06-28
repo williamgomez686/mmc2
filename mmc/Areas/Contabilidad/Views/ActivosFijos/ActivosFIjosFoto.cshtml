@@ -5,16 +5,23 @@
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
     //ViewBag.foto
 }
-
+<br />
 <div class="card">
-    <div class="card-header text-center">
-        Activos Fijos
+    <div class="card-img ">
+        <div class="col-12 align-items-center">
+            <img src="@Model.ACFIFOTO" style="width:100%; border-radius:10px; border:1px solid #167FDB" />
+        </div>
     </div>
 
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
+
+
+
                 <form asp-action="ActivosFIjosFoto" enctype="multipart/form-data">
+
+
                   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="IDCONTA" />
 
@@ -131,11 +138,11 @@
             </div>
         </div>
     </div>
-    <div class="card-img">
+   @* <div class="card-img">
         <div class="col-8">
             <img src="@Model.ACFIFOTO" style="width:100%; border-radius:10px; border:1px solid #167FDB" />
         </div>
-    </div>
+    </div>*@
 </div>
 
 
