@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 //para desabilitar el https en una aplicacion  **************** #1
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
+using mmc.Modelos.ContabilidadModels;
 
 namespace mmc
 {
@@ -36,7 +37,7 @@ namespace mmc
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnectioninterna")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
 

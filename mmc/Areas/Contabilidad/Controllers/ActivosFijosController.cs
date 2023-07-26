@@ -16,11 +16,17 @@ using System.IO;
 using mmc.Modelos.ViewModels;
 using mmc.Modelos;
 using mmc.Modelos.ContabilidadModels.ViewModels;
+using DocumentFormat.OpenXml.Presentation;
+using mmc.AccesoDatos.Repositorios;
+using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.AspNetCore.Http;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace mmc.Areas.Contabilidad.Controllers
 {
     [Area("Contabilidad")]
-    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Contabilidad)]
+   // [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Contabilidad)]
     public class ActivosFijosController : Controller
     {
         private readonly string _cadena;
@@ -264,7 +270,66 @@ namespace mmc.Areas.Contabilidad.Controllers
         //        }
         //    return oDatos;
         //}
+
+
+
+        private async Task<List<AF_Activos_Fijos>> ObtineActivosFijos(string id)
+        {
+            var query = @"SELECT aaf.ACFICOD IDCONTA, aaf.ACFIMODELO MODELO,  aaf.ACFIDSC DESCRIPCION, aaf.ACFIMONLOC PRECIO
+                                FROM AF_ACTIVOS_FIJOS aaf 
+                                WHERE EMPCOD = '00001'
+                                AND EMPLEMPCOD = '" + id + "'";
+
+            List<AF_Activos_Fijos> af = new List<AF_Activos_Fijos>();
+            try
+            {
+                using (OracleConnection contex = new OracleConnection(_cadenaTest))
+                {
+                    contex.Open();
+                    using (OracleCommand cmd = new OracleCommand(query, contex))
+                    {
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        using (var dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await dr.ReadAsync())
+                            {
+                                var result = new AF_Activos_Fijos();
+                                {
+                                    //result.EmpCod = dr["paicod"].ToString();
+                                    result.CODIGOACTIVO = dr["IDCONTA"].ToString();
+                                    result.MODELO = dr["MODELO"].ToString();
+                                    result.ACFIDSC = dr["DESCRIPCION"].ToString();
+                                }
+                                af.Add(result);
+                            }
+                        }
+                    }
+                    return af;
+                }
+            }
+            catch (Exception error)
+            {
+
+                throw;
+            }
+        }
+
         #endregion
+        [HttpGet]
+        public async Task<IActionResult> EmpleadoActivo()
+        {
+            try
+            {
+                var result = ObtineActivosFijos("00960");
+                //var lol = await result.Listar("00960");
+                return StatusCode(StatusCodes.Status200OK, new { valor = result, msg = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { valor = ex.Message, msg = "Error" });
+            }
+        }
+
 
     }
 }

@@ -165,6 +165,7 @@ namespace mmc.Areas.HelpDesk.Controllers
                 try
                 {
                     ticket.UsuarioModifica = User.Identity.Name;
+                    ticket.Tecnico= User.Identity.Name;
                     ticket.FechaSolucion = DateTime.Now;
                     ticket.Fechamodifica = DateTime.Now;
                     _context.Update(ticket);

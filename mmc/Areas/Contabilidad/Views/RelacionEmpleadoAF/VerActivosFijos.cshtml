@@ -1,0 +1,52 @@
+﻿@*@model List<mmc.Modelos.ContabilidadModels.AF_Activos_Fijos>*@
+
+@model mmc.Utilidades.DataPaginador<mmc.Modelos.ContabilidadModels.AF_Activos_Fijos>
+
+@{
+    ViewData["Title"] = "Activos Fijos";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
+}
+
+@if (Model != null && Model.Lista.Count > 0)
+{
+    <table class="table mt-5 mb-5">
+        <thead>
+            <tr>
+                <th>Código Activo Fijo</th>
+                <th>Descripción</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <!-- Agrega más columnas según tus necesidades -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var activoFijo in Model.Lista)
+            {
+                <tr>
+                    <td>@activoFijo.CODIGOACTIVO</td>
+                    <td>@activoFijo.ACFIDSC</td>
+                    <td>@activoFijo.MARCA</td>
+                    <td>@activoFijo.MODELO</td>
+                    <!-- Agrega más columnas según tus necesidades -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No se encontraron activos fijos.</p>
+}
+<div class="text-center">
+    @Html.Raw(Model.Pagi_info)
+    <br />
+    @Html.Raw(Model.Pagi_navegacion)
+</div>
+
+<div class="pagination">
+    @if (Model.Pagi_navegacion != null)
+    {
+        @Html.Raw(Model.Pagi_navegacion.Replace("href=", $"href={Url.Action("VerActivosFijos", "RelacionEmpleadoAF", new { area = "Contabilidad", codigoEmpleado = ViewBag.CodigoEmpleado })}&"))
+        ;
+    }
+</div>

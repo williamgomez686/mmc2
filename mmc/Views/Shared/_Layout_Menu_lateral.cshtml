@@ -87,6 +87,36 @@
                 <li class="nav-item d-none d-sm-inline-block textos">
                     <a style="color: #fce55c;" class="nav-link" asp-area="Admin" asp-controller="Inicio" asp-action="Index" asp-route-culture="" localize-content>Home</a>
                 </li>
+                <!--*********************************************************CEB****************************************************-->
+                @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Iglesia)))
+                {
+                    <li class="nav-item dropdown">
+                        <a style="color: #fce55c;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            C.E.B
+                        </a>
+                        <div class="dropdown-menu navlinkbg" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="RegionesCEB"
+                           asp-action="Index">Regiones</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="MiembrosCEB"
+                           asp-action="Index">Lideres</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="MiembrosCEB"
+                           asp-action="Regionales">Regionales</a>
+
+                            <a class="dropdown-item navlinkcus"
+                           asp-area="Iglesia"
+                           asp-controller="PrivilegioCEB"
+                           asp-action="Index">Privilegios</a>
+                        </div>
+                    </li>
+                }
                 <!--*********************************************************Iglesia****************************************************-->
                 @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Iglesia)))
                 {
@@ -334,15 +364,22 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a asp-area="HelpDesk" asp-controller="Tickets" asp-action="Index" asp-route-culture="" class="nav-link">
-                                            <i class="fas fa-list nav-icon text-green"></i>
+                                            <i class="fa-solid fa-list-ul"></i>
                                             <p localize-content>Lista de Ticket Activos</p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a asp-area="HelpDesk" asp-controller="Tickets" asp-action="Create" asp-route-culture="" class="nav-link">
-                                            <i class="fas fa-plus nav-icon"></i>
+                                            <i class="fa-solid fa-plus"></i>
                                             <p localize-content>Crear Nuevo Ticket</p>
+
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="HelpDesk" asp-controller="GraficasTickets" asp-action="Index" asp-route-culture="" class="nav-link">
+                                            <i class="fas fa-solid fa-chart-pie"></i>
+                                            <p localize-content>Graficas</p>
 
                                         </a>
                                     </li>

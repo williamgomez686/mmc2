@@ -110,22 +110,23 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item"
                            asp-area="Iglesia"
-                           asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores">Regiones</a>
+                           asp-controller="RegionesCEB"
+                           asp-action="Index">Regiones</a>
 
                         <a class="dropdown-item"
                            asp-area="Iglesia"
-                           asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores">Lideres</a>
+                           asp-controller="MiembrosCEB"
+                           asp-action="Index">Lideres</a>
 
                         <a class="dropdown-item" 
                            asp-area="Iglesia"
-                           asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores">Regionales</a>
+                           asp-controller="MiembrosCEB"
+                           asp-action="Regionales">Regionales</a>
 
-                        <a class="dropdown-item" asp-area="Iglesia"
-                           asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores"><i class="fa-solid fa-screwdriver-wrench"></i>Iglesia Asistencia</a>
+                            <a class="dropdown-item"
+                           asp-area="Iglesia"
+                           asp-controller="PrivilegioCEB"
+                           asp-action="Index">Privilegios</a>
                     </div>
                 </li>
                 }
@@ -154,19 +155,19 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
-                           asp-area="Iglesia"
-                           asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores">Diario por Motivos</a>
+                           asp-area="Contabilidad"
+                           asp-controller="Contabilidad"
+                           asp-action="Index">Diario por Motivos</a>
+                             
+                            <a class="dropdown-item"
+                           asp-area="Contabilidad"
+                           asp-controller="ActivosFijos"
+                           asp-action="Index">Buscar Activo Fijo</a>
 
                             <a class="dropdown-item"
-                           asp-area="Iglesia"
-                           asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores">Buscar Activo Fijo</a>
-
-                            <a class="dropdown-item"
-                           asp-area="Iglesia"
-                           asp-controller="IglesiaReunionesServidores"
-                           asp-action="RegistraServidores">Activo Fijo con Foto</a>
+                           asp-area="Contabilidad"
+                           asp-controller="ActivosFijos"
+                           asp-action="ActivosConFoto">Activo Fijo con Foto</a>
                         </div>
                     </li>
                 }
