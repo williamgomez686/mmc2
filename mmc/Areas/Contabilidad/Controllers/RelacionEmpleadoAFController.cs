@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using DocumentFormat.OpenXml.Office2021.DocumentTasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
@@ -60,6 +61,7 @@ namespace mmc.Areas.Contabilidad.Controllers
 
         public async Task<IActionResult> VerActivosFijos(string codigoEmpleado, int Pag, int Registros, string Search)
         {
+           // HttpContext.Session.SetString("CodigoEmpleado", codigoEmpleado);
 
             ViewBag.CodigoEmpleado = codigoEmpleado;
 
@@ -69,7 +71,7 @@ namespace mmc.Areas.Contabilidad.Controllers
             string host = Request.Scheme + "://" + Request.Host.Value;
 
             object[] resultado = new Paginador<AF_Activos_Fijos>()
-                                .paginador(activosFijos.OrderBy(n => n.ACFIDSC).ToList(), Pag, Registros, "Contabilidad", "RelacionEmpleadoAF", "VerActivosFijos", host);
+                                .paginador(activosFijos.OrderBy(n => n.ACFIDSC).ToList(), Pag, 200, "Contabilidad", "RelacionEmpleadoAF", "VerActivosFijos", host);
 
             DataPaginador<AF_Activos_Fijos> modelo = new DataPaginador<AF_Activos_Fijos>
             {
@@ -164,7 +166,8 @@ namespace mmc.Areas.Contabilidad.Controllers
                                     CODIGOACTIVO = reader.GetString(0),
                                     MODELO = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
                                     ACFIDSC = reader.GetString(2),
-                                    ACFIMONLOC = (double)reader.GetDecimal(3)
+                                    ACFIMONLOC = (double)reader.GetDecimal(3),
+                                    ACFIFOTO = reader.IsDBNull(4) ? string.Empty : reader.GetString(4)
                                 };
                                 result.Add(activoFijo);
                             }

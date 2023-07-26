@@ -80,7 +80,8 @@ namespace mmc.Areas.Contabilidad.Controllers
             }
             return View(model);
         }
-        [HttpPost]
+
+        [HttpPost]//aqui se actualilza la foto y la observacion
         public IActionResult ActivosFIjosFoto(ActivoFijoUpdateVW activoFijoDB)
         {
             if(ModelState.IsValid)
@@ -88,10 +89,9 @@ namespace mmc.Areas.Contabilidad.Controllers
                 //Obtenemos la ruta absoluta de la carpeta raiz
                 string webRootPath = _hostingEnvironment.WebRootPath;
                 var files = HttpContext.Request.Form.Files;
-                if (files.Count > 0)
+                if (files.Count > 0 && files[0].Length > 0)
                 {
                     string filename = activoFijoDB.IDCONTA;//Guid.NewGuid().ToString();  \\192.168.0.3\ActivosFijos
-                    //var uploads = Path.Combine(webRootPath, @"\\TomCat\ActivosFijos");
                     var uploads = Path.Combine(webRootPath, @"imagenes\Contabilidad\ActivosFijos"); //@"\\192.168.0.3\FotosActivosFijos");
                     var extension = Path.GetExtension(files[0].FileName);
                     if (activoFijoDB.ACFIFOTO != null)
@@ -108,10 +108,28 @@ namespace mmc.Areas.Contabilidad.Controllers
                         files[0].CopyTo(filesStreams);
                     }
                     activoFijoDB.ACFIFOTO = @"\imagenes\Contabilidad\ActivosFijos\" + filename + extension;
-                   //activoFijoDB.ACFIFOTO = filename + extension; //@"\\TomCat\ActivosFijos\" + filename + extension;
                 }
+                else
+                {
+                    // Si no se proporcionó una nueva imagen, mantener la ruta de la imagen existente
+                    using (var connection = conexion())
+                    {
+                        connection.Open();
+                        var activoFijoActual = Get_AF_byId(connection, activoFijoDB.IDCONTA);
 
-                Actualizar(activoFijoDB, conexion());
+                        if (activoFijoActual != null)
+                        {
+                            activoFijoDB.ACFIFOTO = activoFijoActual.ACFIFOTO;
+                        }
+                    }
+                }
+                //manda a llamar al update 
+                using (var connection = conexion())
+                {
+                    connection.Open();
+
+                    Actualizar(activoFijoDB, connection);
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -156,20 +174,7 @@ namespace mmc.Areas.Contabilidad.Controllers
         #region Conneccion DB
         public OracleConnection conexion()
         {
-            try
-            {
-                //using (var connection = new OracleConnection(_cadenaTest))
-                var connection = new OracleConnection(_cadena);
-                //{
-                connection.Open();
-                return connection;
-                //}
-            }
-            catch (System.Exception)
-            {
-
-                throw;
-            }
+            return new OracleConnection(_cadena);
         }
 
         #endregion
@@ -178,26 +183,20 @@ namespace mmc.Areas.Contabilidad.Controllers
 
         public void Actualizar(ActivoFijoUpdateVW activoFijoDB, OracleConnection connection)
         {
-            //var foto = imagen;
+            // Consulta SQL parametrizada para evitar inyección de SQL
             var query = @"UPDATE AF_ACTIVOS_FIJOS 
-	            SET ACFIFOTO='" + activoFijoDB.ACFIFOTO + "', ACFIOBS='"+ activoFijoDB.ACFIOBS + "' WHERE PAICOD='00001' AND EMPCOD='00001' AND ACFICOD='" + activoFijoDB.IDCONTA + "'";
-
-            var query2 = @"UPDATE AF_ACTIVOS_FIJOS 
-	            SET ACFIOBS='" + activoFijoDB.ACFIOBS + "' WHERE PAICOD='00001' AND EMPCOD='00001' AND ACFICOD='" + activoFijoDB.IDCONTA + "'";
-
-            //if (activoFijoDB.ACFIFOTO = " hols")
-            //{
-
-            //}
+                SET ACFIFOTO=:foto, ACFIOBS=:obs 
+                WHERE PAICOD='00001' AND EMPCOD='00001' AND ACFICOD=:idConta";
 
             using (var cmd = new OracleCommand(query, connection))
             {
                 cmd.CommandType = System.Data.CommandType.Text;
-                //cmd.Parameters.Add(":ArtCod", Model.CODIGOACTIVO);
-                //cmd.Parameters.Add(":Foto", Model.ACFIFOTO);
+                cmd.Parameters.Add(":foto", OracleDbType.Varchar2).Value = activoFijoDB.ACFIFOTO;
+                cmd.Parameters.Add(":obs", OracleDbType.Varchar2).Value = activoFijoDB.ACFIOBS;
+                cmd.Parameters.Add(":idConta", OracleDbType.Varchar2).Value = activoFijoDB.IDCONTA;
+
                 cmd.ExecuteNonQuery();
             }
-
         }
 
         protected ActivoFijoUpdateVW Get_AF_byId(OracleConnection connection, string artCod)
@@ -246,90 +245,6 @@ namespace mmc.Areas.Contabilidad.Controllers
                 return oDatos;
             }
         }
-
-        //protected AF_Activos_Fijos Get_AF_byId(OracleConnection connection, string artCod)
-        //{
-        //    var query = @"SELECT ACFICOD CodigoActivo,ACFIDSC, ACFIMARCOD Marca, ACFIMODELO Modelo, ACFISERIE Serie, ACFIFOTO , ACFITIPCOD, ACFISUBTIPCOD, ACFIFCHCMP, ACFIMONLOC, ACFINUMCHQ, CONDEPCOD, EMPLEMPCOD codigoEmpleado, ACFIUBICOD,
-        //                  ACFIOBS, ACFIFCHBAJ, ACFIFACNUM noFactura, PRVCOD nitProveedor, ACFIDOCREF
-        //                    FROM AF_ACTIVOS_FIJOS aaf WHERE ACFICOD ='" + artCod + "'";
-        //    var OActivoFijo = new List<AF_Activos_Fijos>();
-        //    var cmd = new OracleCommand(query, connection);
-        //    using var reader = cmd.ExecuteReader();
-        //        reader.Read();
-
-        //        var oDatos = new AF_Activos_Fijos();
-        //        {
-        //            oDatos.CODIGOACTIVO = Convert.ToString(reader["CodigoActivo"]);
-        //            oDatos.ACFIDSC = Convert.ToString(reader["ACFIDSC"]);
-        //            oDatos.MARCA = Convert.ToString(reader["Marca"]);
-        //            oDatos.MODELO = Convert.ToString(reader["Modelo"]);
-        //            oDatos.SERIE = Convert.ToString(reader["Serie"]);
-        //            oDatos.ACFIOBS = Convert.ToString(reader["ACFIOBS"]);
-        //            oDatos.ACFIMONLOC = Convert.ToDouble(reader["ACFIMONLOC"]);
-        //        oDatos.ACFIFOTO = Convert.ToString(reader["ACFIFOTO"]);
-        //        }
-        //    return oDatos;
-        //}
-
-
-
-        private async Task<List<AF_Activos_Fijos>> ObtineActivosFijos(string id)
-        {
-            var query = @"SELECT aaf.ACFICOD IDCONTA, aaf.ACFIMODELO MODELO,  aaf.ACFIDSC DESCRIPCION, aaf.ACFIMONLOC PRECIO
-                                FROM AF_ACTIVOS_FIJOS aaf 
-                                WHERE EMPCOD = '00001'
-                                AND EMPLEMPCOD = '" + id + "'";
-
-            List<AF_Activos_Fijos> af = new List<AF_Activos_Fijos>();
-            try
-            {
-                using (OracleConnection contex = new OracleConnection(_cadenaTest))
-                {
-                    contex.Open();
-                    using (OracleCommand cmd = new OracleCommand(query, contex))
-                    {
-                        cmd.CommandType = System.Data.CommandType.Text;
-                        using (var dr = await cmd.ExecuteReaderAsync())
-                        {
-                            while (await dr.ReadAsync())
-                            {
-                                var result = new AF_Activos_Fijos();
-                                {
-                                    //result.EmpCod = dr["paicod"].ToString();
-                                    result.CODIGOACTIVO = dr["IDCONTA"].ToString();
-                                    result.MODELO = dr["MODELO"].ToString();
-                                    result.ACFIDSC = dr["DESCRIPCION"].ToString();
-                                }
-                                af.Add(result);
-                            }
-                        }
-                    }
-                    return af;
-                }
-            }
-            catch (Exception error)
-            {
-
-                throw;
-            }
-        }
-
-        #endregion
-        [HttpGet]
-        public async Task<IActionResult> EmpleadoActivo()
-        {
-            try
-            {
-                var result = ObtineActivosFijos("00960");
-                //var lol = await result.Listar("00960");
-                return StatusCode(StatusCodes.Status200OK, new { valor = result, msg = "OK" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { valor = ex.Message, msg = "Error" });
-            }
-        }
-
-
     }
 }
+#endregion

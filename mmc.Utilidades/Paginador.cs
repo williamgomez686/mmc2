@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,7 @@ namespace mmc.Utilidades
         public object[] paginador(List<T> table, int pagina, int Registros, String? area, String controller,
             String action, String host)
         {
+
             if (Registros > 0)
             {
                 pagi_cuantos = Registros;

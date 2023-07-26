@@ -1,6 +1,4 @@
-﻿@*@model List<mmc.Modelos.ContabilidadModels.AF_Activos_Fijos>*@
-
-@model mmc.Utilidades.DataPaginador<mmc.Modelos.ContabilidadModels.AF_Activos_Fijos>
+﻿@model mmc.Utilidades.DataPaginador<mmc.Modelos.ContabilidadModels.AF_Activos_Fijos>
 
 @{
     ViewData["Title"] = "Activos Fijos";
@@ -9,13 +7,14 @@
 
 @if (Model != null && Model.Lista.Count > 0)
 {
-    <table class="table mt-5 mb-5">
+    <table class="table mt-5 mb-5 table-bordered">
         <thead>
             <tr>
-                <th>Código Activo Fijo</th>
+                <th>Id Conta</th>
                 <th>Descripción</th>
-                <th>Marca</th>
                 <th>Modelo</th>
+                <th>Precio</th>
+                <th>Foto</th>
                 <!-- Agrega más columnas según tus necesidades -->
             </tr>
         </thead>
@@ -25,8 +24,9 @@
                 <tr>
                     <td>@activoFijo.CODIGOACTIVO</td>
                     <td>@activoFijo.ACFIDSC</td>
-                    <td>@activoFijo.MARCA</td>
                     <td>@activoFijo.MODELO</td>
+                    <td>Q.@activoFijo.ACFIMONLOC</td>
+                    <td><img src="@activoFijo.ACFIFOTO" width="100"/></td>
                     <!-- Agrega más columnas según tus necesidades -->
                 </tr>
             }
@@ -35,18 +35,8 @@
 }
 else
 {
-    <p>No se encontraron activos fijos.</p>
+    <br /><br />
+    <p class="h2 text-center mt-5 mb-5">No se encontraron activos fijos.</p>
 }
-<div class="text-center">
-    @Html.Raw(Model.Pagi_info)
-    <br />
-    @Html.Raw(Model.Pagi_navegacion)
-</div>
 
-<div class="pagination">
-    @if (Model.Pagi_navegacion != null)
-    {
-        @Html.Raw(Model.Pagi_navegacion.Replace("href=", $"href={Url.Action("VerActivosFijos", "RelacionEmpleadoAF", new { area = "Contabilidad", codigoEmpleado = ViewBag.CodigoEmpleado })}&"))
-        ;
-    }
-</div>
+

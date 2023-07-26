@@ -5,13 +5,11 @@
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
     //ViewBag.foto
 }
+
+
+
 <br />
 <div class="card">
-    <div class="card-img ">
-        <div class="col-12 align-items-center">
-            <img src="@Model.ACFIFOTO" style="width:100%; border-radius:10px; border:1px solid #167FDB" />
-        </div>
-    </div>
 
     <div class="card-body">
         <div class="row">
@@ -144,6 +142,14 @@
         </div>
     </div>*@
 </div>
+@if (!string.IsNullOrEmpty(Model.ACFIFOTO))
+{
+    <div class="card-img">
+        <div class="col-12 align-items-center">
+            <img src="@Model.ACFIFOTO" width="400"  />
+        </div>
+    </div>
+}
 
 
 
