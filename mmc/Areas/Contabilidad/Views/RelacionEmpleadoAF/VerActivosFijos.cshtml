@@ -5,6 +5,34 @@
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
 }
 
+<!-- Contenedor donde se mostrará la información de empleados -->
+<h4 class="text-center">Datos del empleado</h4>
+<div id="datosEmpleadoContainer">
+    
+    <!-- Aquí se mostrarán los datos del empleado -->
+</div>
+<hr />
+<div class="mb-1">
+    <form action="/Contabilidad/RelacionEmpleadoAF/VerActivosFijos" method="get">
+        <div class="row">
+            <div class="col-md-10">
+                <input type="search" name="Search" class="form-control" placeholder="Buscar por Código o por Descripcion." />
+                <input hidden="hidden" type="text" name="codigoEmpleado" class="form-control" value="@ViewBag.CodigoEmpleado" />               
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-success"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <a href="/Contabilidad/RelacionEmpleadoAF/" class="btn btn-danger"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="text-center">
+    @Html.Raw(Model.Pagi_info)
+    <br />
+    @Html.Raw(Model.Pagi_navegacion)
+</div>
+
 @if (Model != null && Model.Lista.Count > 0)
 {
     <table class="table mt-5 mb-5 table-bordered">
@@ -15,23 +43,26 @@
                 <th>Modelo</th>
                 <th>Precio</th>
                 <th>Foto</th>
-                <!-- Agrega más columnas según tus necesidades -->
             </tr>
         </thead>
         <tbody>
             @foreach (var activoFijo in Model.Lista)
             {
                 <tr>
-                    <td>@activoFijo.CODIGOACTIVO</td>
+                    <td><a href="/Contabilidad/ActivosFijos/ActivosFIjosFoto?CODIGOACTIVO=@activoFijo.CODIGOACTIVO">@activoFijo.CODIGOACTIVO</a></td>
                     <td>@activoFijo.ACFIDSC</td>
                     <td>@activoFijo.MODELO</td>
                     <td>Q.@activoFijo.ACFIMONLOC</td>
-                    <td><img src="@activoFijo.ACFIFOTO" width="100"/></td>
-                    <!-- Agrega más columnas según tus necesidades -->
+                    <td>
+                        <a href="#!" data-toggle="modal" data-target="#ModalImagen" alt="" data-img-url="@activoFijo.ACFIFOTO">
+                            <img src="@activoFijo.ACFIFOTO" width="100" />
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+
 }
 else
 {
@@ -39,4 +70,86 @@ else
     <p class="h2 text-center mt-5 mb-5">No se encontraron activos fijos.</p>
 }
 
+<!--MODAL PARA IMAGENS-->
+<div tabindex="-1" aria-labelledby="ModalImagen" aria-hidden="true" class="modal fade" id="ModalImagen">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <img id="imagenModal" src="" alt="Imagen del activo fijo" style="max-width: 100%;" />
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA IMAGENS FIN-->
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Obtener referencia al modal y la etiqueta img dentro del modal
+        const modal = document.getElementById('ModalImagen');
+        const imagenModal = modal.querySelector('#imagenModal');
+
+        // Agregar un evento click a todos los enlaces que muestran las imágenes
+        const enlacesImagenes = document.querySelectorAll('a[data-toggle="modal"]');
+        enlacesImagenes.forEach(enlace => {
+            enlace.addEventListener('click', (event) => {
+                // Obtener la ruta de la imagen desde el atributo de datos
+                const imgUrl = event.currentTarget.getAttribute('data-img-url');
+                // Establecer la ruta de la imagen en la etiqueta img dentro del modal
+                imagenModal.src = imgUrl;
+            });
+        });
+
+        // Limpiar la imagen cuando el modal se cierra
+        modal.addEventListener('hidden.bs.modal', () => {
+            imagenModal.src = '';
+        });
+    </script>
+
+
+    <!-- Agrega esta sección de script en tu vista -->
+    <script>
+        // Función para obtener los datos del empleado y mostrarlos en el contenedor
+        async function mostrarDatosEmpleado(codigoEmpleado) {
+            try {
+                const response = await fetch(`/Contabilidad/RelacionEmpleadoAF/ObtieneEmpleadosApi?codigo=${codigoEmpleado}`);
+                const data = await response.json();
+
+                // Verificar si se encontraron datos del empleado
+                if (data.length > 0) {
+                    // Obtener el contenedor donde mostrar los datos del empleado
+                    const datosEmpleadoContainer = document.getElementById('datosEmpleadoContainer');
+
+                    // Mostrar el nombre y apellido del empleado en el contenedor
+                    datosEmpleadoContainer.innerHTML = `
+                            <div class="row">
+                                <dvi class="col-md-6">
+                                    <p class="h6">Nombre: ${data[0].emplempnom}</p>
+                                    <p class="h6">Apellido: ${data[0].emplempape}</p>
+                                </dvi>
+                                <dvi class="col-md-6">
+                                            <p class="h6">Codigo Empleado: ${data[0].emplempcod}</p>
+                                </dvi>
+                            </div>
+                        `;
+                } else {
+                    // Si no se encontraron datos del empleado, mostrar mensaje de error
+                    const datosEmpleadoContainer = document.getElementById('datosEmpleadoContainer');
+                    datosEmpleadoContainer.innerHTML = '<p>No se encontraron datos del empleado.</p>';
+                }
+            } catch (error) {
+                console.error('Error de red:', error);
+            }
+        }
+
+        // Obtener el valor del CodigoEmpleado del ViewBag y llamar a la función al cargar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            const codigoEmpleado = '@ViewBag.CodigoEmpleado';
+            mostrarDatosEmpleado(codigoEmpleado);
+        });
+    </script>
+
+}
 

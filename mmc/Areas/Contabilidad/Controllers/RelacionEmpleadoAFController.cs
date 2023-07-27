@@ -34,6 +34,7 @@ namespace mmc.Areas.Contabilidad.Controllers
 
         public async Task<IActionResult> Index(int Pag, int Registros, string Search)
         {
+            string codigo;
             var result = await ObtieneEmpleados();
 
             if (!string.IsNullOrEmpty(Search))
@@ -45,9 +46,9 @@ namespace mmc.Areas.Contabilidad.Controllers
             }
 
             string host = Request.Scheme + "://" + Request.Host.Value;
-
+            
             object[] resultado = new Paginador<RHEMPLEADOSRELACIONLAB>()
-                                .paginador(result.OrderBy(n => n.EMPLEMPNOM).ToList(), Pag, Registros, "Contabilidad", "RelacionEmpleadoAF", "Index", host);
+                                .paginador(result.OrderBy(n => n.EMPLEMPNOM).ToList(),  Pag, Registros, "Contabilidad", "RelacionEmpleadoAF", "Index", host);
 
             DataPaginador<RHEMPLEADOSRELACIONLAB> modelo = new DataPaginador<RHEMPLEADOSRELACIONLAB>
             {
@@ -61,17 +62,22 @@ namespace mmc.Areas.Contabilidad.Controllers
 
         public async Task<IActionResult> VerActivosFijos(string codigoEmpleado, int Pag, int Registros, string Search)
         {
-           // HttpContext.Session.SetString("CodigoEmpleado", codigoEmpleado);
+            var activosFijos = await GetActivosFijosFromOracle(codigoEmpleado);
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                Search = Search.ToUpperInvariant();
+                activosFijos = activosFijos.Where(id=>id.CODIGOACTIVO.Equals(Search) || id.ACFIDSC.Contains(Search)).ToList();
+            }
 
             ViewBag.CodigoEmpleado = codigoEmpleado;
 
-            var activosFijos = await GetActivosFijosFromOracle(codigoEmpleado);
             // Hacer algo con la lista de activosFijos, por ejemplo, devolver una vista con los resultados.
 
             string host = Request.Scheme + "://" + Request.Host.Value;
 
             object[] resultado = new Paginador<AF_Activos_Fijos>()
-                                .paginador(activosFijos.OrderBy(n => n.ACFIDSC).ToList(), Pag, 200, "Contabilidad", "RelacionEmpleadoAF", "VerActivosFijos", host);
+                                .paginador(activosFijos.OrderBy(n => n.ACFIDSC).ToList(), Pag, 1000, "Contabilidad", "RelacionEmpleadoAF", "VerActivosFijos", host);
 
             DataPaginador<AF_Activos_Fijos> modelo = new DataPaginador<AF_Activos_Fijos>
             {
@@ -183,7 +189,19 @@ namespace mmc.Areas.Contabilidad.Controllers
                 throw;
             }
         }
-        
+
+        #endregion
+
+        #region apis
+        // Método para obtener todos los empleados
+        [HttpGet]
+        public async Task<IActionResult> ObtieneEmpleadosApi(string codigo)
+        {
+            var empleados =await ObtieneEmpleados();
+            var result = empleados.Where(c => c.EMPLEMPCOD == codigo);
+            return Json(result);
+        }
+
         #endregion
     }
 }
