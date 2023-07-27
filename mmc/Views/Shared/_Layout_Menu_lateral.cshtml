@@ -460,6 +460,32 @@
                                         <a asp-controller="" asp-action="" asp-route-culture="" class="nav-link">
                                             <i class="fas fa-list nav-icon"></i>
                                             <p localize-content>My Projects</p>
+
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+<!--*********************************************General*********************************************************************************-->
+                        @if (User.IsInRole(DS.Role_Admin) || (User.IsInRole(DS.Role_Contabilidad)))
+                        {
+                            <li class="nav-header">Contabilidad</li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa-solid fa-computer"></i>
+                                    <p>
+                                        <span localize-content>Activos Fijos</span><i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                 
+                                    <li class="nav-item">
+                                        <a asp-area="Contabilidad" asp-controller="RelacionEmpleadoAF"
+                                       asp-action="Index" 
+                                        asp-route-culture="" class="nav-link">
+                                            <i class="fa-solid fa-users"></i>
+                                            <p localize-content>Empleados con activos</p>
                                         </a>
                                     </li>
                                 </ul>

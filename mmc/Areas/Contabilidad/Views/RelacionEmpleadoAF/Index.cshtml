@@ -40,45 +40,49 @@
     @Html.Raw(Model.Pagi_navegacion)
 </div>
 
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Sexo</th>
-@*            <th>Fecha de Nacimiento</th>*@
-@*            <th>Dirección</th>*@
-            <th>Tel. Residencial</th>
-            <th>Tel. Móvil</th>
-@*            <th>DPI</th>
-            <th>NIT</th>*@
-            <th>Foto</th>
-            <th>Accion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var empleado in Model.Lista)
-        {
+<div class="col-md-12">
+    <table class="table table-striped table-bordered">
+        <thead>
             <tr>
-                <td>@empleado.EMPLEMPCOD</td>
-                <td>@empleado.EMPLEMPNOM</td>
-                <td>@empleado.EMPLEMPAPE</td>
-                <td>@empleado.EMPLEMPSEXO</td>
-@*                <td>@empleado.EMPLEMPFCHANAC.ToString("dd/MM/yyyy")</td>*@
-               @* <td>@empleado.EMPLEMPDIRECCION</td>*@
-                <td>@empleado.EMPLEMPTELRESI</td>
-                <td>@empleado.EMPLEMPTELMOVIL</td>
-@*                <td>@empleado.DPI</td>
-                <td>@empleado.EMPLEMPNIT</td>*@
-                <td>@empleado.EMPLEMPFOTO</td>
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("VerActivosFijos", "RelacionEmpleadoAF", new { area = "Contabilidad", codigoEmpleado = empleado.EMPLEMPCOD })">Ver</a>
-                </td>
+                
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Sexo</th>
+                @*            <th>Fecha de Nacimiento</th>*@
+                @*            <th>Dirección</th>*@
+                <th>Tel. Casa</th>
+                <th>Celular</th>
+                @*            <th>DPI</th>
+                <th>NIT</th>*@
+                <th>Foto</th>
+
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var empleado in Model.Lista)
+            {
+                <tr>
+                    <td>
+                        <a class="" href="@Url.Action("VerActivosFijos", "RelacionEmpleadoAF", new { area = "Contabilidad", codigoEmpleado = empleado.EMPLEMPCOD })">@empleado.EMPLEMPCOD</a>
+                    </td>
+         @*           <td>@empleado.EMPLEMPCOD</td>*@
+                    <td>@empleado.EMPLEMPNOM</td>
+                    <td>@empleado.EMPLEMPAPE</td>
+                    <td>@empleado.EMPLEMPSEXO</td>
+                    @*                <td>@empleado.EMPLEMPFCHANAC.ToString("dd/MM/yyyy")</td>*@
+                    @* <td>@empleado.EMPLEMPDIRECCION</td>*@
+                    <td>@empleado.EMPLEMPTELRESI</td>
+                    <td>@empleado.EMPLEMPTELMOVIL</td>
+                    @*                <td>@empleado.DPI</td>
+                <td>@empleado.EMPLEMPNIT</td>*@
+                    <td>@empleado.EMPLEMPFOTO</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <div class="text-center">
     @Html.Raw(Model.Pagi_info)

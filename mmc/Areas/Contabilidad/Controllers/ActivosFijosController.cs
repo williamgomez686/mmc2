@@ -1,27 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting.Internal;
-using mmc.Modelos.BodegaModels;
-using mmc.Utilidades;
-using Oracle.ManagedDataAccess.Client;
-using System.Collections.Generic;
-using System;
 using mmc.Modelos.ContabilidadModels;
+using mmc.Modelos.ContabilidadModels.ViewModels;
+using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Collections.Generic;
 //using DocumentFormat.OpenXml.Drawing;
 //using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using mmc.Modelos.ViewModels;
-using mmc.Modelos;
-using mmc.Modelos.ContabilidadModels.ViewModels;
-using DocumentFormat.OpenXml.Presentation;
-using mmc.AccesoDatos.Repositorios;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.AspNetCore.Http;
-using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace mmc.Areas.Contabilidad.Controllers
 {

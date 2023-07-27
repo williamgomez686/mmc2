@@ -60,7 +60,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  background-image: url('https://lafamiliadedios.org/wp-content/uploads/2020/06/home.jpg');
+  background-color:white;
   margin-bottom: 6px;
   background-size: cover;
   background-repeat: repeat; background-color: rgba(0, 0, 0, 0);
