@@ -53,9 +53,10 @@
                     <td>@activoFijo.ACFIDSC</td>
                     <td>@activoFijo.MODELO</td>
                     <td>Q.@activoFijo.ACFIMONLOC</td>
+                    <td>@activoFijo.ACFIFOTO</td>
                     <td>
                         <a href="#!" data-toggle="modal" data-target="#ModalImagen" alt="" data-img-url="@activoFijo.ACFIFOTO">
-                            <img src="@activoFijo.ACFIFOTO" width="100" />
+                            <img src="@activoFijo.ACFIFOTO" width="200" />
                         </a>
                     </td>
                 </tr>
@@ -114,7 +115,7 @@ else
         // Función para obtener los datos del empleado y mostrarlos en el contenedor
         async function mostrarDatosEmpleado(codigoEmpleado) {
             try {
-                const response = await fetch(`/Contabilidad/RelacionEmpleadoAF/ObtieneEmpleadosApi?codigo=${codigoEmpleado}`);
+                const response = await fetch(`/Contabilidad/RelacionEmpleadoAF/ObtienePuesto?EMPLEMPCOD=${codigoEmpleado}`);
                 const data = await response.json();
 
                 // Verificar si se encontraron datos del empleado
@@ -125,12 +126,15 @@ else
                     // Mostrar el nombre y apellido del empleado en el contenedor
                     datosEmpleadoContainer.innerHTML = `
                             <div class="row">
-                                <dvi class="col-md-6">
-                                    <p class="h6">Nombre: ${data[0].emplempnom}</p>
-                                    <p class="h6">Apellido: ${data[0].emplempape}</p>
+                                <dvi class="col-md-6 mt-3">
+                                    <p class="h6">Codigo Empleado: ${data[0].empleadoCodigo}</p>
+                                    <p class="h6">Nombre: ${data[0].empleadoNombre}</p>
+                                    <p class="h6">Apellido: ${data[0].empleadoApellido}</p>
                                 </dvi>
-                                <dvi class="col-md-6">
-                                    <p class="h6">Codigo Empleado: ${data[0].emplempcod}</p>
+                                <dvi class="col-md-6 mt-3">
+                                    <p class="h6">Departamento: ${data[0].departamnento}</p>
+                                    <p class="h6">Puesto: ${data[0].puesto}</p>
+                                    
                                 </dvi>
                             </div>
                         `;

@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using mmc.Modelos.BodegaModels;
 using mmc.Modelos.ContabilidadModels;
+using mmc.Modelos.ContabilidadModels.ViewModels;
 using mmc.Modelos.OracleModels.RRHH;
 using mmc.Modelos.ViewModels.IglesiaVM;
 using mmc.Utilidades;
@@ -97,7 +99,7 @@ namespace mmc.Areas.Contabilidad.Controllers
 
             try
             {
-                using (var conexion = new OracleConnection(_cadenaTest))
+                using (var conexion = new OracleConnection(_cadena))
                 {
                     await conexion.OpenAsync();
                     using(var cmd = conexion.CreateCommand())
@@ -147,7 +149,7 @@ namespace mmc.Areas.Contabilidad.Controllers
 
             try
             {
-                using (var conexion = new OracleConnection(_cadenaTest))
+                using (var conexion = new OracleConnection(_cadena))
                 {
                     await conexion.OpenAsync();
 
@@ -200,6 +202,45 @@ namespace mmc.Areas.Contabilidad.Controllers
             var empleados =await ObtieneEmpleados();
             var result = empleados.Where(c => c.EMPLEMPCOD == codigo);
             return Json(result);
+        }
+
+        //obtiene los datos del empleado
+        [HttpGet]
+        public async Task<IActionResult> ObtienePuesto(string EMPLEMPCOD)
+        {
+
+            var empresa = @"SELECT EMPLEMPNOM, a.EMPLEMPAPE,  EMPLEMPCOD, b.CONDEPNOM, c.PUETRBDES ,  a.EmplEmpDeptoUbica, a.EMPLEMPPUESTOUBICA  
+                                FROM RH_EMPLEADOS_RELACIONLAB a
+                                JOIN CONTA_DEPARTAMENTOS b
+	                                ON a.EMPCOD = b.EMPCOD AND a.PAICOD = b.PAICOD AND a.EmplEmpDeptoUbica = b.CONDEPCOD
+                                JOIN RH_PUESTOS c 
+	                                ON a.EMPLEMPPUESTOUBICA = c.PUETRBCOD AND a.PAICOD = c.PAICOD 
+                                WHERE a.EMPCOD ='00001'
+                                AND a.EMPLEMPCOD = '" + EMPLEMPCOD + "'";
+
+            var oPuesto = new List<VMEmpleadoPuesto>();
+
+            using (var connection = new OracleConnection(_cadena))
+            {
+                await connection.OpenAsync();
+
+                var cmd = new OracleCommand(empresa, connection);
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    var oDatos = new VMEmpleadoPuesto();
+                    {
+                        oDatos.EmpleadoCodigo = Convert.ToString(reader["EMPLEMPCOD"]);
+                        oDatos.EmpleadoNombre = Convert.ToString(reader["EMPLEMPNOM"]);
+                        oDatos.EmpleadoApellido = Convert.ToString(reader["EMPLEMPAPE"]);
+                        oDatos.Departamnento = Convert.ToString(reader["CONDEPNOM"]);
+                        oDatos.Puesto = Convert.ToString(reader["PUETRBDES"]);
+                    }
+                    oPuesto.Add(oDatos);
+                }
+            }
+
+            return StatusCode(StatusCodes.Status200OK, oPuesto);
         }
 
         #endregion
