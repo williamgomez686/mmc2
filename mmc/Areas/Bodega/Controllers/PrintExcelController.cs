@@ -13,6 +13,7 @@ using System.IO;
 using ClosedXML.Excel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace mmc.Areas.Bodega.Controllers
 {
@@ -29,83 +30,83 @@ namespace mmc.Areas.Bodega.Controllers
         }
         public IActionResult Index()
         {
-            var consulta = @"SELECT ptb.EMPCOD AS CODIGO, ptb.TIECOD AS TIENDA, ptb.TIENOM  AS NOMBRE
-	                            FROM PRM_TIENDA_BODEGA ptb WHERE EMPCOD in('00001','00002','00004') 
-                                    AND TIEEST = 'N' 
-	                                ORDER BY TIECOD ";
+            //var consulta = @"SELECT ptb.EMPCOD AS CODIGO, ptb.TIECOD AS TIENDA, ptb.TIENOM  AS NOMBRE
+	           //                 FROM PRM_TIENDA_BODEGA ptb WHERE EMPCOD in('00001','00002','00004') 
+            //                        AND TIEEST = 'N' 
+	           //                     ORDER BY TIECOD ";
 
-            var empresa = @"SELECT EMPCOD , EMPNOM FROM PRM_EMPRESA pe ";
+            //var empresa = @"SELECT EMPCOD , EMPNOM FROM PRM_EMPRESA pe ";
 
-            var oEmpresa = new List<PRM_EMPRESAS>();
+            //var oEmpresa = new List<PRM_EMPRESAS>();
 
-            using (var connection = new OracleConnection(_cadena))
-            {
-                connection.Open();
+            //using (var connection = new OracleConnection(_cadena))
+            //{
+            //    connection.Open();
 
-                var cmd = new OracleCommand(empresa, connection);
-                using var reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    var oDatos = new PRM_EMPRESAS();
-                    {
-                        oDatos.EMPCOD = Convert.ToString(reader["EMPCOD"]);
-                        oDatos.EMPNOM = Convert.ToString(reader["EMPNOM"]);
-                    }
-                    oEmpresa.Add(oDatos);
-                }
-            }
+            //    var cmd = new OracleCommand(empresa, connection);
+            //    using var reader = cmd.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        var oDatos = new PRM_EMPRESAS();
+            //        {
+            //            oDatos.EMPCOD = Convert.ToString(reader["EMPCOD"]);
+            //            oDatos.EMPNOM = Convert.ToString(reader["EMPNOM"]);
+            //        }
+            //        oEmpresa.Add(oDatos);
+            //    }
+            //}
 
-            ///////////////////PROCESO PARA OPTENER EL LISTADO DE LAS BODEGAS
-            var oTiendas = new List<PRM_TIENDAS>();
-            using (var conexion = new OracleConnection(_cadena))
-            {
-                conexion.Open();
-                var cmd = new OracleCommand(consulta, conexion);
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var oDatos = new PRM_TIENDAS();
-                        {
-                            oDatos.EMPCOD = Convert.ToString(reader["CODIGO"]);
-                            oDatos.TIENDA = Convert.ToString(reader["TIENDA"]);
-                            oDatos.NOMBRE = Convert.ToString(reader["NOMBRE"]);
-                        }
-                        oTiendas.Add(oDatos);
-                    }
-                }
-            }
-            // codigo en Linq para optener una lista ordenada por medio de un objeto obtenido de la base de datos 
-            List<PRM_TIENDAS> list = (from d in oTiendas
-                                      select new PRM_TIENDAS
-                                      {
-                                          TIENDA = d.TIENDA,
-                                          NOMBRE = d.NOMBRE
-                                      }).ToList();
+            /////////////////////PROCESO PARA OPTENER EL LISTADO DE LAS BODEGAS
+            //var oTiendas = new List<PRM_TIENDAS>();
+            //using (var conexion = new OracleConnection(_cadena))
+            //{
+            //    conexion.Open();
+            //    var cmd = new OracleCommand(consulta, conexion);
+            //    using (var reader = cmd.ExecuteReader())
+            //    {
+            //        while (reader.Read())
+            //        {
+            //            var oDatos = new PRM_TIENDAS();
+            //            {
+            //                oDatos.EMPCOD = Convert.ToString(reader["CODIGO"]);
+            //                oDatos.TIENDA = Convert.ToString(reader["TIENDA"]);
+            //                oDatos.NOMBRE = Convert.ToString(reader["NOMBRE"]);
+            //            }
+            //            oTiendas.Add(oDatos);
+            //        }
+            //    }
+            //}
+            //// codigo en Linq para optener una lista ordenada por medio de un objeto obtenido de la base de datos 
+            //List<PRM_TIENDAS> list = (from d in oTiendas
+            //                          select new PRM_TIENDAS
+            //                          {
+            //                              TIENDA = d.TIENDA,
+            //                              NOMBRE = d.NOMBRE
+            //                          }).ToList();
 
-            //PROCESO PARA GENERAR UN OBJETO DE TIPO COMBOBOX ESTE ES PARA DESPLEGAR LAS BODEGAS
-            List<SelectListItem> TiendasList = list.ConvertAll(x =>
-            {
-                return new SelectListItem()
-                {
-                    Text = x.TIENDA.ToString() + " - " + x.NOMBRE.ToString(),
-                    Value = x.TIENDA.ToString(),
-                    Selected = false
-                };
-            });
-            //PROCESO PARA GENERAR UN OBJETO DE TIPO COMBOBOX ESTE ES PARA DESPLEGAR LAS EMPRESAS
-            List<SelectListItem> EmpresasList = oEmpresa.ConvertAll(x =>
-            {
-                return new SelectListItem()
-                {
-                    Text = x.EMPNOM.ToString(),//empcod  NOMBRE
-                    Value = x.EMPCOD.ToString(),//nombre
-                    Selected = false
-                };
-            });
+            ////PROCESO PARA GENERAR UN OBJETO DE TIPO COMBOBOX ESTE ES PARA DESPLEGAR LAS BODEGAS
+            //List<SelectListItem> TiendasList = list.ConvertAll(x =>
+            //{
+            //    return new SelectListItem()
+            //    {
+            //        Text = x.TIENDA.ToString() + " - " + x.NOMBRE.ToString(),
+            //        Value = x.TIENDA.ToString(),
+            //        Selected = false
+            //    };
+            //});
+            ////PROCESO PARA GENERAR UN OBJETO DE TIPO COMBOBOX ESTE ES PARA DESPLEGAR LAS EMPRESAS
+            //List<SelectListItem> EmpresasList = oEmpresa.ConvertAll(x =>
+            //{
+            //    return new SelectListItem()
+            //    {
+            //        Text = x.EMPNOM.ToString(),//empcod  NOMBRE
+            //        Value = x.EMPCOD.ToString(),//nombre
+            //        Selected = false
+            //    };
+            //});
 
-            ViewBag.bodega = TiendasList;
-            ViewBag.empresa = EmpresasList;
+            //ViewBag.bodega = TiendasList;
+            //ViewBag.empresa = EmpresasList;
             return View();
         }
 
@@ -152,6 +153,64 @@ namespace mmc.Areas.Bodega.Controllers
             }
         }
 
-       
+        #region region de Apis
+        [HttpGet]
+        public async Task<IActionResult> ListaEmpresa()
+        {
+            var empresa = @"SELECT EMPCOD , EMPNOM FROM PRM_EMPRESA pe WHERE EMPMANDIALAB = 'F' ";
+
+            var oEmpresa = new List<PRM_EMPRESAS>();
+
+            using (var connection = new OracleConnection(_cadena))
+            {
+                await connection.OpenAsync();
+
+                var cmd = new OracleCommand(empresa, connection);
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    var oDatos = new PRM_EMPRESAS();
+                    {
+                        oDatos.EMPCOD = Convert.ToString(reader["EMPCOD"]);
+                        oDatos.EMPNOM = Convert.ToString(reader["EMPNOM"]);
+                    }
+                    oEmpresa.Add(oDatos);
+                }
+            }
+            return StatusCode(StatusCodes.Status200OK, oEmpresa);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ListaBodegabyId(string empcod)
+        {
+            var consulta = @"SELECT ptb.EMPCOD AS CODIGO, ptb.TIECOD AS TIENDA, ptb.TIENOM  AS NOMBRE
+	                            FROM PRM_TIENDA_BODEGA ptb WHERE EMPCOD in('00001','00002','00004') 
+                                    AND TIEEST = 'N' 
+	                                ORDER BY TIECOD ";
+
+            var oTiendas = new List<PRM_TIENDAS>();
+            using (var conexion = new OracleConnection(_cadena))
+            {
+                await conexion.OpenAsync();
+                var cmd = new OracleCommand(consulta, conexion);
+                using (var reader =await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        var oDatos = new PRM_TIENDAS();
+                        {
+                            oDatos.EMPCOD = Convert.ToString(reader["CODIGO"]);
+                            oDatos.TIENDA = Convert.ToString(reader["TIENDA"]);
+                            oDatos.NOMBRE = Convert.ToString(reader["NOMBRE"]);
+                        }
+                        oTiendas.Add(oDatos);
+                    }
+                }
+            }
+            var filtrado = oTiendas.Where(e => e.EMPCOD == empcod).ToList();
+            return StatusCode(StatusCodes.Status200OK, filtrado);
+        }
+        #endregion
+
     }
 }

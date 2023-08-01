@@ -1,10 +1,17 @@
-﻿@{
+﻿@*@{
     List<SelectListItem> Bodega = (List<SelectListItem>)ViewBag.bodega;
     List<SelectListItem> Empresa = (List<SelectListItem>)ViewBag.empresa;
 }
+*@
+@{
+    ViewData["Title"] = "Genera Excel";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
+    //ViewBag.foto
+}
 
 <div class="container text-center">
-    <div class="h3"><label class="text-center">Inventarios</label></div>
+
 
     <div class="row">
         <div class="col-md-3">
@@ -18,16 +25,30 @@
                 <div class="card-body">
                     <form asp-action="printExcel" asp-controller="PrintExcel" method="post">
 
-                        <div class="form-group">
+@*                        <div class="form-group">
                             @Html.DropDownList("EMPCOD", Empresa, "SELECCIONE  EMPRESA", new { @class = "form-control" })
                         </div>
 
                         <div class="form-group">
                             @Html.DropDownList("TIECOD", Bodega, "SELECCIONE  UNA BODEGA", new { @class = "form-control" })
-                        </div>
+                        </div>*@
 
-                        <button class="btn btn-success" type="submit">Descargar <i class="fa-solid fa-file-excel"></i></button>
+                            <div class="form-group">
 
+                                <select class="form-select form-control" id="cbEmpresa">
+                                    <option value="EMPCOD">Seleccione la Empresa</option>
+                                </select>
+                            </div>
+
+                            <div class="from-control">
+
+                                <select class="form-select form-control" id="cbBodega">
+                                    <option value="TIECOD">Seleccione la Bodega</option>
+                                </select>
+                            </div>
+
+                        @*<button class="btn btn-success" type="submit">Descargar <i class="fa-solid fa-file-excel"></i></button>*@
+                        <button type="button" id="btnEnviar" class="btn btn-success mt-3">Descargar<i class="fa-solid fa-file-excel"></i></button>
                     </form>
                 </div>
             </div>
@@ -35,3 +56,119 @@
     </div>
 
 </div>
+
+   
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+   
+
+    <script>
+        // Evento que inicializa el DOM de la Pagina ***************************************************************************************************
+document.addEventListener("DOMContentLoaded", function () {
+    // Obtener referencias a los elementos del DOM
+    var cbEmpresa = document.getElementById("cbEmpresa");
+    var cbBodega = document.getElementById("cbBodega");
+    var btnEnviar = document.getElementById("btnEnviar");
+
+    // Evento cuando se selecciona una empresa
+    cbEmpresa.addEventListener("change", function () {
+        var empresaSeleccionada = cbEmpresa.value;
+    });
+
+    // Evento cuando se selecciona una bodega
+    cbBodega.addEventListener("change", function () {
+        var bodegaSeleccionada = cbBodega.value;
+    });
+
+    // Evento cuando se hace clic en el botón de enviar selección
+    btnEnviar.addEventListener("click", function () {
+        var empresaSeleccionada = cbEmpresa.value;
+        var bodegaSeleccionada = cbBodega.value;
+
+        // Crear un formulario para enviar los valores seleccionados al controlador mediante POST
+        var form = document.createElement("form");
+        form.action = "/Bodega/PrintExcel/printExcel"; // Ruta del controlador que genera el archivo Excel
+        form.method = "POST";
+
+        // Agregar los valores seleccionados como campos ocultos al formulario
+        var empresaInput = document.createElement("input");
+        empresaInput.type = "hidden";
+        empresaInput.name = "EMPCOD";
+        empresaInput.value = empresaSeleccionada;
+        form.appendChild(empresaInput);
+
+        var bodegaInput = document.createElement("input");
+        bodegaInput.type = "hidden";
+        bodegaInput.name = "TIECOD";
+        bodegaInput.value = bodegaSeleccionada;
+        form.appendChild(bodegaInput);
+
+        // Agregar el formulario al cuerpo del documento y enviarlo
+        document.body.appendChild(form);
+        form.submit();
+    });
+
+    MostrarEmpresa();
+}, false);
+
+
+            ////////////////METODO PARA DROPDOWN LIST //////////////***************************************************************************************************
+            var varempresa = document.getElementById("cbEmpresa");
+            var varbodega = document.getElementById("cbBodega")
+            ///////////////FUNCION PARA COMBO BOX EN CASCADA /////////////////////***************************************************************************************************
+            varempresa.addEventListener("change", function () {
+                var selectedEmpresa = varempresa.value;
+                varbodega.innerHTML = "";
+                var url = "/Bodega/PrintExcel/ListaBodegabyId?empcod=" + selectedEmpresa;
+                MostrarModelostest(url);
+            });
+
+        // Devuelve una lista de Marcas ***************************************************************************************************
+        function MostrarEmpresa() {
+            fetch("/Bodega/PrintExcel/ListaEmpresa")
+                .then(response => {
+                    return response.ok ? response.json() : Promise.reject(response)
+                })
+                .then(responseJson => {
+
+                    if (responseJson.length > 0) {
+                        responseJson.forEach((item) => {
+
+                            $("#cbEmpresa").append(
+                                $("<option>").val(item.empcod).text(item.empnom)
+                            )
+
+                        })
+                    }
+
+                })
+        }
+
+        //devuelve una lista de Bodegas ***************************************************************************************************
+        function MostrarModelostest(url) {
+            //console.log(url)
+            fetch(url)
+                .then(response => {
+                    return response.ok ? response.json() : Promise.reject(response)
+                })
+                .then(responseJson => {
+
+                    if (responseJson.length > 0) {
+                        responseJson.forEach((item) => {
+
+                            $("#cbBodega").append(
+                                $("<option>").val(item.tienda).text(item.tienda +" - " + item.nombre)
+                            )
+
+                        })
+                    }
+
+                })
+        }
+        
+    </script>
+
+}
