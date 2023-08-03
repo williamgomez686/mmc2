@@ -175,7 +175,9 @@ namespace mmc.Areas.Contabilidad.Controllers
                                     MODELO = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
                                     ACFIDSC = reader.GetString(2),
                                     ACFIMONLOC = (double)reader.GetDecimal(3),
-                                    ACFIFOTO = reader.IsDBNull(4) ? string.Empty : reader.GetString(4)
+                                    ACFIFOTO = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
+                                    EstadoCodigo = reader.IsDBNull(5) ? string.Empty : reader.GetString(5),
+                                    EstadoDescripcion = reader.IsDBNull(6) ? string.Empty : reader.GetString(6)
                                 };
                                 result.Add(activoFijo);
                             }

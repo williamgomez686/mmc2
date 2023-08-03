@@ -53,12 +53,19 @@
                     <td>@activoFijo.ACFIDSC</td>
                     <td>@activoFijo.MODELO</td>
                     <td>Q.@activoFijo.ACFIMONLOC</td>
-                    <td>@activoFijo.ACFIFOTO</td>
                     <td>
-                        <a href="#!" data-toggle="modal" data-target="#ModalImagen" alt="" data-img-url="@activoFijo.ACFIFOTO">
-                            <img src="@activoFijo.ACFIFOTO" width="200" />
+                        <a href="" data-toggle="modal" data-target="#ModalImagen" alt="" data-img-url="@activoFijo.ACFIFOTO">
+                            <img src="@activoFijo.ACFIFOTO" width="100" />
                         </a>
                     </td>
+                    @if(@activoFijo.EstadoDescripcion == "DE BAJA DEFINITIVA (PERDIDA, EXTRAVIO O AJUSTE)")
+                    {
+                        <td class="text-danger">DE BAJA DEFINITIVA</td>
+                    }
+                    else{
+                        <td class="text-primary">@activoFijo.EstadoDescripcion</td>
+                    }
+                    
                 </tr>
             }
         </tbody>

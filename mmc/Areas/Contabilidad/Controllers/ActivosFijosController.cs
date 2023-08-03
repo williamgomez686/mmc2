@@ -198,14 +198,14 @@ namespace mmc.Areas.Contabilidad.Controllers
             {
                 var query = @"SELECT aaf.ACFICOD IDCONTA, aaf.ACFIMONLOC PRECIO, am.ACFIMARDSC MARCA, aaf.ACFIMODELO MODELO, 
                             aaf.ACFISERIE SERIE, aaf.ACFIDSC DESCRIPCION, ap.ACFIPRYDSC PROYECTO, ata.ACFITIPDSC TIPOACTIVO , asa.ACFISUBTIPDSC SUBTIPOACTIVO, 
-                            rer.EMPLEMPNOM EMPLEADO, rer.EMPLEMPAPE APELLIDO, cp.PRVNOM PROVEEDOR, aaf.ACFIFACNUM NOFACTURA, aaf.ACFIOBS, aaf.ACFIFOTO 
+                            rer.EMPLEMPNOM EMPLEADO, rer.EMPLEMPAPE APELLIDO, cp.PRVNOM PROVEEDOR, aaf.ACFIFACNUM NOFACTURA, aaf.ACFIOBS, aaf.ACFIFOTO, aaf.ACFIESTCOD AS EstadoId, afe.ACFIESTDSC AS Estado
 	                            FROM AF_ACTIVOS_FIJOS aaf 
 		                            LEFT JOIN AF_PROYECTOS ap  ON ap.PAICOD = aaf.PAICOD AND ap.EMPCOD = aaf.EMPCOD AND ap.ACFIPRYCOD = aaf.ACFIPRYCOD 
 		                            LEFT JOIN AF_TIPOS_ACTIVOS ata ON ata.PAICOD = aaf.PAICOD AND ata.EMPCOD = aaf.EMPCOD AND ata.ACFITIPCOD = aaf.ACFITIPCOD 
 		                            LEFT JOIN RH_EMPLEADOS_RELACIONLAB rer ON rer.PAICOD = aaf.PAICOD AND rer.EMPCOD = aaf.EMPCOD AND rer.EMPLEMPCOD = aaf.EMPLEMPCOD 
 		                            LEFT JOIN CXP_PROVEEDORES cp ON cp.PAICOD = aaf.PAICOD AND cp.EMPCOD = aaf.EMPCOD AND cp.PRVCOD = aaf.PRVCOD 
 		                            LEFT JOIN AF_MARCAS am ON am.PAICOD = aaf.PAICOD AND am.EMPCOD = aaf.EMPCOD AND am.ACFIMARCOD = aaf.ACFIMARCOD
-		                            LEFT JOIN AF_SUBTIPOS_ACTIVOS asa ON asa.PAICOD = ata.PAICOD AND asa.EMPCOD = aaf.EMPCOD AND asa.ACFITIPCOD = ata.ACFITIPCOD AND  asa.ACFISUBTIPCOD = aaf.ACFISUBTIPCOD AND asa.ACFISUBTIPCOD = aaf.ACFISUBTIPCOD  
+		                            LEFT JOIN AF_SUBTIPOS_ACTIVOS asa ON asa.PAICOD = ata.PAICOD AND asa.EMPCOD = aaf.EMPCOD AND asa.ACFITIPCOD = ata.ACFITIPCOD AND  asa.ACFISUBTIPCOD = aaf.ACFISUBTIPCOD AND asa.ACFISUBTIPCOD = aaf.ACFISUBTIPCOD  JOIN AF_ESTATUS afe ON aaf.PAICOD = afe.PAICOD AND aaf.EMPCOD = afe.EMPCOD AND aaf.ACFIESTCOD = afe.ACFIESTCOD 
                             WHERE aaf.ACFICOD ='" + artCod + "'";
                 var OActivoFijo = new List<ActivoFijoUpdateVW>();
                 var cmd = new OracleCommand(query, connection);
@@ -229,6 +229,8 @@ namespace mmc.Areas.Contabilidad.Controllers
                     oDatos.NOFACTURA = Convert.ToString(reader["NOFACTURA"]);
                     oDatos.ACFIOBS = Convert.ToString(reader["ACFIOBS"]);
                     oDatos.ACFIFOTO = Convert.ToString(reader["ACFIFOTO"]);
+                    oDatos.EstadoCodigo = Convert.ToString(reader["EstadoId"]);
+                    oDatos.EstadoDescripcion = Convert.ToString(reader["Estado"]);
                 }
                 return oDatos;
             }

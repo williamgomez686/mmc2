@@ -13,16 +13,10 @@
 
     <div class="card-body">
         <div class="row">
-            <div class="col-md-6">
-
-
-
+            <div class="col-md-12">
                 <form asp-action="ActivosFIjosFoto" enctype="multipart/form-data">
-
-
                   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="IDCONTA" />
-
                     <div class="form-group row">
                         <div class="col-2">
                             <input type="submit" value="Guardar" class="btn btn-primary" />
@@ -30,127 +24,116 @@
                         <div class="col-10">
 
                             <input type="file" name="files" id="escogerImg" multiple class="form-control" />
-                            Elija una imagen.
+
                         </div>
                         <div class="form-group">
 
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label asp-for="IDCONTA" class="control-label"></label>
-                        <input asp-for="IDCONTA" class="form-control" />
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="TIPOACTIVO" class="control-label"></label>
-                        <input asp-for="TIPOACTIVO" class="form-control" />
-                        <span asp-validation-for="TIPOACTIVO" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="SUBTIPOACTIVO" class="control-label"></label>
-                        <input asp-for="SUBTIPOACTIVO" class="form-control" />
-                        <span asp-validation-for="SUBTIPOACTIVO" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="MARCA" class="control-label"></label>
-                        <input asp-for="MARCA" class="form-control" />
-                        <span asp-validation-for="MARCA" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="MODELO" class="control-label"></label>
-                        <input asp-for="MODELO" class="form-control" />
-                        <span asp-validation-for="MODELO" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SERIE" class="control-label"></label>
-                        <input asp-for="SERIE" class="form-control" />
-                        <span asp-validation-for="SERIE" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="PRECIO" class="control-label"></label>
-                        Q.<input asp-for="PRECIO" class="form-control" />
-                        <span asp-validation-for="PRECIO" class="text-danger"></span>
-                    </div>
-
-                    <hr />
-
                     <div class="form-group">
                         <label asp-for="ACFIOBS" class="control-label"></label>
                         <input asp-for="ACFIOBS" class="form-control" />
                         <span asp-validation-for="ACFIOBS" class="text-danger"></span>
                     </div>
-
-                    </form>
-                
-            </div>
-
-            <div class ="col-md-6">
-
-                <div class="form-group">
-                    <label asp-for="ACFIFOTO" class="control-label"></label>
-                    <input asp-for="ACFIFOTO" class="form-control" />
-                    <span asp-validation-for="ACFIFOTO" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="PROYECTO" class="control-label"></label>
-                    <input asp-for="PROYECTO" class="form-control" />
-                    <span asp-validation-for="PROYECTO" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="EMPLEADO" class="control-label"></label>
-                    <input asp-for="EMPLEADO" class="form-control" />
-                    <span asp-validation-for="EMPLEADO" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="APELLIDO" class="control-label"></label>
-                    <input asp-for="APELLIDO" class="form-control" />
-                    <span asp-validation-for="APELLIDO" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="PROVEEDOR" class="control-label"></label>
-                    <input asp-for="PROVEEDOR" class="form-control" />
-                    <span asp-validation-for="PROVEEDOR" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="NOFACTURA" class="control-label"></label>
-                    <input asp-for="NOFACTURA" class="form-control" />
-                    <span asp-validation-for="NOFACTURA" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="DESCRIPCION" class="control-label"></label>
-                    <input asp-for="DESCRIPCION" class="form-control" />
-                    <span asp-validation-for="DESCRIPCION" class="text-danger"></span>
-                </div>
-
-
+                </form>
             </div>
         </div>
     </div>
-   @* <div class="card-img">
-        <div class="col-8">
-            <img src="@Model.ACFIFOTO" style="width:100%; border-radius:10px; border:1px solid #167FDB" />
-        </div>
-    </div>*@
 </div>
-@if (!string.IsNullOrEmpty(Model.ACFIFOTO))
-{
-    <div class="card-img">
-        <div class="col-12 align-items-center">
-            <img src="@Model.ACFIFOTO" width="400"  />
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IDCONTA" />
+
+                    <div class="form-group">
+                        <label>Id Contabilidad: </label>
+                        <label class="text-muted">@Model.IDCONTA</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TIPOACTIVO" class="control-label"></label>
+                        <label class="text-muted">: @Model.TIPOACTIVO</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SUBTIPOACTIVO" class="control-label"></label>
+                        <label class="text-muted">: @Model.SUBTIPOACTIVO</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MARCA" class="control-label"></label>
+                        <label class="text-muted">: @Model.MARCA</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MODELO" class="control-label"></label>
+                        <label class="text-muted">: @Model.MODELO</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SERIE" class="control-label"></label>
+                        <label class="text-muted">: @Model.SERIE</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DESCRIPCION" class="control-label"></label>
+                        <label class="text-muted">: @Model.DESCRIPCION</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="PROVEEDOR" class="control-label"></label>
+                        <label class="text-muted">: @Model.PROVEEDOR</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NOFACTURA" class="control-label"></label>
+                        <label class="text-muted">: @Model.NOFACTURA</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="PRECIO" class="control-label"></label>
+                        <label class="text-muted">: @Model.PRECIO</label>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label asp-for="EstadoDescripcion" class="control-label"></label>
+                        <label class="text-muted">: @Model.EstadoDescripcion</label>
+                    </div>
+                    <!-- Otras propiedades... -->
+
+                    <hr />
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    
+                    @if (!string.IsNullOrEmpty(Model.ACFIFOTO))
+                    {
+                        <img src="@Model.ACFIFOTO" width="400" />
+                    }
+                </div>
+                
+                    <div class="form-group">
+                        <label asp-for="EMPLEADO" class="control-label"></label>
+                        <label class="text-muted">: @Model.EMPLEADO</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="APELLIDO" class="control-label"></label>
+                        <label class="text-muted">: @Model.APELLIDO</label>
+                    </div>
+
+                <!-- Otras propiedades... -->
+
+            </div>
         </div>
     </div>
-}
+</div>
 
 
 
-            <br /><hr /><br />

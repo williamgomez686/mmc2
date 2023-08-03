@@ -39,5 +39,9 @@ namespace mmc.Modelos.ContabilidadModels.ViewModels
         public string ACFIOBS { get; set; }
         [Display(Name = "Foto")]
         public string ACFIFOTO { get; set; }
+        [Display(Name = "Estado ")]
+        public string EstadoDescripcion { get; set; }
+        [Display(Name = "Codigo de estado")]
+        public string EstadoCodigo { get; set; }
     }
 }

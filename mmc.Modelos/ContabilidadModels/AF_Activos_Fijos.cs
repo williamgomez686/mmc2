@@ -30,5 +30,7 @@ namespace mmc.Modelos.ContabilidadModels
         public string NOFACTURA { get; set; }
         public string NITPROVEEDOR { get; set; }
         public string ACFIDOCREF { get; set; }
+        public string EstadoDescripcion { get; set; }
+        public string EstadoCodigo { get; set; }
     }
 }
