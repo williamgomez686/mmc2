@@ -25,7 +25,7 @@ namespace mmc.Modelos.TicketModels
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
-        [MaxLength(400)]
+        //[MaxLength(4000)]
         [Display(Name = "Solución")]
         public string Solucion { get; set; }
         [Display(Name = "Fecha de Solución")]
