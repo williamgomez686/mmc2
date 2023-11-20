@@ -7,14 +7,14 @@ using mmc.Modelos.ContabilidadModels.ViewModels;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-//using DocumentFormat.OpenXml.Drawing;
-//using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
 using System.IO;
+using mmc.Utilidades;
 
 namespace mmc.Areas.Contabilidad.Controllers
 {
     [Area("Contabilidad")]
-   // [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Contabilidad)]
+    [Authorize(Roles = DS.Role_Admin + "," + DS.Role_Contabilidad)]
     public class ActivosFijosController : Controller
     {
         private readonly string _cadena;
