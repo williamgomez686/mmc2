@@ -139,13 +139,13 @@
         varempresa.addEventListener("change", function () {
             var selectedEmpresa = varempresa.value;
             varbodega.innerHTML = "";
-            var url = "/Bodega/PrintExcel/ListaBodegabyId?empcod=" + selectedEmpresa;
+            var url = "/Contabilidad/Inventario/ListaBodegabyId?empcod=" + selectedEmpresa;
             MostrarModelostest(url);
         });
 
         // Devuelve una lista de Marcas ***************************************************************************************************
         function MostrarEmpresa() {
-            fetch("/Bodega/PrintExcel/ListaEmpresa")
+            fetch("/Contabilidad/Inventario/ListaEmpresa")
                 .then(response => {
                     return response.ok ? response.json() : Promise.reject(response)
                 })

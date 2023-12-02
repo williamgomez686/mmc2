@@ -7,15 +7,17 @@
 
 
 <p>
-    <a asp-action="Create">Agregar Departamento</a>
+    <a class="btn btn-primary" asp-action="Create">Agregar Departamento</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Descripcion)
             </th>
-            <th></th>
+            <th>
+                Acciones
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +29,7 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    <a asp-controller="IglesiaServidores" asp-action="Servidores" asp-route-id="@item.Id">Servidores</a>
                 </td>
             </tr>
         }

@@ -30,8 +30,8 @@ namespace mmc.Areas.Iglesia.Controllers
                 .Include(t => t.Reuniones).Include(t => t.Servidores);
             return View(await appDbContext.ToListAsync());
         }
-        [HttpGet]
 
+        [HttpGet]
         public async Task<IActionResult> RegistraServidores(int Pag, int Registros, string Search)
         {
             List<VMReuniones> datos = null;
@@ -93,7 +93,7 @@ namespace mmc.Areas.Iglesia.Controllers
         public IActionResult CrearEvento(int idActividad)
         {
             int resultado =2;
-            var actividad = 1;
+            var actividad = 3;
             var servidores = _context.IglesiaServidores.ToList();
 
             foreach (var servidor in servidores)

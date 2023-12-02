@@ -11,7 +11,7 @@ namespace mmc.Modelos.IglesiaModels.lafamiliadedios
     public class IglesiaServidoresReunion:CebBase
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [Display(Name ="Acompañantes")]
         public int? Acompañantes { get; set; }
         public bool Asiste { get; set; }
