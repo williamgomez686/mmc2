@@ -1,58 +1,83 @@
-﻿@model IEnumerable<IglesiaServidoresReunion>
+﻿@model List<mmc.Modelos.ViewModels.IglesiaVM.ReporteAsistenciaViewModel>
 
 @{
     ViewData["Title"] = "Reuniones";
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
+
+    var listaReuniones = ViewBag.ListaReuniones as List<IglesiaReuniones>; // Reemplaza "TuModelo" con el tipo correcto de tus reuniones
 }
 
-<h1>Index</h1>
+<div class="row mb-3">
+    <div class="col-sm-6">
+        <select class="form-control" id="ddlReuniones">
+            @foreach (var reunion in listaReuniones)
+            {
+                <option value="@reunion.Id">@reunion.NombreReunion</option>
+            }
+        </select>
+    </div>
+    <div class="col-sm-6">
+        <button class="btn btn-primary" id="btnCrearEvento">Crear Evento</button>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<p class="text-center">
-    <a asp-action="CrearEvento">crear evento</a>
-</p>
-<table class="table">
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Asiste)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Acompañantes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reuniones)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Servidores)
-            </th>
-            <th></th>
+            <th>Nombre de Reunión</th>
+            <th>Asistencia</th>
+            <th>Cantidad</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Asiste)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Acompañantes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Reuniones.NombreReunion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Servidores.Nombres)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <td>@item.NombreReunion</td>
+                @if (item.Asistencia == true)
+                {
+                    <td>Asistio</td>
+                }else
+                {
+                    <td>No asistio</td>
+                }     
+                <td>@item.Cantidad</td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Captura el evento de clic en el botón
+        $("#btnCrearEvento").click(function () {
+            var idReunion = $("#ddlReuniones").val(); // Obtiene el valor seleccionado
+
+            // Realiza una solicitud AJAX para enviar el valor al controlador
+            $.ajax({
+                url: '/Iglesia/IglesiaReunionesServidores/CrearEvento',
+                type: 'POST',
+                data: { idActividad: idReunion },
+                success: function (data) {
+                    // Maneja la respuesta del controlador si es necesario
+                    console.log(data);
+
+                    // Redirecciona a la página Index si el resultado es 1
+                    if (data.resultado === 1) {
+                        window.location.href = '/Iglesia/IglesiaReunionesServidores/Index';
+                    } else {
+                        //window.location.href = '/Iglesia/IglesiaReunionesServidores/Index';
+                        alert('Hubo un problema al crear el evento.');
+                    }
+                },
+                error: function () {
+                    // Maneja errores de la solicitud AJAX
+                    alert('Error al enviar la reunión al controlador');
+                }
+            });
+        });
+    });
+</script>
+

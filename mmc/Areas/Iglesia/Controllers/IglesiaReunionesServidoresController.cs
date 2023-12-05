@@ -26,9 +26,29 @@ namespace mmc.Areas.Iglesia.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.IglesiaServidoresReuniones
-                .Include(t => t.Reuniones).Include(t => t.Servidores);
-            return View(await appDbContext.ToListAsync());
+            var reuniones = await _context.IglesiaReuniones.ToListAsync();
+            ViewBag.ListaReuniones = reuniones;
+
+            var query = from servidorReunion in _context.IglesiaServidoresReuniones
+                        join reunion in _context.IglesiaReuniones on servidorReunion.ReunionId equals reunion.Id
+                        group new { reunion, servidorReunion } by new { reunion.Id, reunion.NombreReunion, servidorReunion.Asiste } into g   
+                        select new
+                        {
+                            NombreReunion = g.Key.NombreReunion,
+                            Asistencia = g.Key.Asiste,
+                            Cantidad = g.Count()
+                        };
+
+            var resultado = query.OrderBy(r=>r.NombreReunion).ToList();
+
+            var modeloVista = resultado.Select(r => new ReporteAsistenciaViewModel
+            {
+                NombreReunion = r.NombreReunion,
+                Asistencia = r.Asistencia,
+                Cantidad = r.Cantidad
+            }).ToList();
+
+            return View(modeloVista);
         }
 
         [HttpGet]
@@ -93,25 +113,17 @@ namespace mmc.Areas.Iglesia.Controllers
         public IActionResult CrearEvento(int idActividad)
         {
             int resultado =2;
-            var actividad = 3;
+            //var actividad = 3;
             var servidores = _context.IglesiaServidores.ToList();
 
             foreach (var servidor in servidores)
             {
                 var idServidor = servidor.Id;
 
-                resultado = guardarreunion(idServidor, actividad);
+                resultado = guardarreunion(idServidor, idActividad);
             }
 
-            if(resultado == 1)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                return NotFound();
-            }
-            
+            return Json(new { resultado });
         }
 
         private int guardarreunion(int idServidor, int idReunion)
