@@ -23,6 +23,8 @@ namespace mmc.AccesoDatos.Repositorios.IRepositorio
         ICEB_CABRpositorio CEB_CAB { get; }
         ICEB_DETRepositorio CEB_DET { get; }
 
+        ITicketRepositorio Tickets { get; }
+
         void Guardar();
 
     }

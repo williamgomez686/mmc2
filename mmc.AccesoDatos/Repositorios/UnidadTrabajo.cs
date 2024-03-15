@@ -28,6 +28,8 @@ namespace mmc.AccesoDatos.Repositorios
         public ICEB_CABRpositorio CEB_CAB { get; set;}
         public ICEB_DETRepositorio CEB_DET { get; set;}
 
+        public ITicketRepositorio Tickets { get; set; }
+
         public UnidadTrabajo(ApplicationDbContext db)//Creamos el constructor
         {
             _db = db;
@@ -45,6 +47,7 @@ namespace mmc.AccesoDatos.Repositorios
             CasaEstudio = new CasaEstudioBiblicoRepositorio(_db);
             CEB_CAB = new CEB_CABRepositorio(_db);
             CEB_DET = new CAB_DETRepositorio(_db);
+            Tickets = new TicketRepositorio(_db);
         }
 
         public void Guardar()

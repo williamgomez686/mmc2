@@ -59,6 +59,11 @@ namespace mmc.AccesoDatos.Repositorios
             return Consulta.FirstOrDefault();
         }
 
+        public Task<T> ObtenerPrimero(Expression<Func<T, bool>> filtro = null, string incluirPropiedades = null, bool isTracking = true, Expression<Func<T, T>> Seleccionar = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<T> ObtenerTodos(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string incluirPropiedades = null)
         {
             IQueryable<T> Consulta = dbSet;
@@ -84,18 +89,25 @@ namespace mmc.AccesoDatos.Repositorios
             return Consulta.ToList();
         }
 
-        public PagedList<T> ObtenerTodosPaginado(Parametros parametros, Expression<Func<T, bool>> filtro = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string incluirPropiedades = null, bool isTracking = true)
+        public async Task<PagedList<TResult>> ObtenerTodosPaginadoFiltrado<TResult>(Parametros parametros,
+                                                        Expression<Func<T, bool>> filtro = null,
+                                                        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+                                                        Expression<Func<T, TResult>> select = null,
+                                                        string incluirPropiedades = null,
+                                                        bool isTracking = true)
         {
             IQueryable<T> query = dbSet;
+
             if (filtro != null)
             {
-                query = query.Where(filtro);   //  select /* from where ....
+                query = query.Where(filtro);
             }
+
             if (incluirPropiedades != null)
             {
                 foreach (var incluirProp in incluirPropiedades.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(incluirProp);    //  ejemplo "Categoria,Marca"
+                    query = query.Include(incluirProp);
                 }
             }
 
@@ -109,9 +121,16 @@ namespace mmc.AccesoDatos.Repositorios
                 query = query.AsNoTracking();
             }
 
-            return PagedList<T>.ToPagedList(query, parametros.PageNumber, parametros.PageSize);
+            if (select != null)
+            {
+                query = (IQueryable<T>)query.Select(select);
+            }
 
+            var pagedResult = PagedList<TResult>.ToPagedList((IEnumerable<TResult>)query, parametros.PageNumber, parametros.PageSize);
+
+            return pagedResult;
         }
+
 
         public void Remover(int id)
         {

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mmc.AccesoDatos.Data;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
+using mmc.Modelos.common;
 using mmc.Modelos.TicketModels;
 using mmc.Utilidades;
 
@@ -28,43 +29,92 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Tickets
-        public async Task<IActionResult> Index(int? flag)
+        public async Task<IActionResult> Index(int pageNumber = 1, string busqueda = "", string busquedaActual = "", string estado = "")
         {
-            var usuarioLogiado = User.Identity.Name;
-            List<EstadosTK> listao =_context.EstadosTKs.ToList();
-
-            List<SelectListItem> ListadoOpciones = listao.ConvertAll(x =>
+            if (!String.IsNullOrEmpty(busqueda))
             {
-                return new SelectListItem()
+                pageNumber = 1;
+            }
+            else
+            {
+                busqueda = busquedaActual;
+            }
+
+            if (!String.IsNullOrEmpty(estado))
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                estado = "Pendiente";//DS.EstadoPendiente;
+            }
+            ViewData["EstadoActual"] = estado;
+            ViewData["BusquedaActual"] = busqueda;
+
+            if (pageNumber < 1) { pageNumber = 1; }
+
+            Parametros parametros = new Parametros()
+            {
+                PageNumber = pageNumber,
+                PageSize = 10
+            };
+
+            var ListTickets = await _unidadTrabajo.Tickets.ObtenerTodosPaginadoFiltrado(parametros, 
+                t=>t.Estado ==true, 
+                isTracking:false,
+                orderBy: o => o.OrderBy(t=>t.FechaAlta),
+                incluirPropiedades: "EstadosTK,Urgencia,AreaSoporte,SedeTK", 
+                select: tk=> new Ticket
                 {
-                    Text = x.Descripcion.ToString(),//empcod  NOMBRE
-                    Value = x.Id.ToString(),//nombre
-                    Selected = false
-                };
-            });
-            ViewBag.flag = ListadoOpciones;
+                    Id = tk.Id,
+                    Usuario = tk.Usuario,
+                    Asunto = tk.Asunto,
+                    Solucion = tk.Solucion,
+                    EstadosTK = tk.EstadosTK,
+                    Urgencia = tk.Urgencia,
+                    AreaSoporte = tk.AreaSoporte,
+                    SedeTK = tk.SedeTK,
+                });
 
-            if (flag == null)
+            if (!string.IsNullOrEmpty(busqueda))// buscar por 
             {
-                flag = 1;
+
+                ListTickets = await _unidadTrabajo.Tickets.ObtenerTodosPaginadoFiltrado(parametros,
+                    t => t.Estado == true && 
+                    t.Asunto.Contains(busqueda) || 
+                    t.Id.Contains(busqueda) || 
+                    t.Usuario.Contains(busqueda)|| 
+                    t.AreaSoporte.Descripcion.Contains(busqueda),
+                    isTracking: false,
+                    orderBy: o => o.OrderBy(t => t.FechaAlta),
+                    incluirPropiedades: "EstadosTK,Urgencia,AreaSoporte,SedeTK",
+                    select: tk => new Ticket
+                    {
+                        Id = tk.Id,
+                        Usuario = tk.Usuario,
+                        Asunto = tk.Asunto,
+                        Solucion = tk.Solucion,
+                        EstadosTK = tk.EstadosTK,
+                        Urgencia = tk.Urgencia,
+                        AreaSoporte = tk.AreaSoporte,
+                        SedeTK = tk.SedeTK,
+                    });
+
             }
 
-            if(User.IsInRole(DS.Role_Admin))
-            {
-                var applicationDbContext = _context.Tickets.Include(t => t.AreaSoporte).Include(t => t.EstadosTK)
-                                       .Include(t => t.SedeTK).Include(t => t.Urgencia)
-                                       .Where(t => t.Estado == true && t.EstadoTKId == flag);
-                return View(await applicationDbContext.ToListAsync());
-            }
-            else 
-                {
-                var applicationDbContext = _context.Tickets.Include(t => t.AreaSoporte).Include(t => t.EstadosTK)
-                   .Include(t => t.SedeTK).Include(t => t.Urgencia)
-                   .Where(t => t.Estado == true && t.EstadoTKId == flag && t.Usuario == usuarioLogiado);
-                return View(await applicationDbContext.ToListAsync());
-            }
+            //paginacion 
+            ViewData["TotalPaginas"] = ListTickets.MetaData.TotalPages;
+            ViewData["TotalPaginas"] = ListTickets.MetaData.TotalPages;
+            ViewData["TotalRegistros"] = ListTickets.MetaData.TotalCount;
+            ViewData["PageSize"] = ListTickets.MetaData.PageSize;
+            ViewData["PageNumber"] = pageNumber;
+            ViewData["Previo"] = "disabled";  // clase css para desactivar el boton
+            ViewData["Siguiente"] = "";
 
+            if (pageNumber > 1) { ViewData["Previo"] = ""; }
+            if (ListTickets.MetaData.TotalPages <= pageNumber) { ViewData["Siguiente"] = "disabled"; }
 
+            return View(ListTickets);
         }
 
         // GET: HelpDesk/Tickets/Details/5
