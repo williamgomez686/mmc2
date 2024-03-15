@@ -46,7 +46,7 @@ namespace mmc.Areas.HelpDesk.Controllers
             }
             else
             {
-                estado = "Pendiente";//DS.EstadoPendiente;
+                estado = "1";//DS.EstadoPendiente;
             }
             ViewData["EstadoActual"] = estado;
             ViewData["BusquedaActual"] = busqueda;
@@ -59,8 +59,10 @@ namespace mmc.Areas.HelpDesk.Controllers
                 PageSize = 10
             };
 
+            int newEstado =Convert.ToInt32(estado);
+
             var ListTickets = await _unidadTrabajo.Tickets.ObtenerTodosPaginadoFiltrado(parametros, 
-                t=>t.Estado ==true, 
+                t=>t.Estado ==true && t.EstadoTKId == newEstado, 
                 isTracking:false,
                 orderBy: o => o.OrderBy(t=>t.FechaAlta),
                 incluirPropiedades: "EstadosTK,Urgencia,AreaSoporte,SedeTK", 

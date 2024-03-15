@@ -4,25 +4,97 @@
     List<SelectListItem> banderita = (List<SelectListItem>)ViewBag.flag;
 }
 
-@{
-    ViewData["Title"] = "Listado de Tickets Pendientes";
-    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
-}
 
 <br />
 
-<div class="container-fluid">
-    <form asp-action="Index" asp-controller="Tickets" method="post">
-        <div class="col-12">
-                    <div class="form-group">
-                @Html.DropDownList("flag", banderita, "SELECCIONE PARA CAMBIAR EL ESTADO", new { @class = "form-control" }) 
-          </div>
-        <div class="form-group">
-            <button class="btn btn-primary form-control" type="submit">Buscar <i class="fa-solid fa-magnifying-glass"></i></button>
+@{
+    ViewData["Title"] = "Listado de Tickets Pendientes";
+    Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
+
+    var estado = Context.Request.Query["estado"];
+    var pendientes = "text-primary";
+    var proceso = "text-primary";
+    var todas = "text-primary";
+    var finalizado = "text-primary";
+
+    switch (estado)
+    {
+        case "1":
+            pendientes = "active text-white";
+            break;
+        case "2":
+            proceso = "active text-white";
+            break;
+        case "3":
+            finalizado = "active text-white";
+            break;
+        default:
+            todas = "active text-white";
+            break;
+    }
+}
+
+<div class="card mb-2">
+    <div class="d-lg-flex justify-content-between mb-3">
+        <div class="p-2">
+            <h2 class="text-primary">Lista de Tickets</h2>
         </div>
+        <div class="p-2">
+            <ul class="list-group list-group-horizontal-sm">
+                <a style="text-decoration:none;" asp-controller="Tickets" asp-action="Index" asp-route-estado="1">
+                <li class="list-group-item @pendientes">Pendientes</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Tickets" asp-action="Index" asp-route-estado="2">
+                <li class="list-group-item @proceso">En Proceso</li>
+                </a>
+                <a style="text-decoration:none;" asp-controller="Tickets" asp-action="Index" asp-route-estado="3">
+                <li class="list-group-item @finalizado">Finalizados</li>
+                </a>
+            </ul>
         </div>
-    </form>
+    </div>
+    </div>
+
+<!-- ******************************************* Buscar ******************************************* -->
+<form asp-action="Index" method="get">
+    <div class="col-lg-12 col-md-12 col-sm-12 d-flex mb-3">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Buscar ..." aria-label="Buscar" aria-describedby="button-addon2"
+                   name="busqueda" value="@ViewData["BusquedaActual"]" />
+            <button type="submit" class="btn btn-outline-primary">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+<!-- ******************************************* Fin Buscar ******************************************* -->
+<!-- ******************************************* PAGINACION ******************************************* -->
+<div class="row mt-sm-2 mb-2">
+    <div class="col-sm-12 offset-3">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(1)" class="btn btn-outline-primary"
+           asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+            <i class="fa-solid fa-caret-left"></i>
+        </a>
+        <a asp-action="Index"
+           asp-route-pageNumber="@((int)ViewData["PageNumber"]-1)" class="btn btn-outline-primary @ViewData["Previo"]"
+           asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+            Anterior
+        </a>
+        <span>Pagina @ViewData["PageNumber"] de @ViewData["TotalPaginas"]</span>
+        <a asp-action="Index"
+           asp-route-pageNumber="@((int)ViewData["PageNumber"] +1)" class="btn btn-outline-primary @ViewData["Siguiente"]"
+           asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+            Siguiente
+        </a>
+        <a asp-action="Index"
+           asp-route-pageNumber="@ViewData["TotalPaginas"]" class="btn btn-outline-primary"
+           asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+            <i class="fa-solid fa-caret-right"></i>
+        </a>
+    </div>
 </div>
+<!-- ******************************************* FIN DE PAGINACION ******************************************* -->
 
 
 <table class="table table-striped table-bordered dt-responsive" style="width:100%" id="myTable">
@@ -102,10 +174,37 @@
     </tbody>
 </table>
 
-@section Scripts{
-    <script>
+    <!-- ******************************************* PAGINACION ******************************************* -->
+    <div class="row mt-sm-4">
+        <div class="col-sm-12 offset-3">
+            <a asp-action="Index"
+               asp-route-pageNumber="@(1)" class="btn btn-outline-primary"
+               asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+                <i class="fa-solid fa-caret-left"></i>
+            </a>
+            <a asp-action="Index"
+               asp-route-pageNumber="@((int)ViewData["PageNumber"]-1)" class="btn btn-outline-primary @ViewData["Previo"]"
+               asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+                Anterior
+            </a>
+            <span>Pagina @ViewData["PageNumber"] de @ViewData["TotalPaginas"]</span>
+            <a asp-action="Index"
+               asp-route-pageNumber="@((int)ViewData["PageNumber"] +1)" class="btn btn-outline-primary @ViewData["Siguiente"]"
+               asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+                Siguiente
+            </a>
+            <a asp-action="Index"
+               asp-route-pageNumber="@ViewData["TotalPaginas"]" class="btn btn-outline-primary"
+               asp-route-busquedaActual="@ViewData["BusquedaActual"]">
+            <i class="fa-solid fa-caret-right"></i>
+            </a>
+        </div>
+    </div>
+    <!-- ******************************************* FIN DE PAGINACION ******************************************* -->
+    @section Scripts{
+    @* <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
         });
-    </script>
+    </script> *@
 }
