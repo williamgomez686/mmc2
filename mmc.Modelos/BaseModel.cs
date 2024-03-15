@@ -18,6 +18,8 @@ namespace mmc.Modelos
         public DateTime? FechaAlta { get; set; }
         [Display(Name = "Fecha Modifica")]
         public DateTime? Fechamodifica { get; set; }
+
+        [Display(Name ="Activo")]
         public bool Estado { get; set; }
     }
 }
