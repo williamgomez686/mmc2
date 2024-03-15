@@ -208,7 +208,7 @@ namespace mmc.Areas.HelpDesk.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Usuario,Asunto,Descripcion,Solucion,FechaSolucion,Tecnico,ImagenUrl,EstadoTKId,UrgenciaId,AreaSoporteId,SedeId,UsuarioAlta,UsuarioModifica,FechaAlta,Fechamodifica,Estado")] Ticket ticket)
+        public async Task<IActionResult> Edit(string id, Ticket ticket)
         {
             if (id != ticket.Id)
             {

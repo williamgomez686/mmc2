@@ -5,23 +5,29 @@
     Layout = "~/Views/Shared/_Layout_Menu_lateral.cshtml";
 }
 
-<br /> 
-
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Usuario" class="control-label"></label>
-                <input asp-for="Usuario" class="form-control" />
-                <span asp-validation-for="Usuario" class="text-danger"></span>
-            </div>
+<br />
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-8">
             <div class="form-group">
                 <label asp-for="Asunto" class="control-label"></label>
                 <input asp-for="Asunto" class="form-control" />
                 <span asp-validation-for="Asunto" class="text-danger"></span>
             </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="EstadoTKId" class="control-label"></label>
+                <select asp-for="EstadoTKId" class="form-control" asp-items="ViewBag.EstadoTKId"></select>
+                <span asp-validation-for="EstadoTKId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
 
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
@@ -35,60 +41,50 @@
                 <textarea asp-for="Solucion" class="form-control" id="solucion" rows="3"></textarea>
                 <span asp-validation-for="Solucion" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-3">
             <div class="form-group">
-                <label asp-for="FechaSolucion" class="control-label"></label>
-                <input asp-for="FechaSolucion" class="form-control" />
-                <span asp-validation-for="FechaSolucion" class="text-danger"></span>
+                <label asp-for="Usuario" class="control-label"></label>
+                <input asp-for="Usuario" class="form-control" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Tecnico" class="control-label"></label>
-                <input asp-for="Tecnico" class="form-control" />
-                <span asp-validation-for="Tecnico" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImagenUrl" class="control-label"></label>
-                <input asp-for="ImagenUrl" class="form-control" />
-                <span asp-validation-for="ImagenUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoTKId" class="control-label"></label>
-                <select asp-for="EstadoTKId" class="form-control" asp-items="ViewBag.EstadoTKId"></select>
-                <span asp-validation-for="EstadoTKId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UrgenciaId" class="control-label"></label>
-                <select asp-for="UrgenciaId" class="form-control" asp-items="ViewBag.UrgenciaId"></select>
-                <span asp-validation-for="UrgenciaId" class="text-danger"></span>
-            </div>
+        </div>
+
+        <div class="col-md-3">
             <div class="form-group">
                 <label asp-for="AreaSoporteId" class="control-label"></label>
                 <select asp-for="AreaSoporteId" class="form-control" asp-items="ViewBag.AreaSoporteId"></select>
                 <span asp-validation-for="AreaSoporteId" class="text-danger"></span>
             </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="UrgenciaId" class="control-label"></label>
+                <select asp-for="UrgenciaId" class="form-control" asp-items="ViewBag.UrgenciaId"></select>
+                <span asp-validation-for="UrgenciaId" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
             <div class="form-group">
                 <label asp-for="SedeId" class="control-label"></label>
                 <select asp-for="SedeId" class="form-control" asp-items="ViewBag.SedeId"></select>
                 <span asp-validation-for="SedeId" class="text-danger"></span>
             </div>
+        </div>
 
+        <div class="col-md-2">
+            <label>Estado</label>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label hidden asp-for="FechaAlta" class="control-label"></label>
-                <input hidden asp-for="FechaAlta" class="form-control" />
-
-            </div>
-            <div class="form-group">
-                <label hidden asp-for="UsuarioAlta" class="control-label"></label>
-                <input hidden asp-for="UsuarioAlta" class="form-control" />
-
-            </div>
-
-
+        <div class="col-md-12">
             <div class="row">
                 <div class="col-md-6">
 
@@ -98,13 +94,10 @@
                     <a class="btn btn-danger form-control" asp-action="Index">Cancelar</a>
                 </div>
             </div>
-@*
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>*@
-        </form>
+        </div>
+
     </div>
-</div>
+        </form>
 
 <br />
 
