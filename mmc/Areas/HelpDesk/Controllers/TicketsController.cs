@@ -29,8 +29,9 @@ namespace mmc.Areas.HelpDesk.Controllers
         }
 
         // GET: HelpDesk/Tickets
-        public async Task<IActionResult> Index(int pageNumber = 1, string busqueda = "", string busquedaActual = "", string estado = "")
+        public async Task<IActionResult> Index(int pageNumber = 1, string busqueda = "", string busquedaActual = "", string estado = "1")
         {
+            var usuarioLogiado = User.Identity.Name;
             if (!String.IsNullOrEmpty(busqueda))
             {
                 pageNumber = 1;
@@ -40,14 +41,14 @@ namespace mmc.Areas.HelpDesk.Controllers
                 busqueda = busquedaActual;
             }
 
-            if (!String.IsNullOrEmpty(estado))
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                estado = "1";//DS.EstadoPendiente;
-            }
+            //if (!String.IsNullOrEmpty(estado))
+            //{
+            //    pageNumber = 1;
+            //}
+            //else
+            //{
+            //    estado = "1";//DS.EstadoPendiente;
+            //}
             ViewData["EstadoActual"] = estado;
             ViewData["BusquedaActual"] = busqueda;
 
@@ -62,9 +63,9 @@ namespace mmc.Areas.HelpDesk.Controllers
             int newEstado =Convert.ToInt32(estado);
 
             var ListTickets = await _unidadTrabajo.Tickets.ObtenerTodosPaginadoFiltrado(parametros, 
-                t=>t.Estado ==true && t.EstadoTKId == newEstado, 
+                t=>t.Estado ==true && t.EstadoTKId == newEstado && t.UsuarioAlta == usuarioLogiado, 
                 isTracking:false,
-                orderBy: o => o.OrderBy(t=>t.FechaAlta),
+                orderBy: o => o.OrderByDescending(t=>t.FechaAlta),
                 incluirPropiedades: "EstadosTK,Urgencia,AreaSoporte,SedeTK", 
                 select: tk=> new Ticket
                 {
@@ -82,13 +83,13 @@ namespace mmc.Areas.HelpDesk.Controllers
             {
 
                 ListTickets = await _unidadTrabajo.Tickets.ObtenerTodosPaginadoFiltrado(parametros,
-                    t => t.Estado == true && 
+                    t => t.Estado == true  && t.EstadoTKId == newEstado &&  t.UsuarioAlta == usuarioLogiado &&
                     t.Asunto.Contains(busqueda) || 
                     t.Id.Contains(busqueda) || 
                     t.Usuario.Contains(busqueda)|| 
                     t.AreaSoporte.Descripcion.Contains(busqueda),
                     isTracking: false,
-                    orderBy: o => o.OrderBy(t => t.FechaAlta),
+                    orderBy: o => o.OrderByDescending(t => t.FechaAlta),
                     incluirPropiedades: "EstadosTK,Urgencia,AreaSoporte,SedeTK",
                     select: tk => new Ticket
                     {
@@ -203,9 +204,6 @@ namespace mmc.Areas.HelpDesk.Controllers
             return View(ticket);
         }
 
-        // POST: HelpDesk/Tickets/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, Ticket ticket)
@@ -219,7 +217,7 @@ namespace mmc.Areas.HelpDesk.Controllers
             {
                 try
                 {
-                    ticket.UsuarioModifica = User.Identity.Name;
+                    ticket.UsuarioModifica  = User.Identity.Name;
                     ticket.Tecnico= User.Identity.Name;
                     ticket.FechaSolucion = DateTime.Now;
                     ticket.Fechamodifica = DateTime.Now;

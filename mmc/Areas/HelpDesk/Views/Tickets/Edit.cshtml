@@ -94,6 +94,24 @@
                     <a class="btn btn-danger form-control" asp-action="Index">Cancelar</a>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label hidden="hidden" asp-for="UsuarioAlta" class="control-label"></label>
+                <input hidden="hidden" asp-for="UsuarioAlta" class="form-control" />
+                <span asp-validation-for="UsuarioAlta" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label hidden="hiden" asp-for="UsuarioModifica" class="control-label"></label>
+                <input hidden="hidden" asp-for="UsuarioModifica" class="form-control" />
+                <span asp-validation-for="UsuarioModifica" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label hidden="hiden" asp-for="Tecnico" class="control-label"></label>
+                <input hidden="hidden" asp-for="Tecnico" class="form-control" />
+                <span asp-validation-for="Tecnico" class="text-danger"></span>
+            </div>
         </div>
 
     </div>

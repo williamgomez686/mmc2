@@ -37,7 +37,7 @@ namespace mmc
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnectioninterna")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
 
