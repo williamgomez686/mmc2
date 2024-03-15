@@ -59,7 +59,7 @@ namespace mmc.Areas.Contabilidad.Controllers
                                 "AND a.TIECOD = '" + TIECOD + "'" +
                                 "AND a.INVFISFCH = '" + invFecha + "'" +
                                 "AND a.INVFISHOR = '" + HORA + "'" +
-                                "AND EXISTS (SELECT 1 FROM INV_MOVIMIENTO_INVENTARIO_DET id JOIN INV_MOVIMIENTO_INVENTARIO_ENC ie ON id.PAICOD = ie.PAICOD  AND id.EMPCOD = ie.EMPCOD AND id.TIPMOVINVCOD = ie.TIPMOVINVCOD AND id.MOVINVSERDOC = ie.MOVINVSERDOC AND id.MOVINVNUMDOC = ie.MOVINVNUMDOC AND id.TIECOD = ie.TIECOD WHERE ie.PAICOD = '00001' AND ie.EMPCOD = '00001' AND ie.TieCod = a.TIECOD AND id.ArtCod = a.ARTCOD AND id.CodSubPro1 = '000' AND id.CodSubPro2 = '000' AND ie.MovInvSta <> 'A')";
+                                "AND EXISTS (SELECT 1 FROM INV_MOVIMIENTO_INVENTARIO_DET id JOIN INV_MOVIMIENTO_INVENTARIO_ENC ie ON id.PAICOD = ie.PAICOD  AND id.EMPCOD = ie.EMPCOD AND id.TIPMOVINVCOD = ie.TIPMOVINVCOD AND id.MOVINVSERDOC = ie.MOVINVSERDOC AND id.MOVINVNUMDOC = ie.MOVINVNUMDOC AND id.TIECOD = ie.TIECOD WHERE ie.PAICOD = '00001' AND ie.EMPCOD = '" + EMPCOD + "' AND ie.TieCod = a.TIECOD AND id.ArtCod = a.ARTCOD AND id.CodSubPro1 = '000' AND id.CodSubPro2 = '000' AND ie.MovInvSta <> 'A')";
 
             DataTable tabla = new();
 

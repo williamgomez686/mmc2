@@ -37,7 +37,7 @@
                         <th>Id</th>
                         <th>Nombres</th>
                         <th>Invitado</th>
-                        <th>Asisitio?</th>
+                        <th>Asistio?</th>
                         <th>Departamento</th>
 
                     </tr>
@@ -49,7 +49,7 @@
                             <td>@item.ServidorId</td>
                             <td>@item.Nombres</td>
                             <td class="text-center">
-                                <input style="width:40px" type="text" class="input-carnet form-control" value="@item.Acompañantes" data-empleado-id="@item.ServidorId" autofocus />
+                                <input style="width:60px" type="number" class="input-carnet form-control" value="@item.Acompañantes" data-empleado-id="@item.ServidorId" autofocus />
                             </td>
                             <td class="text-center">
                                 <input type="checkbox" class="check-asistencia form-check-input" value="@item.ServidorId" @(item.Asiste ? "checked" : "") />
@@ -71,7 +71,7 @@
                     <tr>
                         <th>Nombres</th>
                         <th>Invitado</th>
-                        <th>Asisitio?</th>
+                        @* <th>Asisitio?</th> *@
                         <th>Departamento</th>
                     </tr>
                 </thead>

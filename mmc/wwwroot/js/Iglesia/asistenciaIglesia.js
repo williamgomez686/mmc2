@@ -25,6 +25,9 @@ $(document).ready(function () {
     });
 });
 
+
+//let table = new DataTable('#tablaEmpleados');
+
 function MostrarAsistieron() {
     //PETICION FETCH QUE CONSULTA AL SERVIDOR
     var url = "/Iglesia/IglesiaReunionesServidores/ListaAsistieron"
@@ -42,7 +45,7 @@ function MostrarAsistieron() {
                         $("<tr>").append(
                             $("<td>").text(Articulo.nombres),
                             $("<td>").text(Articulo.acompañantes),
-                            $("<td>").text(Articulo.asiste),
+                           /* $("<td>").text(Articulo.asiste),*/
                             $("<td>").text(Articulo.departamento)
                         )
                     )

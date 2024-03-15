@@ -45,11 +45,11 @@
                             </div>
                             <div class="col-sm-6">
                                 <input class="form-control" type="text" name="HORA" id="HORA" placeholder="Formato de hora 12:00:00" />
+                                <span id="errorHora" style="color: red;"></span>
                             </div>
                         </div>
-
-                        @*<button class="btn btn-success" type="submit">Descargar <i class="fa-solid fa-file-excel"></i></button>*@
-                        <button type="button" id="btnEnviar" class="btn btn-success mt-3">Generar Excel<i class="fa-solid fa-file-excel"></i></button>
+                        @* <button type="button" id="btnEnviar" class="btn btn-success mt-3">Generar Excel<i class="fa-solid fa-file-excel"></i></button> *@
+                        <button type="button" id="btnEnviar" class="btn btn-success mt-3" disabled>Generar Excel<i class="fa-solid fa-file-excel"></i></button>
                     </form>
                 </div>
             </div>
@@ -185,6 +185,26 @@
 
                 })
         }
+
+    </script>
+
+    <script>
+        function validarHora() {
+            var inputHora = document.getElementById('HORA').value;
+            var regexHora = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
+
+            if (regexHora.test(inputHora)) {
+                document.getElementById('errorHora').innerHTML = '';
+                document.getElementById('btnEnviar').disabled = false; // Habilitar el botón
+                return true;
+            } else {
+                document.getElementById('errorHora').innerHTML = 'Formato de hora no válido';
+                document.getElementById('btnEnviar').disabled = true; // Deshabilitar el botón
+                return false;
+            }
+        }
+
+        document.getElementById('HORA').addEventListener('change', validarHora);
 
     </script>
 

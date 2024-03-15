@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using mmc.AccesoDatos.Data;
+using mmc.AccesoDatos.Repositorios.IRepositorio;
 using mmc.Modelos.TicketModels;
 using mmc.Utilidades;
 
@@ -18,10 +19,12 @@ namespace mmc.Areas.HelpDesk.Controllers
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUnidadTrabajo _unidadTrabajo;
 
-        public TicketsController(ApplicationDbContext context)
+        public TicketsController(ApplicationDbContext context, IUnidadTrabajo unidadTrabajo)
         {
             _context = context;
+            _unidadTrabajo = unidadTrabajo;
         }
 
         // GET: HelpDesk/Tickets

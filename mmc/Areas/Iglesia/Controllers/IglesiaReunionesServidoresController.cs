@@ -31,12 +31,16 @@ namespace mmc.Areas.Iglesia.Controllers
 
             var query = from servidorReunion in _context.IglesiaServidoresReuniones
                         join reunion in _context.IglesiaReuniones on servidorReunion.ReunionId equals reunion.Id
-                        group new { reunion, servidorReunion } by new { reunion.Id, reunion.NombreReunion, servidorReunion.Asiste } into g   
+                        where servidorReunion.Estado == true
+                        group servidorReunion by reunion.NombreReunion into g
+
                         select new
                         {
-                            NombreReunion = g.Key.NombreReunion,
-                            Asistencia = g.Key.Asiste,
-                            Cantidad = g.Count()
+                            NombreReunion = g.Key,
+                            Asistencia = g.Sum(x => x.Asiste ? 1 : 0),
+                            NoAsiste = g.Sum(x => x.Asiste ? 0 : 1),
+                            acompañantes = g.Sum(a=> a.Acompañantes),
+                            Total = g.Sum(x => x.Asiste ? 1 : 0) + g.Sum(x => x.Acompañantes)
                         };
 
             var resultado = query.OrderBy(r=>r.NombreReunion).ToList();
@@ -45,7 +49,9 @@ namespace mmc.Areas.Iglesia.Controllers
             {
                 NombreReunion = r.NombreReunion,
                 Asistencia = r.Asistencia,
-                Cantidad = r.Cantidad
+                noasiste = r.NoAsiste,
+                Acompañantes = (int)r.acompañantes,
+                Total = (int)r.Total
             }).ToList();
 
             return View(modeloVista);
@@ -64,7 +70,7 @@ namespace mmc.Areas.Iglesia.Controllers
                                    on ts.DepartamentoId equals lol.Id
                                join tr in _context.IglesiaReuniones
                                    on tsr.ReunionId equals tr.Id
-                               where tsr.Asiste == false && ts.Nombres.Contains(Search)
+                               where tsr.Asiste == false && ts.Nombres.Contains(Search.ToUpper())
                                select new VMReuniones
                                {
                                    ServidorId = tsr.ServidorId,
@@ -109,7 +115,6 @@ namespace mmc.Areas.Iglesia.Controllers
 
             return View(modelo);
         }
-
         public IActionResult CrearEvento(int idActividad)
         {
             int resultado =2;
@@ -133,7 +138,7 @@ namespace mmc.Areas.Iglesia.Controllers
                 IglesiaServidoresReunion oReunionServidores = new IglesiaServidoresReunion();
                 oReunionServidores.ReunionId = idReunion;
                 oReunionServidores.ServidorId = idServidor;
-                oReunionServidores.Estado = false;
+                oReunionServidores.Estado = true;
                 oReunionServidores.Usuario = User.Identity.Name;
                 oReunionServidores.FechaAlta = DateTime.Now;
                 _context.IglesiaServidoresReuniones.Add(oReunionServidores);
@@ -145,7 +150,6 @@ namespace mmc.Areas.Iglesia.Controllers
                 return 2;
             }
         }
-
 
         [HttpPost]
         public IActionResult ActualizarAsistencia(int empleadoId, bool asistencia, int carnet)
@@ -182,7 +186,6 @@ namespace mmc.Areas.Iglesia.Controllers
             return View(model);
         }
 
-
         #region APIS
         public async Task<IActionResult> ListaAsistieron()
         {
@@ -210,6 +213,5 @@ namespace mmc.Areas.Iglesia.Controllers
             return StatusCode(StatusCodes.Status200OK, datos);
         }
         #endregion
-
     }
 }

@@ -9,7 +9,9 @@ namespace mmc.Modelos.ViewModels.IglesiaVM
     public class ReporteAsistenciaViewModel
     {
         public string NombreReunion { get; set; }
-        public bool Asistencia { get; set; }
-        public int Cantidad { get; set; }
+        public int Asistencia { get; set; }
+        public int noasiste { get; set; }
+        public int Acompañantes { get; set; }
+        public int Total { get; set; }
     }
 }
