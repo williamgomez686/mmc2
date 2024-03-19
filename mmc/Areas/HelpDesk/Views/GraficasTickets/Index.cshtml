@@ -15,21 +15,14 @@
     </div>
 </div>
 
-<hr />
-<div id="barras"></div>
-<br />
-<hr />
-<div id="barras_activas"></div>
-<br />
-<hr />
-<div id="barras_inactivas"></div>
-<br />
+<div class="col-md-12 mt-3 mt-3">
+    <div id="ticketsPorDiaChart"></div>
+</div>
 
-<br />
+<div class="col-md-12 mt-3 mb-3">
+    <canvas id="ticketsPorDiaChart2" width="400" height="200"></canvas>
+</div>
 
-@*<div id="test"></div>*@
-
-<br />
 @section Scripts {
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -42,4 +35,94 @@
     <script src="~/js/Graficas/GraficaPastelTK.js"></script>
     <script src="~/js/Graficas/GraficaPastelEstadosTK.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            // Obtener datos para la nueva gráfica de tickets por día
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("TicketsPorDia", "GraficasTickets")',
+                success: function (data) {
+                    GraficaTicketsPorDia(data);
+                    console.log(data);
+                },
+                error: function () {
+                    alert("Error al obtener datos para la gráfica de tickets por día.");
+                }
+            });
+
+            // Función para dibujar la nueva gráfica de tickets por día
+            function GraficaTicketsPorDia(data) {
+                Highcharts.chart('ticketsPorDiaChart', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Tickets por día'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        labels: {
+                            format: '{value:%d-%m-%Y}'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Número de Tickets'
+                        }
+                    },
+                    series: [{
+                        name: 'Tickets',
+                        data: data.map(item => [new Date(item.fecha).getTime(), item.numeroTickets])
+                    }]
+                });
+            }
+        });
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Obtener datos para la nueva gráfica de tickets por día
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("TicketsPorDia", "GraficasTickets")',
+                success: function (data) {
+                    GraficaTicketsPorDia(data);
+                },
+                error: function () {
+                    alert("Error al obtener datos para la gráfica de tickets por día.");
+                }
+            });
+
+            // Función para dibujar la nueva gráfica de tickets por día
+            function GraficaTicketsPorDia(data) {
+                var ctx = document.getElementById('ticketsPorDiaChart2').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(item => item.fecha),
+                        datasets: [{
+                            label: 'Número de Tickets',
+                            data: data.map(item => item.numeroTickets),
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
 }
+

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using mmc.AccesoDatos.Data;
 using mmc.AccesoDatos.Repositorios.IRepositorio;
+using mmc.Modelos.common;
 using mmc.Modelos.ViewModels;
 using mmc.Utilidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -82,6 +84,44 @@ namespace mmc.Areas.HelpDesk.Controllers
             return lista;
         }
 
+        public JsonResult TicketsPorDia()
+        {
+            // Calcular la fecha seis meses atrás
+            DateTime fechaInicio = DateTime.Today.AddMonths(-1);
 
+            // Obtener los tickets desde hoy hasta seis meses atrás
+            var ticketsByDay = _contex.Tickets
+                .Where(t => t.Estado &&
+                //t.UsuarioAlta == "soporte" && 
+                t.FechaAlta.HasValue &&
+                t.FechaAlta >= fechaInicio)
+                .GroupBy(t => t.FechaAlta.Value.Date)
+                .Select(g => new TicketsPorDiaViewModel
+                {
+                    Fecha = g.Key,
+                    NumeroTickets = g.Count()
+                })
+                .OrderBy(r => r.Fecha)
+                .ToList();
+
+            return Json(ticketsByDay);
+        }
+
+
+        //public ActionResult TicketsPorDia()
+        //{
+        //    var ticketsByDay = _contex.Tickets
+        //        .Where(t => t.Estado && t.UsuarioAlta == "soporte" && t.FechaAlta.HasValue)
+        //        .GroupBy(t => t.FechaAlta.Value.Date)
+        //        .Select(g => new TicketsPorDiaViewModel
+        //        {
+        //            Fecha = g.Key,
+        //            NumeroTickets = g.Count()
+        //        })
+        //        .OrderBy(r => r.Fecha)
+        //        .ToList();
+
+        //    return View(ticketsByDay);
+        //}
     }
 }
